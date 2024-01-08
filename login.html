@@ -5,34 +5,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Login</title>
 		<link rel="stylesheet" href="login.css" />
+		<link
+			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
-		<div class="main">
-			<div class="login-container">
-				<h1>BreezeQuiz</h1>
-				<div class="form-container">
-					<form action="#" method="post">
-						<input
-							type="email"
-							name="email"
-							placeholder="Email"
-							required
-						/>
-						<input
-							type="password"
-							name="password"
-							placeholder="Password"
-							required
-						/>
-						<input type="submit" value="LOGIN" />
-					</form>
+		<div class="wrapper">
+			<form action="#">
+				<h1>Login</h1>
+				<div class="input-box">
+					<input
+						type="email"
+						name="email"
+						placeholder="Email"
+						required
+					/>
 				</div>
-				<p><a href="/forgot-password">Forgot Password?</a></p>
-				<p>
-					Does not have an Account?
-					<a href="/signup">Create Account</a>
-				</p>
-			</div>
+				<div class="input-box">
+					<input
+						type="password"
+						name="password"
+						placeholder="Password"
+						required
+					/>
+				</div>
+				<div class="forgot">
+					<a href="#">Forgot Password?</a>
+				</div>
+				<input type="submit" class="submit" value="Login" />
+				<div class="register-link">
+					<p>Don't have an account? <a href="#">Sign Up</a></p>
+				</div>
+			</form>
 		</div>
 	</body>
 </html>
