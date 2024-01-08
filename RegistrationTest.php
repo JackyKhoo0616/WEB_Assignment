@@ -97,13 +97,21 @@ include 'asmdbConnection.php';
 
         .image-container {
             max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
 
         .image-container img {
-            width: 100%;
+            width: 120%;
             height: auto;
             border-radius: 4px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container .button-row{
+            flex-direction: row;
+            margin-top: 60px;
         }
     </style>
 </head>
@@ -398,6 +406,10 @@ include 'asmdbConnection.php';
             </form>
         </div>
         <div class="image-container">
+            <div class="button-row">
+                <button onclick="location.href='your_first_button_page.php'">Student</button>
+                <button onclick="location.href='your_second_button_page.php'">Teacher</button>
+            </div>    
             <img src="images/breezequiz.png" alt="">
         </div>
     </div>
