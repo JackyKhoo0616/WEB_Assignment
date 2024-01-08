@@ -1,5 +1,5 @@
 <?php
-include 'asmdbConnection.php';
+include 'Connection.php';
 ?>
 
 <!DOCTYPE html>
