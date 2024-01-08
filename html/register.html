@@ -4,30 +4,44 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Register</title>
-        <link rel="stylesheet" href=".../css/register.css">
+		<link rel="stylesheet" href="../css/register.css" />
 	</head>
 	<body>
-		<div class="form-container">
+		<div class="wrapper">
 			<h1>Create New Account</h1>
-			<form method="post" action="">
-				<label for="txtFName">First Name:</label>
-				<input type="text" id="txtFName" name="txtFName" required />
-
-				<label for="txtLName">Last Name:</label>
-				<input type="text" id="txtLName" name="txtLName" required />
-
-				<label for="txtEmail">Email:</label>
-				<input type="email" id="txtEmail" name="txtEmail" required />
-
-				<label for="txtPassword">Password:</label>
+			<p>Already Registered? <a href="../html/login.html">Login</a></p>
+			<form action="#" method="post">
+				<label for="txtFName">First Name</label>
 				<input
-					type="password"
-					id="txtPassword"
-					name="txtPassword"
+					type="text"
+					id="txtFName"
+					name="txtFName"
+					placeholder="First Name"
 					required
 				/>
 
-				<label for="country">Country:</label>
+				<label for="txtLName">Last Name</label>
+				<input
+					type="text"
+					id="txtLName"
+					name="txtLName"
+					placeholder="Last Name"
+					required
+				/>
+
+				<label for="txtEmail">Email</label>
+				<input
+					type="email"
+					id="txtEmail"
+					name="txtEmail"
+					placeholder="Email"
+					required
+				/>
+
+				<label for="txtDob">Date of Born</label>
+				<input type="date" id="txtDob" name="txtDob" required />
+
+				<label for="country">Country</label>
 				<select id="country" name="country" class="form-control">
 					<option value="Afghanistan">Afghanistan</option>
 					<option value="Åland Islands">Åland Islands</option>
@@ -348,22 +362,69 @@
 					<option value="Western Sahara">Western Sahara</option>
 					<option value="Yemen">Yemen</option>
 					<option value="Zambia">Zambia</option>
-					<option value="Zimbabwe">Zimbabwe</option></select
-				><br />
+					<option value="Zimbabwe">Zimbabwe</option>
+				</select>
+
+				<label for="txtGender">Gender</label>
+				<div class="select-gender">
+					<div class="radio">
+						<input
+							type="radio"
+							id="genderM"
+							name="txtGender"
+							value="Male"
+							checked
+						/>
+						<label for="genderM">Male</label>
+					</div>
+					<div class="radio">
+						<input
+							type="radio"
+							id="genderF"
+							name="txtGender"
+							value="Female"
+						/>
+						<label for="genderF">Female</label>
+					</div>
+				</div>
+
+				<label for="txtPassword">Password</label>
+				<input
+					type="password"
+					id="txtPassword"
+					name="txtPassword"
+					placeholder="Password"
+					required
+				/>
+
+				<div class="role">
+					<p>Whats Your Role?</p>
+					<input
+						type="radio"
+						id="roleS"
+						name="role"
+						value="Student"
+						checked
+					/>
+					<label for="roleS">Student</label>
+					<input
+						type="radio"
+						id="roleT"
+						name="role"
+						value="Teacher"
+					/>
+					<label for="roleT">Teacher</label>
+				</div>
 
 				<div class="button-row">
-					<input type="button" value="Cancel" name="btnCancel" />
-					<input type="submit" value="Sign Up" name="btnRegister" />
+					<input type="reset" value="Reset" name="btnReset" />
+					<input type="submit" value="Register" name="btnRegister" />
 				</div>
 			</form>
 		</div>
-    </div>
-    <div class="image-container">
-        <div class="button-row">
-            <button onclick="location.href='your_first_button_page.php'">Student</button>
-            <button onclick="location.href='your_second_button_page.php'">Teacher</button>
-        </div>
-        <img src="images/breezequiz.png" alt="">
-    </div>
+		<!-- copyright part -->
+		<div class="copyright">
+			<p>© 2024 BreezeQuiz. All rights reserved.</p>
+		</div>
 	</body>
 </html>
