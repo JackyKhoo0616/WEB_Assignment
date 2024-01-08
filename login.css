@@ -30,7 +30,7 @@ body {
 .wrapper h1 {
 	font-size: 46px;
 	text-align: center;
-	color: #c8633d;
+	color: #fff;
 }
 
 .wrapper .input-box {
@@ -71,6 +71,7 @@ body {
 
 .forgot a:hover {
 	text-decoration: underline;
+	color: #c8633d;
 }
 
 .wrapper .submit {
@@ -82,7 +83,7 @@ body {
 	border-radius: 40px;
 	box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 	cursor: pointer;
-	font-size: 16px;
+	font-size: 22px;
 	color: #fff;
 	font-weight: 600;
 }
@@ -101,4 +102,23 @@ body {
 
 .register-link p a:hover {
 	text-decoration: underline;
+	color: #c8633d;
+}
+
+.copyright {
+	text-align: center;
+	padding: 3px;
+	color: #fff;
+	font-size: 15px;
+	background-color: #c8633d;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
+.header-img {
+	position: absolute;
+	width: 25%;
+	height: auto;
+	top: 150px;
 }
