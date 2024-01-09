@@ -1,0 +1,82 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+.banner {
+	width: 100%;
+	height: 100vh;
+	background-image: linear-gradient(rgb(0, 0, 0, 0.05), rgb(0, 0, 0, 0.05)),
+		url(../picture/Dashboard_blue.png);
+	background-size: cover;
+	background-position: center;
+}
+
+.content {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #000;
+}
+
+.content h1 {
+	color: black;
+	font-size: 40px;
+	margin-top: -250px;
+	text-align: center;
+}
+
+.welcome {
+	color: black;
+	font-size: 20px;
+	margin-left: 50px;
+}
+
+.data {
+	background-color: black;
+	width: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	color: #000;
+	margin-left: 300px;
+	display: inline-flex;
+	flex-wrap: wrap; /* Create rows if needed */
+	justify-content: space-between; /* Distribute sections with spacing */
+	gap: 20px; /* Add a gap between the sections */
+}
+
+.data1,
+.data2,
+.data3,
+.data4 {
+	/* ... your existing styles ... */
+	width: 50%; /* Adjust as needed */
+	padding: 20px; /* Adjust as needed */
+	text-align: center; /* Adjust as needed */
+}
+
+.data1 {
+	background-color: blueviolet;
+}
+.data2 {
+	background-color: aqua;
+}
+.data3 {
+	background-color: chocolate;
+}
+.data4 {
+	background-color: chartreuse;
+}
+
+.login {
+	padding: 10px 30px;
+	font-size: 20px;
+	border-radius: 50px;
+	transition: 0.3s ease;
+	background-color: #c8633d;
+	border: none;
+}
