@@ -3,7 +3,93 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Student</title>
+		<title>Dashboard</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="../css/nav.css" />
+		<link rel="stylesheet" href="../css/footer.css" />
+		<link rel="stylesheet" href="../css/studentDashboard.css" />
 	</head>
-	<body></body>
+	<body>
+		<!-- navigational bar -->
+		<div class="banner">
+			<div class="navbar">
+				<a href="#">
+					<img src="../picture/logo.png" class="logo" />
+				</a>
+				<ul>
+					<li><a href="#">Quiz</a></li>
+					<li><a href="#">Learning Material</a></li>
+					<li><a href="#">Progress Tracker</a></li>
+					<li>
+						<a href="#"
+							>Other Pages<i class="bx bxs-chevron-down"></i
+						></a>
+
+						<div class="sub-menu">
+							<ul>
+								<li><a href="#">About Us</a></li>
+								<li><a href="#">Educational Regulation</a></li>
+								<li><a href="#">Data Privacy Law</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#"
+							>Wilson<i class="bx bxs-chevron-down"></i
+						></a>
+
+						<div class="sub-menu">
+							<ul>
+								<li><a href="#">Profile</a></li>
+								<li><a href="#">Log Out</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- top part -->
+		<div class="header">
+			<div class="img-container">
+				<img src="../picture/header.png" />
+			</div>
+		</div>
+		<div class="search">
+			<h1>Join A Class</h1>
+			<div class="search-container">
+				<i class="bx bx-search"></i>
+				<input type="text" placeholder="Enter Class Code" />
+			</div>
+			<div class="button-container">
+				<a href="#">
+					<button type="submit">Join</button>
+				</a>
+			</div>
+		</div>
+
+		<!-- quiz -->
+		<div class="quiz-wrapper">
+			<h2>Quiz</h2>
+			<div class="quizzes">
+                <div class="quiz">
+                    <div class="quiz-info">
+                        <h3>Quiz 1</h3>
+                    </div>
+                    <div class="view-button">
+                        <a href="#">
+                            <button type="submit">View</button>
+                        </a>
+                    </div>
+                
+            </div>
+		</div>
+	</body>
 </html>
