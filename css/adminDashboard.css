@@ -72,6 +72,76 @@
 	background-color: chartreuse;
 }
 
+.function-wrapper{
+	width: 100%;
+	height: 100vh;
+	background-image: linear-gradient(rgb(0, 0, 0, 0.05), rgb(0, 0, 0, 0.05)),
+		url(../picture/Dashboard_blue.png);
+	background-size: cover;
+	background-position: center;
+	display: flex;
+}
+
+.image{
+	background-color: aquamarine;
+	width: 50%;
+	height: 50%;
+}
+
+.container {
+	width: 50%;
+	height: 50%;
+  	gap: 20px; /* Add equal spacing between boxes */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	
+	margin-left: 300px;
+
+
+}
+
+
+/* .function{
+	font-weight: 600;
+	background-color: dodgerblue;
+	height: 15%;
+	width: 50%;
+
+	display: flex;
+	flex-direction: flex-end;
+    padding: 10px;
+
+	
+
+}
+
+.function-wrapper p{
+	text-decoration: none;
+	text-align: center;
+	font-size: 20px;
+
+	border:none;
+	cursor: pointer;
+	padding: 10px;
+} */
+
+.function{
+	padding: 10px 30px;
+	font-size: 20px;
+	font-weight: bold;
+	
+	border-radius: 20px;
+	background-color: #2584d7;
+	border: none;
+	cursor: pointer;
+
+	width: 350px;	
+}
+
+
+
+
 .login {
 	padding: 10px 30px;
 	font-size: 20px;
