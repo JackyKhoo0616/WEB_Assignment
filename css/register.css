@@ -1,0 +1,220 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+		url(../picture/login.png) no-repeat;
+	background-size: cover;
+	background-position: center;
+	color: #fff;
+}
+
+.wrapper {
+	width: 1600px;
+	background: transparent;
+	backdrop-filter: blur(20px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+}
+
+.wrapper h1 {
+	font-size: 55px;
+	text-align: center;
+	color: #c8633d;
+}
+
+.wrapper p {
+	font-size: 17px;
+	text-align: center;
+	color: #fff;
+	padding-top: 10px;
+}
+
+.wrapper p a {
+	color: #fff;
+	text-decoration: none;
+}
+
+.wrapper p a:hover {
+	color: #c8633d;
+	text-decoration: underline;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	margin-left: 100px;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	margin-top: 20px;
+	font-size: 18px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+input[type="select"] {
+	width: 40%;
+	padding: 10px;
+	border: 1px solid #cccccc80;
+	border-radius: 5px;
+	background-color: transparent;
+	background: transparent;
+	outline: none;
+	font-size: 16px;
+	color: #fff;
+}
+
+select {
+	width: 40%;
+	padding: 10px;
+	border: 1px solid #cccccc80;
+	border-radius: 5px;
+	background-color: transparent;
+	background: transparent;
+	outline: none;
+	font-size: 16px;
+	color: #fff;
+}
+
+select a {
+	width: 50%;
+	padding: 10px;
+	border: 1px solid #cccccc80;
+	border-radius: 5px;
+	background-color: transparent;
+	background: transparent;
+	outline: none;
+	font-size: 16px;
+	color: #000;
+}
+
+select option {
+	color: #000;
+}
+
+input::placeholder {
+	color: #fff;
+	opacity: 0.2;
+}
+
+input:focus {
+	color: #fff;
+}
+
+.select-gender {
+	width: 30%;
+	display: flex;
+	margin-top: -20px;
+}
+
+.radio {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
+	color: #fff;
+	margin-right: 15px;
+}
+
+.select-gender input[type="radio"] {
+	display: none;
+}
+
+.select-gender input[type="radio"] + label {
+	display: inline-block;
+	cursor: pointer;
+	padding: 5px 20px;
+	border: 1px solid #fff;
+	border-radius: 3px;
+}
+
+.select-gender input[type="radio"]:checked + label {
+	background-color: #c8633d;
+	border: 1px solid #c8633d;
+}
+
+.role {
+	position: absolute;
+	top: 120px;
+	right: 100px;
+}
+
+.role p {
+	font-size: 30px;
+}
+
+.role input[type="radio"] {
+	display: none;
+}
+
+.role input[type="radio"] + label {
+	display: inline-block;
+	cursor: pointer;
+	padding: 13px 80px;
+	border: 1px solid #ffffff30;
+	border-radius: 50px;
+	font-size: 30px;
+}
+
+.role input[type="radio"]:checked + label {
+	background-color: #c8633d;
+	border: 1px solid #c8633d;
+}
+
+.button-row {
+	display: flex;
+	justify-content: center;
+	margin-top: 120px;
+	margin-left: 300px;
+	margin-right: 425px;
+}
+
+.button-row input {
+	margin-right: 10px;
+	padding: 15px 150px;
+}
+
+.button-row input[type="submit"] {
+	background-color: #c8633d;
+	border: none;
+	outline: none;
+	border-radius: 40px;
+	cursor: pointer;
+	font-size: 22px;
+	color: #fff;
+	font-weight: 600;
+}
+
+.button-row input[type="reset"] {
+	background-color: transparent;
+	border: 1px solid #fff;
+	border-radius: 40px;
+	cursor: pointer;
+	font-size: 22px;
+	color: #fff;
+	font-weight: 600;
+}
+
+.copyright {
+	text-align: center;
+	padding: 3px;
+	color: #fff;
+	font-size: 15px;
+	background-color: #c8633d;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
