@@ -95,10 +95,40 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	
 	margin-left: 300px;
+}
 
+.OtherPages{
+	width: 100%;
+	height: 100vh;
+	background-image: linear-gradient(rgb(0, 0, 0, 0.05), rgb(0, 0, 0, 0.05)),
+		url(../picture/Dashboard_blue.png);
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 500px;
+}
 
+.EducationalRegulation, .DataPrivacyLaw{
+	border: 2px;
+	border-color: #000;
+	padding: 10px;
+	background-color: #fff;
+	
+	width: 20%;
+	height: 450px;
+	border-radius: 15px;
+	box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.EducationalRegulation img, .DataPrivacyLaw img {
+	width: 300px;
+	height: 450px;
+	object-fit: cover;
+	border-radius: 15px;
 }
 
 
