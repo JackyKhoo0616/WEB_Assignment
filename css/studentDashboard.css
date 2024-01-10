@@ -143,8 +143,10 @@
 }
 
 .quiz:hover,
-.learning-material:hover {
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+.learning-material:hover,
+.gamification:hover {
+	box-shadow: 0 0 20px #c8633d50;
+	scale: 1.1;
 }
 
 .quiz-info,
@@ -158,8 +160,12 @@
 
 .quiz-info h3,
 .learning-info h3 {
-	font-size: 20px;
+	font-size: 30px;
 	color: #fff;
+	width: 230px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
 }
 
 .view-button {
@@ -205,6 +211,10 @@
 .view-more a i {
 	font-size: 18px;
 	color: #c8633d;
+}
+
+.view-more a p:hover {
+	text-decoration: underline;
 }
 
 .tracker-wrapper {
@@ -294,6 +304,6 @@
 }
 
 .gamification-info img {
-	width: 170px;
+	width: 150px;
 	height: auto;
 }
