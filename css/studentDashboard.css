@@ -85,22 +85,39 @@
 	color: #fff;
 }
 
+.content {
+	background-color: #31304d;
+	margin-bottom: 150px;
+}
+
 .quiz-wrapper {
+	padding-top: 50px;
+}
+
+.quiz-wrapper,
+.material-wrapper,
+.tracker-wrapper,
+.gamification-wrapper {
 	display: flex;
 	flex-direction: column;
-	margin: 100px 200px 200px 200px;
+	margin: 100px 200px -150px 200px;
 	background-color: transparent;
 	height: 600px;
 }
 
-.quiz-wrapper h2 {
+.quiz-wrapper h2,
+.material-wrapper h2,
+.tracker-wrapper h2,
+.gamification-wrapper h2 {
 	font-size: 40px;
 	color: #c8633d;
 	padding: 20px;
 	padding-left: 200px;
 }
 
-.quizzes {
+.quizzes,
+.materials,
+.all-gamification {
 	margin-left: 50px;
 	margin-right: 50px;
 	display: flex;
@@ -111,24 +128,27 @@
 	height: fit-content;
 }
 
-.quiz {
+.quiz,
+.learning-material {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 300px;
 	height: 300px;
-	background-color: #fff;
+	background-color: #161a30;
 	border-radius: 15px;
 	margin: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.quiz:hover {
+.quiz:hover,
+.learning-material:hover {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.quiz-info {
+.quiz-info,
+.learning-info {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -136,31 +156,36 @@
 	padding: 20px;
 }
 
-.quiz-info h3 {
+.quiz-info h3,
+.learning-info h3 {
 	font-size: 20px;
-	color: #c8633d;
+	color: #fff;
 }
 
 .view-button {
+	padding-top: 60px;
 	width: 200px;
 	height: 50px;
 	border-radius: 15px;
-	background-color: #fff;
 	font-size: 20px;
 	cursor: pointer;
 	font-weight: bold;
+}
+
+.view-button {
+	background-color: transparent;
 }
 
 .view-button button {
 	width: 200px;
-	height: 50px;
+	height: 45px;
 	border-radius: 15px;
-	background-color: #fff;
-	color: #c8633d;
+	color: #fff;
 	font-size: 20px;
 	cursor: pointer;
 	font-weight: bold;
 	border: 2px solid #c8633d;
+	background-color: transparent;
 }
 
 .view-button button:hover {
@@ -180,4 +205,95 @@
 .view-more a i {
 	font-size: 18px;
 	color: #c8633d;
+}
+
+.tracker-wrapper {
+	margin-top: 100px;
+	display: flex;
+	flex-direction: column;
+}
+
+.progress {
+	display: flex;
+	justify-content: center;
+	background-color: none;
+}
+
+.progress table {
+	background-color: transparent;
+	width: 70%;
+	border-collapse: collapse;
+	margin-bottom: 25px;
+}
+
+.progress table tr th {
+	font-size: 20px;
+	color: #000;
+	border: 2px solid #80808050;
+	border-collapse: collapse;
+	height: 110px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	color: #fff;
+}
+
+.progress table tr td {
+	font-size: 20px;
+	color: #000;
+	border: 1px solid #80808050;
+	border-collapse: collapse;
+	text-align: center;
+	height: 50px;
+	border: none;
+	color: #fff;
+}
+
+.no-title {
+	width: 5%;
+}
+
+.name-title {
+	width: 30%;
+}
+
+.quiz-title {
+	width: 40%;
+}
+
+.status-title {
+	width: 25%;
+}
+
+.gamification {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 230px;
+	height: 300px;
+	background-color: #161a30;
+	border-radius: 50px;
+	margin: 20px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.gamification-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	background-color: transparent;
+}
+
+.gamification-info h3 {
+	padding-top: 25px;
+	font-size: 25px;
+	color: #fff;
+}
+
+.gamification-info img {
+	width: 170px;
+	height: auto;
 }
