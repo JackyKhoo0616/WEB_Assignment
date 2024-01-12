@@ -1,3 +1,7 @@
+<?php
+include 'connection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -9,6 +13,44 @@
 	<body>
 		<div class="wrapper">
 			<h1>Create New Account</h1>
+			<?php
+			if (isset($_POST['btnRegister'])) {
+				$fname = $_POST['txtFName'];
+				$lname = $_POST['txtLName'];
+				$email = $_POST['txtEmail'];
+				$dob = $_POST['txtDob'];
+				$country = $_POST['country'];
+				$gender = $_POST['txtGender'];
+				$password = $_POST['txtPassword'];
+				$role = $_POST['role']; // Retrieve the selected role
+
+				// Check if the email exists in tblstudents
+				$queryStudents = "SELECT * FROM `tblstudents` WHERE `email` = '$email'";
+				$resultStudents = mysqli_query($connection, $queryStudents);
+
+				// Check if the email exists in tblteachers
+				$queryTeachers = "SELECT * FROM `tblteachers` WHERE `email` = '$email'";
+				$resultTeachers = mysqli_query($connection, $queryTeachers);
+
+				// Check if the email exists in either tblstudents or tblteachers
+				if (mysqli_num_rows($resultStudents) > 0 || mysqli_num_rows($resultTeachers) > 0) {
+					// Email already exists in either tblstudents or tblteachers
+					echo "This Email Has Been Registered";
+				} else {
+					// Email is not registered, proceed with the registration in the selected role's table
+					$queryRole = ($role == 'Student') ? 'tblstudents' : 'tblteachers';
+					$query = "INSERT INTO `$queryRole`(`fname`, `lname`, `email`, `dob`, `country`, `gender`, `password`) VALUES ('$fname','$lname','$email','$dob','$country','$gender','$password')";
+
+					if (mysqli_query($connection, $query)) {
+						echo "Registration Successful";
+					} else {
+						echo "Registration Failed";
+					}
+				}
+
+				mysqli_close($connection);
+			}
+			?>
 			<p>Already Registered? <a href="../html/login.html">Login</a></p>
 			<form action="#" method="post">
 				<label for="txtFName">First Name</label>

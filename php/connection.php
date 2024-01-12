@@ -2,7 +2,7 @@
 $hostname = 'localhost'; //127.0.0.1
 $user = 'root';
 $password = '';
-$database = 'wdtasm';
+$database = 'breezequiz';
 
 $connection = mysqli_connect($hostname, $user, $password, $database);
 if($connection === false){
