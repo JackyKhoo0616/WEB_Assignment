@@ -1,0 +1,21 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+.quizpage-wrapper {
+	display: flex;
+	flex-direction: column;
+	background-color: #31304d;
+	padding-bottom: 150px;
+}
+
+.quizpage-wrapper h1 {
+	font-size: 50px;
+	font-family: "Lemon", serif;
+	color: #c8633d;
+	font-size: 70px;
+	margin: 160px 0 30px 300px;
+}

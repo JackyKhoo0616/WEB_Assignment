@@ -208,6 +208,23 @@ input:focus {
 	font-weight: 600;
 }
 
+.image {
+	position: absolute;
+	top: 140px;
+	right: 40px;
+}
+
+.image img {
+	display: none;
+	width: 400px;
+	filter: drop-shadow(0 0 150px #fff);
+}
+
+#roleS:checked ~ .image .hidden-1,
+#roleT:checked ~ .image .hidden-2 {
+	display: block;
+}
+
 .copyright {
 	text-align: center;
 	padding: 3px;
