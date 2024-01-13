@@ -1,3 +1,6 @@
+<?php
+include 'connection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,6 +18,35 @@
 		<div class="wrapper">
 			<form action="#" method="post">
 				<h1>Login</h1>
+				<?php
+				if (isset($_POST['btnlogin'])) {
+					$email = $_POST['txtEmail'];
+					$password = $_POST['txtPassword'];
+
+					// Check credentials in tblstudents
+					$queryStudents = "SELECT * FROM tblstudents WHERE email='$email' AND password='$password'";
+					$resultStudents = mysqli_query($connection, $queryStudents);
+
+					// Check credentials in tblteachers
+					$queryTeachers = "SELECT * FROM tblteachers WHERE email='$email' AND password='$password'";
+					$resultTeachers = mysqli_query($connection, $queryTeachers);
+
+					if (mysqli_num_rows($resultStudents) == 1) {
+						// Login as a student
+						echo 'Record Found';
+						header("Location: studentDashboard.php");
+					} elseif (mysqli_num_rows($resultTeachers) == 1) {
+						// Login as a teacher
+						echo 'Record Found';
+						header("Location: adminDashboard.php");
+					} else {
+						// Record not found in either table
+						echo 'Record Not Found';
+					}
+
+					mysqli_close($connection);
+				}
+				?>
 				<div class="input-box">
 					<input
 						type="email"
@@ -34,7 +66,7 @@
 				<div class="forgot">
 					<a href="#">Forgot Password?</a>
 				</div>
-				<input type="submit" class="submit" value="Login" />
+				<input type="submit" class="submit" value="Login" name="btnlogin" />
 				<div class="register-link">
 					<p>Don't have an account? <a href="../html/register.html"">Sign Up</a></p>
 				</div>
