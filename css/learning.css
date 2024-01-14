@@ -1,0 +1,41 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+body {
+	background-color: #31304d;
+}
+
+.learning-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	height: max-content;
+	margin-left: 300px;
+	margin-right: 300px;
+}
+
+.learning-content h1 {
+	font-size: 60px;
+	text-align: center;
+	color: #c8633d;
+	margin-bottom: 50px;
+	margin-top: 150px;
+}
+
+.learning-content p {
+	font-size: 25px;
+	text-align: center;
+	color: #fff;
+	line-height: 35px;
+	margin-bottom: 50px;
+}
+
+.additional {
+	margin-bottom: 150px;
+}
