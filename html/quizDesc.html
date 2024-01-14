@@ -13,6 +13,8 @@
 			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
 			rel="stylesheet"
 		/>
+
+		<script src="../javascript/backBtnLogic.js"></script>
 	</head>
 	<body>
 		<!-- navigational bar -->
@@ -58,18 +60,41 @@
 			</div>
 		</div>
 
-		<div class="quizpage-wrapper">
+		<div class="main">
 			<h1>Quiz 1</h1>
-			<div class="quizpage-container">
-				<div class="quiz-image">
-					<img src="../picture/quiz1.png" alt="quiz1" />
-				</div>
-				<div class="quiz-information-status">
-					<h2>Quiz Status</h2>
-					<p>Completed</p>
-				</div>
-				<div class="quiz-information-date"></div>
+			<div class="quiz-info">
+				<table>
+					<tr>
+						<th>Quiz Status</th>
+						<td>No attempt</td>
+					</tr>
+					<tr>
+						<th>Creation Date</th>
+						<td>11 January 2024</td>
+					</tr>
+					<tr>
+						<th>Marks</th>
+						<td>-</td>
+					</tr>
+				</table>
 			</div>
+			<div class="quiz-button">
+				<div class="back-button">
+					<a href="">
+						<button type="submit">Back</button>
+					</a>
+				</div>
+				<div class="start-button">
+					<a href="#">
+						<button type="submit">Start Quiz</button>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- copyright part -->
+		<div class="copyright">
+			<p>© 2024 BreezeQuiz. All rights reserved.</p>
 		</div>
 	</body>
 </html>

@@ -10,6 +10,7 @@
 	flex-direction: column;
 	background-color: #31304d;
 	padding-bottom: 150px;
+	min-height: 97.75vh;
 }
 
 .quizpage-wrapper h1 {
