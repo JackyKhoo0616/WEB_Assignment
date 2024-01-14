@@ -31,6 +31,9 @@ include 'connection.php';
 					$queryTeachers = "SELECT * FROM tblteachers WHERE email='$email' AND password='$password'";
 					$resultTeachers = mysqli_query($connection, $queryTeachers);
 
+					$queryAdmin = "SELECT * FROM tbladmin WHERE email='$email' AND password='$password'";
+					$resultAdmin = mysqli_query($connection, $queryAdmin);
+
 					if (mysqli_num_rows($resultStudents) == 1) {
 						// Login as a student
 						echo 'Record Found';
@@ -38,8 +41,13 @@ include 'connection.php';
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
 						// Login as a teacher
 						echo 'Record Found';
+						header("Location: teacherDashboard.php");
+					} elseif (mysqli_num_rows($resultAdmin) == 1) {
+						// Login as a admin
+						echo 'Record Found';
 						header("Location: adminDashboard.php");
-					} else {
+					}
+					else {
 						// Record not found in either table
 						echo 'Record Not Found';
 					}
