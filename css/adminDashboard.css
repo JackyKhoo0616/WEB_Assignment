@@ -120,7 +120,7 @@
 
 
 
-.EducationalRegulation, .DataPrivacyLaw{
+.EducationalRegulation .DataPrivacyLaw{
 	border: 2px;
 	border-color: #000;
 	background-color: #fff;
@@ -138,11 +138,18 @@
 	font-family: "Lemon", serif;
 }
 
-.EducationalRegulation img, .DataPrivacyLaw img {
-	margin-left: 55px;
-	width: 150px;
-	height: 150px;
+.EducationalRegulation img {
+	width: auto;
+	height: 100px;
+
 }
+.DataPrivacyLaw img {
+	width: 150px;
+	height: auto;
+
+}
+
+
 
 .function{
 	padding: 10px 30px;
