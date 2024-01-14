@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>BreezeQuiz</title>
 		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/adminDashboard.css" />
+		<link rel="stylesheet" href="../css/admin-searchUserDetail.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
 	</head>
 
@@ -45,89 +45,55 @@
 					</ul>
 				</div>
 			</div>
-
-			<!-- headline & welcome msg -->
-			<div class="content">
-				
-				<h1>Admin Dashboard</h1>
-
-				<div class="welcome">
-					<h2>Welcome back, {adminname}</h2>
-				</div>
-				
-				<div class="data">
-
-					<div class="data1">
-						<h3>Total Quizzes</h3>
-						<p>600</p>
-					</div>
-	
-					<div class="data2">
-						<h3>Total Learning Module</h3>
-						<p>200</p>
-					</div>
-	
-					<div class="data3">
-						<h3>Total Student</h3>
-						<p>200</p>
-					</div>
-	
-					<div class="data4">
-						<h3>Total Teacher</h3>
-						<p>22</p>
-					</div>
-
-				</div>
-
-			</div>
-
-			
 		</header>
 
 		<main>
-			<div class="function-wrapper">
+			<div class="content">
+				<h1>Search User Details</h1>
 
-				<div class="image">
+				<div class="boxWrapper">
+					<form action="searchUserDetail.php" method="post">
+						<h1>Enter User Details</h1>
 
+						<div class="input-box">
+							<input
+								type="text"
+								name="userid"
+								placeholder="User ID"
+								required
+							/>
+						</div>
+
+						<div class="input-box">
+							<input
+								type="text"
+								name="userfullname"
+								placeholder="User Fullname"
+								required
+							/>
+						</div>
+
+						<div class="input-box">
+							<input
+								type="text"
+								name="userroles"
+								placeholder="User's Roles"
+								required
+							/>
+						</div>
+
+						<div class="input-box">
+							<input
+								type="text"
+								name="classcode"
+								placeholder="Class Code"
+								required
+							/>
+						</div>
+
+						<input type="submit" class="submit" value="Search" />
+					</form>
 				</div>
-
-				<div class="container">
-
-					<a href="#">
-						<button class="function">
-							<p>Search User Details</p>
-						</button>
-
-					<a href="#">
-						<button class="function">
-							<p>Access All Quiz</p>
-						</button>
-
-					<a href="#">
-						<button class="function">
-							<p>Access All Learning Material</p>
-						</button>
-					</a>
-
-				</div>
-			</div>
-
-			<div class="OtherPages">
-
-				<a href="adminDataPrivacy.html">
-					<button class="EducationalRegulation">
-						<img src="../picture/Regulation_2-removebg.png" />
-						<h3>Educational <br> Regulation</h3>
-					</button>
-				</a>
-
-				<a href="adminDataPrivacy.html">
-					<button class="EducationalRegulation">
-						<img src="../picture/Laws-removebg.png" />
-						<h3>Data <br> Privacy Law</h3>
-					</button>
-				</a>
-
 			</div>
 		</main>
 
