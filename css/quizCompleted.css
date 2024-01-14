@@ -1,0 +1,98 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+body {
+	background-color: #31304d;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+	position: relative;
+	left: 550px;
+	right: 550px;
+	border-radius: 35px;
+	height: 95.5vh;
+}
+
+.container .congrate h1 {
+	font-size: 60px;
+	font-family: "Lemon", serif;
+	color: #c8633d;
+	font-size: 70px;
+	text-align: center;
+	margin-top: 100px;
+	text-wrap: wrap;
+}
+
+.container .congrate p {
+	font-size: 35px;
+	text-align: center;
+	margin-top: 10px;
+	color: #c8633d;
+}
+
+.details {
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	margin-top: 120px;
+	margin-bottom: 120px;
+}
+
+.details h2 {
+	font-size: 40px;
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 100px;
+	color: #c8633d;
+	font-weight: bold;
+}
+
+.details p {
+	font-size: 25px;
+	text-align: center;
+	color: #fff;
+}
+
+.details h3 {
+	font-size: 60px;
+	text-align: center;
+	margin-top: 10px;
+	color: #c8633d;
+}
+
+.btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn button {
+	width: 300px;
+	height: 55px;
+	border-radius: 15px;
+	color: #fff;
+	font-size: 25px;
+	cursor: pointer;
+	font-weight: bold;
+	border: 2px solid #c8633d;
+	background-color: transparent;
+}
+
+.btn a {
+	text-decoration: none;
+	color: #c8633d;
+}
+
+.btn button:hover {
+	background-color: #c8633d;
+	color: #fff;
+}

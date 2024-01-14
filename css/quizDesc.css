@@ -10,7 +10,7 @@
 	flex-direction: column;
 	justify-content: center;
 	background-color: #31304d;
-	height: 97.75vh;
+	height: 95.5vh;
 }
 
 .main h1 {
@@ -69,6 +69,7 @@
 	margin: 20px;
 	cursor: pointer;
 	text-decoration: none;
+	background-color: #eeeeee;
 }
 
 .quiz-button a {
