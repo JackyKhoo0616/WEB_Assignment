@@ -10,14 +10,27 @@
 	flex-direction: column;
 	background-color: #31304d;
 	padding-bottom: 150px;
+	min-height: 95.5vh;
 }
 
-.learningpage-wrapper h1 {
+.header {
+	display: flex;
+	flex-direction: row;
+}
+
+.header h1 {
 	font-size: 50px;
 	font-family: "Lemon", serif;
 	color: #c8633d;
 	font-size: 70px;
-	margin: 160px 0 30px 300px;
+	margin: 160px 0 30px 25px;
+}
+
+.header i {
+	font-size: 50px;
+	color: #c8633d;
+	font-size: 70px;
+	margin: 175px 0 30px 300px;
 }
 
 .learningpage-container {
