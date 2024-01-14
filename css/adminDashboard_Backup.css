@@ -33,43 +33,49 @@
 	color: black;
 	font-size: 20px;
 	margin-left: 50px;
+	margin-bottom: 50px;
 }
 
 .data {
 	background-color: rgba(0, 0, 0, 0.519);
 	width: 900px;
 	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	color: #000;
-	margin-left: 300px;
-	display: inline-flex;
-	flex-wrap: wrap; /* Create rows if needed */
-	justify-content: space-between; /* Distribute sections with spacing */
-	gap: 20px; /* Add a gap between the sections */
+    display: flex; 
+    flex-wrap: wrap; 
+
+	margin-left: 100px;
+	padding: 50px;
+	justify-content: center;
+	align-items: center;
 }
 
-.data1,
-.data2,
-.data3,
-.data4 {
+.data1, .data2, .data3, .data4 {
 	/* ... your existing styles ... */
-	width: 50%; /* Adjust as needed */
+	width: 300px; /* Adjust as needed */
 	padding: 20px; /* Adjust as needed */
 	text-align: center; /* Adjust as needed */
+	border-radius: 10px;
+	box-sizing: border-box; /* Add this to include padding and border in element's total width */
+
+	margin-right: 10px; /* Adjust as needed */
+    margin-bottom: 20px; /* Adjust as needed */
+	
 }
 
 .data1 {
-	background-color: blueviolet;
+	background-color: rgb(255, 255, 255);
+	margin-right: 30px;
+	
 }
 .data2 {
-	background-color: aqua;
+	background-color: rgb(255, 255, 255);
 }
 .data3 {
-	background-color: chocolate;
+	background-color: rgb(255, 0, 0);
+	margin-right: 30px;
 }
 .data4 {
-	background-color: chartreuse;
+	background-color: rgb(255, 0, 0);
 }
 
 .function-wrapper{
@@ -83,7 +89,6 @@
 }
 
 .image{
-	background-color: aquamarine;
 	width: 50%;
 	height: 50%;
 }
@@ -109,19 +114,19 @@
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	gap: 500px;
+	gap: 100px;
+	
 }
+
+
 
 .EducationalRegulation, .DataPrivacyLaw{
 	border: 2px;
 	border-color: #000;
-	padding: 10px;
 	background-color: #fff;
-	
-	width: 20%;
+
 	height: 450px;
 	border-radius: 15px;
-	box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .EducationalRegulation img, .DataPrivacyLaw img {
@@ -130,31 +135,6 @@
 	object-fit: cover;
 	border-radius: 15px;
 }
-
-
-/* .function{
-	font-weight: 600;
-	background-color: dodgerblue;
-	height: 15%;
-	width: 50%;
-
-	display: flex;
-	flex-direction: flex-end;
-    padding: 10px;
-
-	
-
-}
-
-.function-wrapper p{
-	text-decoration: none;
-	text-align: center;
-	font-size: 20px;
-
-	border:none;
-	cursor: pointer;
-	padding: 10px;
-} */
 
 .function{
 	padding: 10px 30px;
