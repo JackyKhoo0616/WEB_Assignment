@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>BreezeQuiz</title>
+		<link rel="stylesheet" href="../css/nav.css" />
+		<link rel="stylesheet" href="../css/searchUserDetail.css" />
+		<link rel="stylesheet" href="../css/footer.css" />
+	</head>
+
+	<body>
+        <header>
+			<!-- navigational bar -->
+			<div class="banner">
+				<div class="navbar">
+					<a href="#">
+						<img src="../picture/logo.png" class="logo" />
+					</a>
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li>
+							<a href="#">Service</a>
+							<div class="sub-menu">
+								<ul>
+									<li><a href="#">Quiz</a></li>
+									<li><a href="#">Learning Material</a></li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="#">About Us</a></li>
+						<li>
+							<a href="#">Other Pages</a>
+							<div class="sub-menu">
+								<ul>
+									<li><a href="#">Sign Up</a></li>
+									<li>
+										<a href="#">Educational Regulation</a>
+									</li>
+									<li><a href="#">Data Privacy Law</a></li>
+								</ul>
+							</div>
+						</li>
+						<button class="login"><a href="#">Login</a></button>
+					</ul>
+				</div>
+			</div>
+
+		</header>
+
+		<main>
+            
+			<div class="content">
+				<h1>Search User Details</h1>
+			
+                <div class="boxWrapper">
+                    <form action="searchUserDetail.php" method="post">
+                        <h1>Enter User Details</h1>
+
+                        <div class="input-box">
+                            <input 
+                                type="text" 
+                                name="userid" 
+                                placeholder="User ID"
+                                required
+                            >    
+                        </div>
+                            
+                        <div class="input-box">
+                            <input 
+                                type="text" 
+                                name="userfullname" 
+                                placeholder="User Fullname"
+                                required
+                            >    
+                        </div>
+                            
+                        <div class="input-box">
+                            <input 
+                                type="text" 
+                                name="userroles" 
+                                placeholder="User's Roles"
+                                required
+                            >    
+                        </div>
+                            
+                        <div class="input-box">
+                            <input 
+                                type="text" 
+                                name="classcode" 
+                                placeholder="Class Code"
+                                required
+                            >    
+                        </div>
+
+                        <input type="submit" class="submit" value="Search">
+
+
+                    </form>
+
+                </div>
+
+            </div>
+		</main>
+
+		<footer>
+			<!-- footer -->
+			<div class="footer">
+				<div class="left">
+					<div class="desc">
+						<h2>BreezeQuiz</h2>
+						<p>
+							BreezeQuiz is an interactive quiz platform enhancing
+							learning with gamification, real-time analytics, and
+							a resource library for students and educators to
+							improve engagement and performance.
+						</p>
+					</div>
+				</div>
+				<div class="right">
+					<div class="footer-logo">
+						<a href="../html/index.html">
+							<img src="../picture/logo.png" />
+						</a>
+					</div>
+					<div class="contact">
+						<p>
+							<span class="contact-span1">Email:</span>
+							breezequiz@gmail.com
+						</p>
+						<p>
+							<span class="contact-span2">Phone:</span> 09 - 523 -
+							2288
+						</p>
+					</div>
+					<div class="social_media">
+						<div class="social_media_icons">
+							<div class="facebook">
+								<a href="https://www.facebook.com/">
+									<img src="../picture/facebook.svg" />
+								</a>
+							</div>
+							<div class="instagram">
+								<a href="https://www.instagram.com/">
+									<img src="../picture/instagram.svg" />
+								</a>
+							</div>
+							<div class="twitter">
+								<a href="https://twitter.com/home">
+									<img src="../picture/twitter.svg" />
+								</a>
+							</div>
+							<div class="github">
+								<a href="https://github.com/">
+									<img src="../picture/github.svg" />
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- copyright part -->
+			<div class="copyright">
+				<p>© 2024 BreezeQuiz. All rights reserved.</p>
+			</div>
+		</footer>
+	</body>
+</html>
