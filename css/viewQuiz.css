@@ -22,15 +22,19 @@
 	font-size: 50px;
 	font-family: "Lemon", serif;
 	color: #c8633d;
-	font-size: 70px;
 	margin: 160px 0 30px 25px;
 }
 
 .header i {
 	font-size: 50px;
 	color: #c8633d;
-	font-size: 70px;
-	margin: 175px 0 30px 300px;
+	margin: 169px 0 30px 300px;
+}
+
+.header i:hover {
+	color: #fff;
+	scale: 1.1;
+	transition: 0.3s;
 }
 
 .quizpage-container {
@@ -52,11 +56,17 @@
 	justify-content: center;
 	align-items: center;
 	width: 300px;
-	height: 300px;
+	height: 400px;
 	background-color: #161a30;
 	border-radius: 15px;
 	margin: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.quiz:hover {
+	box-shadow: 0 0 20px #c8633d50;
+	scale: 1.1;
+	transition: 0.5s;
 }
 
 .quiz-info {
@@ -95,4 +105,5 @@
 .view-button button:hover {
 	background-color: #c8633d;
 	color: #fff;
+	transition: 0.2s;
 }

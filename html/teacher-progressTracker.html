@@ -7,7 +7,7 @@
 
 		<link rel="stylesheet" href="../css/nav.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
-		<link rel="stylesheet" href="../css/progressTracker.css" />
+		<link rel="stylesheet" href="../css/teacher-progressTracker.css" />
 
 		<link
 			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
@@ -79,6 +79,13 @@
 			<div class="filter-section">
 				<h2>Filter by:</h2>
 				<div class="filter">
+					<h3>Student ID:</h3>
+					<input
+						type="text"
+						name="studentID"
+						id="studentID"
+						placeholder="Student ID"
+					/>
 					<h3>Class Code:</h3>
 					<select name="code" id="code">
 						<option value="all">All</option>
@@ -119,34 +126,25 @@
 			<div class="tracker">
 				<table>
 					<tr>
-						<th>Class Code</th>
-						<th>Class Name</th>
-						<th>Quiz Name</th>
-						<th>Status</th>
+						<th class="student-id">Student ID</th>
+						<th class="student-name">Student Name</th>
+						<th class="class-code">Class Code</th>
+						<th class="quiz-name">Quiz Name</th>
+						<th class="status">Status</th>
 					</tr>
 					<tr>
+						<td>tp069263</td>
+						<td>Yow Li Geng</td>
 						<td>123456</td>
-						<td>Mathematics</td>
 						<td>Quiz 1</td>
-						<td>Not Attempted</td>
+						<td>Completed</td>
 					</tr>
 					<tr>
+						<td>tp069263</td>
+						<td>Yow Li Geng</td>
 						<td>123456</td>
-						<td>Mathematics</td>
-						<td>Quiz 1</td>
-						<td>Not Attempted</td>
-					</tr>
-					<tr>
-						<td>123456</td>
-						<td>Mathematics</td>
-						<td>Quiz 1</td>
-						<td>Not Attempted</td>
-					</tr>
-					<tr>
-						<td>123456</td>
-						<td>Mathematics</td>
-						<td>Quiz 1</td>
-						<td>Not Attempted</td>
+						<td>Quiz 2</td>
+						<td>Completed</td>
 					</tr>
 				</table>
 			</div>

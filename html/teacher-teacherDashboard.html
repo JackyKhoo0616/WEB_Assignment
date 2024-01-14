@@ -3,12 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Quizzes</title>
-
-		<link rel="stylesheet" href="../css/viewQuiz.css" />
-		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/footer.css" />
-
+		<title>Dashboard</title>
 		<link
 			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
 			rel="stylesheet"
@@ -17,12 +12,15 @@
 			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
 			rel="stylesheet"
 		/>
+		<link rel="stylesheet" href="../css/nav.css" />
+		<link rel="stylesheet" href="../css/footer.css" />
+		<link rel="stylesheet" href="../css/teacher-teacherDashboard.css" />
 	</head>
 	<body>
 		<!-- navigational bar -->
 		<div class="banner">
 			<div class="navbar">
-				<a href="../html/studentDashboard.html">
+				<a href="#">
 					<img src="../picture/logo.png" class="logo" />
 				</a>
 				<ul>
@@ -68,25 +66,83 @@
 			</div>
 		</div>
 
-		<!-- quiz -->
-		<div class="quizpage-wrapper">
-			<div class="header">
-				<a href="../html/studentDashboard.html">
-					<i class="bx bx-home-alt-2"></i> > ></a
-				>
-				<h1>Quiz</h1>
+		<!-- top part -->
+		<div class="header">
+			<div class="img-container">
+				<img src="../picture/header_teacher.png" />
 			</div>
-			<div class="quizpage-container">
-				<div class="quiz">
-					<div class="quiz-info">
-						<h3>Quiz 1</h3>
-					</div>
-					<div class="view-button">
-						<a href="../html/quizDesc.html">
-							<button type="submit">View</button>
-						</a>
-					</div>
-				</div>
+		</div>
+		<div class="search">
+			<h1>Enroll Student</h1>
+			<div class="search-container">
+				<i class="bx bx-user-plus"></i>
+				<input type="text" placeholder="Enter Student ID" />
+			</div>
+			<div class="search-container">
+				<i class="bx bx-search"></i>
+				<input type="text" placeholder="Enter Class Code" />
+			</div>
+			<div class="button-container">
+				<a href="#">
+					<button type="submit">Add Student</button>
+				</a>
+			</div>
+		</div>
+
+		<!-- content -->
+		<div class="wrapper">
+			<h2>Teacher Function</h2>
+			<div class="function">
+				<a href="#">
+					<button>Create Quiz</button>
+				</a>
+				<a href="#">
+					<button>Create Learning Material</button>
+				</a>
+			</div>
+		</div>
+
+		<!-- Progress Tracker -->
+		<div class="tracker-wrapper">
+			<h2>Progress Tracker</h2>
+			<div class="progress">
+				<table>
+					<tr>
+						<th class="student-id">Student ID</th>
+						<th class="student-name">Student Name</th>
+						<th class="class-code">Class Code</th>
+						<th class="quiz-name">Quiz Name</th>
+						<th class="status">Status</th>
+					</tr>
+					<tr>
+						<td>tp069263</td>
+						<td>Yow Li Geng</td>
+						<td>123456</td>
+						<td>Quiz 1</td>
+						<td>Completed</td>
+					</tr>
+					<tr>
+						<td>tp069263</td>
+						<td>Yow Li Geng</td>
+						<td>123456</td>
+						<td>Quiz 2</td>
+						<td>Completed</td>
+					</tr>
+					<tr>
+						<td>tp069263</td>
+						<td>Yow Li Geng</td>
+						<td>123456</td>
+						<td>Quiz 3</td>
+						<td>No Attempted</td>
+					</tr>
+				</table>
+			</div>
+			<div class="view-more">
+				<a href="#">
+					<button>
+						View More<i class="bx bx-right-arrow-alt"></i>
+					</button>
+				</a>
 			</div>
 		</div>
 

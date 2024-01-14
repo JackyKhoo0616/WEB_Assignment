@@ -37,6 +37,8 @@
 .search h1 {
 	font-size: 50px;
 	font-family: "Lemon", serif;
+	padding-top: 50px;
+	padding-bottom: 50px;
 }
 
 .search-container {
@@ -87,7 +89,7 @@
 
 .content {
 	background-color: #31304d;
-	margin-bottom: 150px;
+	padding-bottom: 10px;
 }
 
 .quiz-wrapper {
@@ -100,7 +102,7 @@
 .gamification-wrapper {
 	display: flex;
 	flex-direction: column;
-	margin: 100px 200px -150px 200px;
+	margin: 60px 200px 50px 200px;
 	background-color: transparent;
 	height: 600px;
 }
@@ -135,7 +137,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 300px;
-	height: 300px;
+	height: 400px;
 	background-color: #161a30;
 	border-radius: 15px;
 	margin: 20px;
@@ -147,6 +149,7 @@
 .gamification:hover {
 	box-shadow: 0 0 20px #c8633d50;
 	scale: 1.1;
+	transition: 0.5s;
 }
 
 .quiz-info,
@@ -197,6 +200,7 @@
 .view-button button:hover {
 	background-color: #c8633d;
 	color: #fff;
+	transition: 0.2s;
 }
 
 .view-more a {
@@ -281,7 +285,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 230px;
-	height: 300px;
+	height: 350px;
 	background-color: #161a30;
 	border-radius: 50px;
 	margin: 20px;

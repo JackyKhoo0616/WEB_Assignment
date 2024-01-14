@@ -5,7 +5,7 @@
 	font-family: "Cutive", serif;
 }
 
-.learningpage-wrapper {
+.quizpage-wrapper {
 	display: flex;
 	flex-direction: column;
 	background-color: #31304d;
@@ -37,7 +37,29 @@
 	transition: 0.3s;
 }
 
-.learningpage-container {
+.add-on-btn {
+	margin: 170px 0 0 1100px;
+}
+
+.add-on-btn button {
+	width: 200px;
+	height: 55px;
+	border-radius: 15px;
+	color: #fff;
+	font-size: 25px;
+	cursor: pointer;
+	font-weight: bold;
+	border: 2px solid #c8633d;
+	background-color: transparent;
+}
+
+.add-on-btn button:hover {
+	background-color: #c8633d;
+	color: #fff;
+	transition: 0.2s;
+}
+
+.quizpage-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -50,7 +72,7 @@
 	right: 300px;
 }
 
-.learning {
+.quiz {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -63,7 +85,13 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.learning-info {
+.quiz:hover {
+	box-shadow: 0 0 20px #c8633d50;
+	scale: 1.1;
+	transition: 0.5s;
+}
+
+.quiz-info {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -71,13 +99,7 @@
 	padding: 20px;
 }
 
-.learning:hover {
-	box-shadow: 0 0 20px #c8633d50;
-	scale: 1.1;
-	transition: 0.5s;
-}
-
-.learning-info h3 {
+.quiz-info h3 {
 	font-size: 30px;
 	color: #fff;
 	width: 230px;
@@ -100,9 +122,32 @@
 	font-weight: bold;
 	border: 2px solid #c8633d;
 	background-color: transparent;
+	margin-bottom: 10px;
 }
 
 .view-button button:hover {
+	background-color: #c8633d;
+	color: #fff;
+	transition: 0.2s;
+}
+
+.delete-button {
+	background-color: transparent;
+}
+
+.delete-button button {
+	width: 200px;
+	height: 45px;
+	border-radius: 15px;
+	color: #fff;
+	font-size: 20px;
+	cursor: pointer;
+	font-weight: bold;
+	border: 2px solid #c8633d;
+	background-color: transparent;
+}
+
+.delete-button button:hover {
 	background-color: #c8633d;
 	color: #fff;
 	transition: 0.2s;
