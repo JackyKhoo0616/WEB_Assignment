@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>BreezeQuiz</title>
 		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/admin-searchUserDetail.css" />
+		<link rel="stylesheet" href="../css/admin-searchClassCode.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
 	</head>
 
@@ -98,7 +98,7 @@
 								type="submit" 
 								class="submit" 
 								value="Search" 
-								onclick="location.href='#sutdentInfo';"/>
+								onclick="location.href='#classcode';"/>
 						</form>
 					</div>
 				</div>
@@ -107,40 +107,48 @@
 		</header>
 
 		<main>
-			<div class="infoWrapper">
-
-					<div class="studentInfo" id="sutdentInfo">
-						<div class="info-box">
-							<div class="label">ID:</div>
-							<div class="value">ID 0001</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Full Name:</div>
-							<div class="value">Jacky khoo</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Date of Birth:</div>
-							<div class="value">2016-06-03</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Gender:</div>
-							<div class="value">male</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Email:</div>
-							<div class="value">jk@gmail.com</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Password:</div>
-							<div class="value">Password</div>
-						</div>
-
-						<div class="button-wrapper">
-						<button class="info-button">Edit</button>
-					</div>
-					</div>
-			
-			</div> 
+			<div class="classcode" id="classcode"> 
+				<h2>CC 0175</h2>
+				<div class="result">
+					<table>
+						<tr>
+							<th>Student ID</th>
+							<th>Student Name</th>
+							<th>Date of Born</th>
+							<th>Gender</th>
+							<th>Email</th>
+						</tr>
+						<tr>
+							<td>ID 0001</td>
+							<td>Jacky Khoo</td>
+							<td>2016-06-03</td>
+							<td>Male</td>
+							<td>jk@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0002</td>
+							<td>Chew Mun Lok</td>
+							<td>2003-12-16</td>
+							<td>Male</td>
+							<td>ml@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0003</td>
+							<td>Wilson Lim</td>
+							<td>2013-11-06</td>
+							<td>Male</td>
+							<td>ck@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0004</td>
+							<td>Kwan Wen Sheng</td>
+							<td>2002-05-26</td>
+							<td>Female</td>
+							<td>kws@gmail.com</td>
+						</tr>
+					</table>
+				</div>
+			</div>
 		</main>
 
 		<footer>
