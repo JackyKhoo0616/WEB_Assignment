@@ -15,35 +15,38 @@
 		<link rel="stylesheet" href="../css/nav.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
 		<link rel="stylesheet" href="../css/teacher-teacherDashboard.css" />
+
+		<script src="../javascript/scrollRemain.js"></script>
 	</head>
 	<body>
 		<!-- navigational bar -->
 		<div class="banner">
 			<div class="navbar">
-				<a href="#">
+				<a href="../html/teacher-teacherDashboard.html">
 					<img src="../picture/logo.png" class="logo" />
 				</a>
 				<ul>
-					<li><a href="../html/viewQuiz.html">Quiz</a></li>
+					<li><a href="../html/teacher-viewQuiz.html">Quiz</a></li>
 					<li>
-						<a href="../html/viewLearning.html"
+						<a href="../html/teacher-viewLearning.html"
 							>Learning Material</a
 						>
 					</li>
 					<li>
-						<a href="../html/progressTracker.html"
-							>Progress Tracker</a
+						<a href="../html/teacher-progressTracker.html"
+							>Performance Monitoring</a
 						>
 					</li>
 					<li>
-						<a href="#"
-							>Other Pages<i class="bx bxs-chevron-down"></i
-						></a>
-
+						<span class="no-a">
+							Other Pages<i class="bx bxs-chevron-down"></i>
+						</span>
 						<div class="sub-menu">
 							<ul>
 								<li>
-									<a href="../html/aboutUs.html">About Us</a>
+									<a href="../html/teacher-aboutUs.html"
+										>About Us</a
+									>
 								</li>
 								<li><a href="#">Educational Regulation</a></li>
 								<li><a href="#">Data Privacy Law</a></li>
@@ -51,10 +54,9 @@
 						</div>
 					</li>
 					<li>
-						<a href="#"
-							>Wilson<i class="bx bxs-chevron-down"></i
-						></a>
-
+						<span class="no-a">
+							Wilson<i class="bx bxs-chevron-down"></i>
+						</span>
 						<div class="sub-menu">
 							<ul>
 								<li><a href="#">Profile</a></li>
@@ -74,37 +76,50 @@
 		</div>
 		<div class="search">
 			<h1>Enroll Student</h1>
-			<div class="search-container">
-				<i class="bx bx-user-plus"></i>
-				<input type="text" placeholder="Enter Student ID" />
-			</div>
-			<div class="search-container">
-				<i class="bx bx-search"></i>
-				<input type="text" placeholder="Enter Class Code" />
-			</div>
-			<div class="button-container">
-				<a href="#">
+			<form action="">
+				<div class="search-container">
+					<i class="bx bx-user-plus"></i>
+					<input
+						type="text"
+						placeholder="Enter Student ID"
+						required
+					/>
+				</div>
+				<div class="search-container">
+					<i class="bx bx-search"></i>
+					<input
+						type="text"
+						placeholder="Enter Class Code"
+						required
+					/>
+				</div>
+				<div class="button-container">
 					<button type="submit">Add Student</button>
-				</a>
-			</div>
+				</div>
+			</form>
 		</div>
 
 		<!-- content -->
 		<div class="wrapper">
 			<h2>Teacher Function</h2>
 			<div class="function">
-				<a href="#">
+				<a href="../html/teacher-createQuiz.html" target="_blank">
 					<button>Create Quiz</button>
 				</a>
-				<a href="#">
+				<a href="../html/teacher-createLearning.html" target="_blank">
 					<button>Create Learning Material</button>
+				</a>
+			</div>
+			<div class="function-additional">
+				<a href="../html/teacher-createClassroom.html">
+					<button>Create Classroom</button>
 				</a>
 			</div>
 		</div>
 
 		<!-- Progress Tracker -->
 		<div class="tracker-wrapper">
-			<h2>Progress Tracker</h2>
+			<h2>Performance Monitoring</h2>
 			<div class="progress">
 				<table>
 					<tr>
@@ -138,7 +153,7 @@
 				</table>
 			</div>
 			<div class="view-more">
-				<a href="#">
+				<a href="../html/teacher-progressTracker.html">
 					<button>
 						View More<i class="bx bx-right-arrow-alt"></i>
 					</button>
@@ -161,7 +176,7 @@
 			</div>
 			<div class="right">
 				<div class="footer-logo">
-					<a href="../html/index.html">
+					<a href="../html/user-index.html" target="_blank">
 						<img src="../picture/logo.png" />
 					</a>
 				</div>

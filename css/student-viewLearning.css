@@ -5,7 +5,7 @@
 	font-family: "Cutive", serif;
 }
 
-.quizpage-wrapper {
+.learningpage-wrapper {
 	display: flex;
 	flex-direction: column;
 	background-color: #31304d;
@@ -22,7 +22,7 @@
 	font-size: 50px;
 	font-family: "Lemon", serif;
 	color: #c8633d;
-	margin: 160px 0 30px 25px;
+	margin: 160px 0 30px 320px;
 }
 
 .header i {
@@ -37,7 +37,7 @@
 	transition: 0.3s;
 }
 
-.quizpage-container {
+.learningpage-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -50,7 +50,7 @@
 	right: 300px;
 }
 
-.quiz {
+.learning {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -63,13 +63,7 @@
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.quiz:hover {
-	box-shadow: 0 0 20px #c8633d50;
-	scale: 1.1;
-	transition: 0.5s;
-}
-
-.quiz-info {
+.learning-info {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -77,7 +71,13 @@
 	padding: 20px;
 }
 
-.quiz-info h3 {
+.learning:hover {
+	box-shadow: 0 0 20px #c8633d50;
+	scale: 1.1;
+	transition: 0.5s;
+}
+
+.learning-info h3 {
 	font-size: 30px;
 	color: #fff;
 	width: 230px;

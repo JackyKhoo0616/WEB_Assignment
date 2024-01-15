@@ -26,19 +26,7 @@ body {
 	font-size: 50px;
 	font-family: "Lemon", serif;
 	color: #c8633d;
-	margin: 160px 0 30px 25px;
-}
-
-.header i {
-	font-size: 50px;
-	color: #c8633d;
-	margin: 169px 0 30px 300px;
-}
-
-.header i:hover {
-	color: #fff;
-	scale: 1.1;
-	transition: 0.3s;
+	margin: 160px 0 30px 320px;
 }
 
 .filter-section {

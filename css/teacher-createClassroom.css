@@ -10,13 +10,26 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	padding-top: 150px;
-	background-image: url(../picture/deco1.png);
+	height: 95.5vh;
+	background-image: url(../picture/Class.png);
 	background-size: cover;
 	background-position: center;
 }
 
-.main-wrapper h1 {
+.container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+	width: 1000px;
+	height: 600px;
+	border-radius: 50px;
+	box-shadow: #31304d80 0px 2px 10px;
+	background-color: #b0aedc10;
+}
+
+.container h1 {
 	font-family: "Lemon", serif;
 	font-size: 50px;
 	color: #c8633d;
@@ -30,12 +43,6 @@
 	padding: 30px;
 }
 
-.input-area label {
-	font-size: 20px;
-	color: #161a30;
-	font-weight: bold;
-}
-
 .input-area form {
 	display: flex;
 	flex-direction: column;
@@ -44,70 +51,18 @@
 }
 
 .input-area input {
-	width: 300px;
-	height: 40px;
+	width: 600px;
+	height: 50px;
 	border-radius: 5px;
 	border: 1px solid #c8633d;
 	margin: 10px;
 	padding: 10px;
-	font-size: 17px;
+	font-size: 20px;
 }
 
-#classCode {
-	margin-bottom: 100px;
-}
-
-.content {
-	border-top: 2px solid #c8633d;
-}
-
-.content .text {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 50px;
-	padding: 30px;
-	border-radius: 20px;
-	box-shadow: #31304d80 0px 2px 10px;
-	background-color: #b0aedc10;
-}
-
-.content textarea {
-	width: 700px;
-	height: 200px;
-	border-radius: 5px;
-	border: 1px solid #c8633d;
-	margin: 10px;
-	padding: 10px;
-	font-size: 17px;
-}
-
-.content textarea:focus {
+.input-area input:focus {
 	outline: none;
 	border: 2px solid #c8633d;
-}
-
-.content .video {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	margin-top: 50px;
-	padding: 30px;
-	border-radius: 20px;
-	box-shadow: #31304d80 0px 2px 10px;
-	background-color: #b0aedc10;
-}
-
-.video input {
-	width: 700px;
-	height: 40px;
-	border-radius: 5px;
-	border: 1px solid #c8633d;
-	margin: 10px;
-	padding: 10px;
-	font-size: 17px;
 }
 
 button {
@@ -115,15 +70,11 @@ button {
 	height: 40px;
 	border-radius: 5px;
 	border: 1px solid #c8633d;
-	margin: 10px;
 	padding: 10px;
 	font-size: 17px;
 	background-color: transparent;
 	color: #c8633d;
-}
-
-.btn {
-	margin: 50px 0 100px 0;
+	margin-top: 35px;
 }
 
 .btn button {
@@ -146,4 +97,16 @@ button {
 .btn a {
 	text-decoration: none;
 	color: #c8633d;
+}
+
+.main-wrapper a {
+	text-decoration: none;
+	color: #c8633d;
+}
+
+.main-wrapper a i {
+	position: absolute;
+	top: 280px;
+	left: 600px;
+	font-size: 40px;
 }

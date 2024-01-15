@@ -29,12 +29,14 @@
 	position: relative;
 }
 
-.navbar ul li a {
+.navbar ul li a,
+.no-a {
 	text-decoration: none;
 	color: #000;
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: uppercase;
+	cursor: pointer;
 }
 
 .navbar ul li::after {
@@ -91,5 +93,28 @@
 }
 
 .navbar ul li:hover .sub-menu ul li a:hover {
+	color: #c8633d;
+}
+
+.login {
+	padding: 10px 30px;
+	font-size: 20px;
+	border-radius: 50px;
+	transition: 0.3s ease;
+	background-color: #c8633d;
+	border: #c8633d solid 1px;
+}
+
+.login a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+}
+
+.login:hover {
+	background-color: #fff;
+}
+
+.login:hover a {
 	color: #c8633d;
 }

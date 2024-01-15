@@ -34,6 +34,13 @@
 	background-position: center;
 }
 
+.search form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .search h1 {
 	font-size: 50px;
 	font-family: "Lemon", serif;

@@ -11,6 +11,9 @@
 	justify-content: center;
 	align-items: center;
 	padding-top: 150px;
+	background-image: url(../picture/deco1.png);
+	background-size: cover;
+	background-position: center;
 }
 
 .main-wrapper h1 {
