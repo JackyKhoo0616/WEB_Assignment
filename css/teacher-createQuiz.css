@@ -1,0 +1,182 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+.main-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-top: 150px;
+}
+
+.main-wrapper h1 {
+	font-family: "Lemon", serif;
+	font-size: 50px;
+	color: #c8633d;
+}
+
+.input-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 30px;
+}
+
+.input-area label {
+	font-size: 20px;
+	color: #161a30;
+	font-weight: bold;
+}
+
+.input-area form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.input-area input {
+	width: 300px;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid #c8633d;
+	margin: 10px;
+	padding: 10px;
+	font-size: 17px;
+}
+
+#classCode {
+	margin-bottom: 100px;
+}
+
+#questions {
+	border-top: 2px solid #c8633d;
+}
+
+.question {
+	margin-top: 50px;
+	width: 100%;
+	position: relative;
+	left: 1%;
+	right: 1%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 30px;
+	border-radius: 20px;
+	box-shadow: #31304d80 0px 2px 10px;
+	background-color: #b0aedc10;
+}
+
+.question input {
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid #c8633d;
+	margin: 10px;
+	padding: 10px;
+	font-size: 17px;
+	background-color: transparent;
+}
+
+.question select {
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid #c8633d;
+	margin: 10px;
+	padding: 10px;
+	font-size: 17px;
+	background-color: transparent;
+}
+
+.question input:focus,
+.question select:focus {
+	outline: 2px solid #c8633d;
+}
+
+.options {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+.option {
+	width: 45%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 10px;
+}
+
+.delete-icon {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.delete-icon i {
+	font-size: 25px;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.delete-icon i:hover {
+	color: #c8633d;
+}
+
+.delete-icon:hover::after {
+	content: attr(data-tooltip);
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: #333;
+	color: #fff;
+	padding: 5px;
+	border-radius: 5px;
+	white-space: nowrap;
+}
+
+button {
+	width: 100px;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid #c8633d;
+	margin: 10px;
+	padding: 10px;
+	font-size: 17px;
+	background-color: transparent;
+	color: #c8633d;
+}
+
+.btn {
+	margin: 50px 0 100px 0;
+}
+
+.btn button {
+	width: 200px;
+	height: 50px;
+	border-radius: 15px;
+	background-color: #c8633d;
+	color: #fff;
+	font-size: 20px;
+	cursor: pointer;
+	font-weight: bold;
+	border: 2px solid #c8633d;
+}
+
+.btn button:hover {
+	background-color: #fff;
+	color: #c8633d;
+}
+
+.btn a {
+	text-decoration: none;
+	color: #c8633d;
+}
