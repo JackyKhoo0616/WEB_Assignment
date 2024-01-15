@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -102,48 +103,40 @@
 		</header>
 
 		<main>
-			<form class="studentInfo">
-				<div class="info-box">
-					<label for="studentId">ID:</label>
-					<input 
-						id="studentId" 
-						type="text" 
-						value="<!-- Student ID goes here -->"
-						>
-				</div>
-				<div class="info-box">
-					<label for="studentName">Full Name:</label>
-					<input 
-						id="studentName" 
-						type="text" 
-						value="<!-- Student full name goes here -->"
-						>
-				</div>
-				<div class="info-box">
-					<label for="studentDOB">Date of Birth:</label>
-					<input 
-						id="studentDOB" 
-						type="date"
-						value="<!-- Student date of birth goes here -->">
-				</div>
-				<div class="info-box">
-					<label for="studentGender">Gender:</label>
-					<select id="studentGender">
-						<option value="male">Male</option>
-						<option value="female">Female</option>
-						<!-- Add more options as needed -->
-					</select>
-				</div>
-				<div class="info-box">
-					<label for="studentEmail">Email:</label>
-					<input id="studentEmail" type="email" value="<!-- Student email goes here -->">
-				</div>
-				<div class="info-box">
-					<label for="studentPassword">Password:</label>
-					<input id="studentPassword" type="password" value="<!-- Student password goes here -->">
-				</div>
-				<button type="submit">Save</button>
-			</form>
+			<div class="infoWrapper">
+
+					<div class="studentInfo">
+						<div class="info-box">
+							<div class="label">ID:</div>
+							<div class="value">ID 0001</div>
+						</div>
+						<div class="info-box">
+							<div class="label">Full Name:</div>
+							<div class="value">Jacky khoo</div>
+						</div>
+						<div class="info-box">
+							<div class="label">Date of Birth:</div>
+							<div class="value">2016-06-03</div>
+						</div>
+						<div class="info-box">
+							<div class="label">Gender:</div>
+							<div class="value">male</div>
+						</div>
+						<div class="info-box">
+							<div class="label">Email:</div>
+							<div class="value">jk@gmail.com</div>
+						</div>
+						<div class="info-box">
+							<div class="label">Password:</div>
+							<div class="value">Password</div>
+						</div>
+
+						<div class="button-wrapper">
+						<button class="info-button">Edit</button>
+					</div>
+					</div>
+			
+			</div>
 		</main>
 
 		<footer>

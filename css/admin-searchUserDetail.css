@@ -99,6 +99,86 @@
 	font-weight: 600;
 }
 
+.boxWrapper .submit:hover {
+	background: #c8633d;
+}
+
+.infoWrapper{
+	width: 100%;
+	height: 100vh;
+	background-image: linear-gradient(rgb(0, 0, 0, 0.05), rgb(0, 0, 0, 0.05)),
+		url(../picture/Dashboard_blue.png);
+	background-size: cover;
+	background-position: center;
+	
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+	padding-left: 500px;
+}
+
+.studentInfo{
+	width: 520px;
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(20px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	border-radius: 10px;
+	margin-top: 50px;
+	padding: 20px 20px;
+}
+
+.studentInfo .info-box  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.studentInfo .info-box .label {
+	width: 100px;    
+	margin-right: 20px;
+	font-family: Arial, sans-serif; 
+    color: #333; 
+}
+
+.studentInfo .info-box .value {
+    width: 500px;
+    height: 60px;
+    margin: 30px 10px;
+    background-color: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	color: #333; 
+    font-family: Arial, sans-serif; 
+}
+.info-button {
+	margin-top: 20px;
+    width: 200px;
+    height: 45px;
+    background: #c8633d;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 22px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.button-wrapper {
+	display: flex;
+    justify-content: center;
+}
+
+
 .copyright {
 	text-align: center;
 	padding: 3px;
