@@ -44,62 +44,65 @@
 						<button class="login"><a href="#">Login</a></button>
 					</ul>
 				</div>
+
+				<div class="content">
+
+					<div class="boxWrapper">
+	
+						<form action="searchUserDetail.php" method="post">
+							<h1>Enter User Details</h1>
+	
+							<div class="boxlvl1">
+								<div class="input-box">
+									<input
+										type="text"
+										name="userid"
+										placeholder="User ID"
+										required
+									/>
+								</div>
+							
+	
+								<div class="input-box">
+									<input
+										type="text"
+										name="userfullname"
+										placeholder="User Fullname"
+										required
+									/>
+								</div>
+	
+								<div class="input-box">
+									<input
+										type="text"
+										name="userroles"
+										placeholder="User's Roles"
+										required
+									/>
+								</div>
+							</div>
+	
+							<div class="boxlvl2">
+								<div class="input-box">
+									<input
+										type="text"
+										name="classcode"
+										placeholder="Class Code"
+										required
+									/>
+								</div>
+							</div>
+	
+							<input type="submit" class="submit" value="Search" />
+						</form>
+					</div>
+				</div>
+				
 			</div>
 		</header>
 
 		<main>
-			<div class="content">
-
-				<div class="boxWrapper">
-
-					<form action="searchUserDetail.php" method="post">
-						<h1>Enter User Details</h1>
-
-						<div class="boxlvl1">
-							<div class="input-box">
-								<input
-									type="text"
-									name="userid"
-									placeholder="User ID"
-									required
-								/>
-							</div>
-						
-
-							<div class="input-box">
-								<input
-									type="text"
-									name="userfullname"
-									placeholder="User Fullname"
-									required
-								/>
-							</div>
-
-							<div class="input-box">
-								<input
-									type="text"
-									name="userroles"
-									placeholder="User's Roles"
-									required
-								/>
-							</div>
-						</div>
-
-						<div class="boxlvl2">
-							<div class="input-box">
-								<input
-									type="text"
-									name="classcode"
-									placeholder="Class Code"
-									required
-								/>
-							</div>
-						</div>
-
-						<input type="submit" class="submit" value="Search" />
-					</form>
-				</div>
-			</div>
+			
 		</main>
 
 		<footer>

@@ -19,10 +19,10 @@
     width: 100%;
     height: 100vh;
     color: #000;
-	position: absolute;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    position: relative; 
 }
 
 .content h1 {
@@ -32,19 +32,21 @@
     text-align: center;
 }
 
-body, .content, .boxWrapper, form {
-	margin-top: 0;
-	padding-top: 0;
-}
+
 
 .boxWrapper {
-	width: 420px;
-	background-color: green;
+	width: 520px;
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(20px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	color: #fff;
 	border-radius: 10px;
+	margin-top: 150px;
+	padding: 20px 20px;
 }
 
-.boxWrapper h2 {
+.boxWrapper h1 {
 	font-size: 46px;
 	text-align: center;
 	color: #fff;
@@ -53,7 +55,7 @@ body, .content, .boxWrapper, form {
 .boxWrapper .input-box {
 	width: 100%;
 	height: 60px;
-	margin: 30px 0;
+	margin: 30px 10px;
 }
 
 .boxlvl1 {
@@ -74,9 +76,9 @@ body, .content, .boxWrapper, form {
 	outline: none;
 	border: 2px solid rgba(255, 255, 255, 0.2);
 	border-radius: 40px;
-	font-size: 16px;
+	font-size: 14px;
 	color: #fff;
-	padding: 20px 45px 20px 20px;
+	padding: 10px 20px;
 }
 
 .input-box input::placeholder {
