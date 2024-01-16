@@ -58,7 +58,7 @@ body {
 }
 
 .filter-section input[type="text"] {
-	width: 200px;
+	width: 600px;
 	height: 40px;
 	border-radius: 5px;
 	border: none;
@@ -105,7 +105,7 @@ body {
 	color: #fff;
 }
 
-.tracker {
+.tablelist {
 	display: flex;
 	justify-content: center;
 	width: 70%;
@@ -115,7 +115,7 @@ body {
 	right: 300px;
 }
 
-.tracker table {
+.tablelist table {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -125,7 +125,7 @@ body {
 	border-collapse: collapse;
 }
 
-.tracker table th {
+.tablelist table th {
 	font-size: 20px;
 	color: #fff;
 	padding: 20px;
@@ -133,10 +133,38 @@ body {
 	border-bottom: 2px solid #c8633d;
 }
 
-.tracker table td {
+.tablelist table td {
 	text-align: center;
 	font-size: 20px;
 	color: #fff;
 	padding: 10px;
 	width: 400px;
+}
+
+.details {
+	background-color: #31304d;
+	padding-top: 50px;
+}
+
+.details-container {
+	background-color: #31304d;
+	padding-top: 50px;
+}
+
+.details-left {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #31304d;
+	padding-top: 50px;
+}
+
+.details-right {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #31304d;
+	padding-top: 50px;
 }

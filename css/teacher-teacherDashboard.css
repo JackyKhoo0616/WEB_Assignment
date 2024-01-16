@@ -120,7 +120,7 @@
 .function-additional {
 	display: flex;
 	flex-direction: row;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	width: 45%;
 	margin-bottom: 150px;
