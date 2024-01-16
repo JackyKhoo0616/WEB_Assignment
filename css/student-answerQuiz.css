@@ -142,7 +142,7 @@ input[type="radio"]:checked:after {
 	color: #c8633d;
 }
 
-.complete-button button {
+.complete-button input {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -156,9 +156,10 @@ input[type="radio"]:checked:after {
 	cursor: pointer;
 	text-decoration: none;
 	border: 2px solid #c8633d;
+	cursor: pointer;
 }
 
-.complete-button button:hover {
+.complete-button input:hover {
 	background-color: #c8633d;
 	color: #fff;
 }
