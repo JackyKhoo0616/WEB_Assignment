@@ -1,3 +1,73 @@
+<?php
+include 'connection.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $userid = $_POST["userid"];
+    $userfullname = $_POST["userfullname"];
+    $userroles = $_POST["userroles"];
+    $classcode = $_POST["classcode"];
+
+    // Search for user based on the provided criteria
+    if ($userroles == "teacher") {
+        // Search in tblteachers
+        $query = "SELECT * FROM tblteachers WHERE teacherid = ? OR CONCAT(fname, ' ', lname) = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ss", $userid, $userfullname);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // User found, display details
+            $row = $result->fetch_assoc();
+            // Display teacher details here
+            echo "Teacher Details: ";
+            echo "ID: " . $row['teacherid'] . "<br>";
+            echo "First Name: " . $row['fname'] . "<br>";
+            echo "Last Name: " . $row['lname'] . "<br>";
+            echo "Email: " . $row['email'] . "<br>";
+            echo "Date of Birth: " . $row['dob'] . "<br>";
+            echo "Country: " . $row['country'] . "<br>";
+            echo "Gender: " . $row['gender'] . "<br>";
+            // Display other details as needed
+        } else {
+            echo "The User Has Not Found";
+        }
+
+    } elseif ($userroles == "student") {
+        // Search in tblstudents
+        $query = "SELECT * FROM tblstudents WHERE studentid = ? OR CONCAT(fname, ' ', lname) = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ss", $userid, $userfullname);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // User found, display details
+            $row = $result->fetch_assoc();
+            // Display student details here
+            echo "Student Details: ";
+            echo "ID: " . $row['studentid'] . "<br>";
+            echo "First Name: " . $row['fname'] . "<br>";
+            echo "Last Name: " . $row['lname'] . "<br>";
+            echo "Email: " . $row['email'] . "<br>";
+            echo "Date of Birth: " . $row['dob'] . "<br>";
+            echo "Country: " . $row['country'] . "<br>";
+            echo "Gender: " . $row['gender'] . "<br>";
+            // Display other details as needed
+        } else {
+            echo "The User Has Not Found";
+        }
+
+    } else {
+        echo "Invalid user role";
+    }
+
+    // Close the database connection
+    $stmt->close();
+    $conn->close();
+}
+?>
 
 
 <!DOCTYPE html>

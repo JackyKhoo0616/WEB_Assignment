@@ -1,13 +1,14 @@
 <?php
-include 'connection.php';
+include "connection.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Login</title>
-		<link rel="stylesheet" href="../css/login.css" />
+		<link rel="stylesheet" href="../css/user-login.css" />
 		<link
 			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
 			rel="stylesheet"
@@ -19,7 +20,7 @@ include 'connection.php';
 			<form action="#" method="post">
 				<h1>Login</h1>
 				<?php
-				if (isset($_POST['btnlogin'])) {
+					if (isset($_POST['btnlogin'])) {
 					$email = $_POST['txtEmail'];
 					$password = $_POST['txtPassword'];
 
@@ -37,7 +38,7 @@ include 'connection.php';
 					if (mysqli_num_rows($resultStudents) == 1) {
 						// Login as a student
 						echo 'Record Found';
-						header("Location: studentDashboard.php");
+						header("Location: student-studentDashboard.php");
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
 						// Login as a teacher
 						echo 'Record Found';
@@ -74,9 +75,9 @@ include 'connection.php';
 				<div class="forgot">
 					<a href="#">Forgot Password?</a>
 				</div>
-				<input type="submit" class="submit" value="Login" name="btnlogin" />
+				<input type="submit" class="submit" value="Login" />
 				<div class="register-link">
-					<p>Don't have an account? <a href="../html/register.html"">Sign Up</a></p>
+					<p>Don't have an account? <a href="../php/user-register.php">Sign Up</a></p>
 				</div>
 			</form>
 		</div>
