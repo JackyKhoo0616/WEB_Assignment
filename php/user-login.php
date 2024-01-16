@@ -20,7 +20,9 @@ include "connection.php";
 			<form action="#" method="post">
 				<h1>Login</h1>
 				<?php
-					if (isset($_POST['btnlogin'])) {
+				include "session-check.php";
+
+				if (isset($_POST['btnlogin'])) {
 					$email = $_POST['txtEmail'];
 					$password = $_POST['txtPassword'];
 
@@ -32,33 +34,33 @@ include "connection.php";
 					$queryTeachers = "SELECT * FROM tblteachers WHERE email='$email' AND password='$password'";
 					$resultTeachers = mysqli_query($connection, $queryTeachers);
 
+					// Check credentials in tbladmin
 					$queryAdmin = "SELECT * FROM tbladmin WHERE email='$email' AND password='$password'";
 					$resultAdmin = mysqli_query($connection, $queryAdmin);
 
 					if (mysqli_num_rows($resultStudents) == 1) {
 						// Login as a student
-						echo 'Record Found';
+						$_SESSION['role'] = 'student'; // Set the user role in the session
 						header("Location: student-studentDashboard.php");
 						exit();
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
 						// Login as a teacher
-						echo 'Record Found';
+						$_SESSION['role'] = 'teacher'; // Set the user role in the session
 						header("Location: teacher-teacherDashboard.php");
 						exit();
 					} elseif (mysqli_num_rows($resultAdmin) == 1) {
-						// Login as a admin
-						echo 'Record Found';
+						// Login as an admin
+						$_SESSION['role'] = 'admin'; // Set the user role in the session
 						header("Location: admin-adminDashboard.php");
 						exit();
-					}
-					else {
+					} else {
 						// Record not found in either table
 						echo 'Record Not Found';
 					}
 
 					mysqli_close($connection);
 				}
-				?>
+			?>
 				<div class="input-box">
 					<input
 						type="email"

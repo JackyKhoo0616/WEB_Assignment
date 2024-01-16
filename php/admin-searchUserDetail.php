@@ -1,5 +1,8 @@
 <?php
 include 'connection.php';
+include "session-check.php";
+
+checkPageAccess(['admin']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
