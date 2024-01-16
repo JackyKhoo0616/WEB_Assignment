@@ -81,30 +81,46 @@ checkPageAccess(['teacher']);
 		</div>
 		<div class="search">
 			<h1>Enroll Student</h1>
-			<div class="search-container">
-				<i class="bx bx-user-plus"></i>
-				<input type="text" placeholder="Enter Student ID" />
-			</div>
-			<div class="search-container">
-				<i class="bx bx-search"></i>
-				<input type="text" placeholder="Enter Class Code" />
-			</div>
-			<div class="button-container">
-				<a href="#">
+			<form action="">
+				<div class="search-container">
+					<i class="bx bx-user-plus"></i>
+					<input
+						type="text"
+						placeholder="Enter Student ID"
+						required
+					/>
+				</div>
+				<div class="search-container">
+					<i class="bx bx-search"></i>
+					<input
+						type="text"
+						placeholder="Enter Class Code"
+						required
+					/>
+				</div>
+				<div class="button-container">
 					<button type="submit">Add Student</button>
-				</a>
-			</div>
+				</div>
+			</form>
 		</div>
 
 		<!-- content -->
 		<div class="wrapper">
 			<h2>Teacher Function</h2>
 			<div class="function">
-				<a href="../php/teacher-createQuiz.php">
+				<a href="../html/teacher-createQuiz.html" target="_blank">
 					<button>Create Quiz</button>
 				</a>
-				<a href="../php/teacher-createLearning.php">
+				<a href="../html/teacher-createLearning.html" target="_blank">
 					<button>Create Learning Material</button>
+				</a>
+			</div>
+			<div class="function-additional">
+				<a href="../html/teacher-createClassroom.html">
+					<button>Create Classroom</button>
+				</a>
+				<a href="../html/teacher-createClassroom.html">
+					<button>View All Classroom</button>
 				</a>
 			</div>
 		</div>
@@ -143,9 +159,9 @@ checkPageAccess(['teacher']);
 						<td>No Attempted</td>
 					</tr>
 				</table>
-			</div>
+				</div>
 			<div class="view-more">
-				<a href="#">
+				<a href="../html/teacher-progressTracker.html">
 					<button>
 						View More<i class="bx bx-right-arrow-alt"></i>
 					</button>
@@ -168,7 +184,7 @@ checkPageAccess(['teacher']);
 			</div>
 			<div class="right">
 				<div class="footer-logo">
-					<a href="../html/index.html">
+					<a href="../html/user-index.html" target="_blank">
 						<img src="../picture/logo.png" />
 					</a>
 				</div>
