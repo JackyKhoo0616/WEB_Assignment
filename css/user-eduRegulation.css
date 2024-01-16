@@ -1,0 +1,57 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+body {
+	background-image: url(../picture/deco1.png);
+	background-size: cover;
+	background-position: center;
+}
+.content {
+	width: 60%;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%);
+	display: flexbox;
+	justify-content: center;
+	align-items: center;
+	margin-top: 300px;
+	margin-bottom: 120px;
+}
+
+.content h1 {
+	font-size: 50px;
+	font-weight: bold;
+	font-family: "Lemon", serif;
+	text-align: center;
+	margin-bottom: 100px;
+	color: #c8633d;
+}
+
+.content p {
+	font-size: 18px;
+	margin: 15px auto;
+	line-height: 25px;
+	text-align: justify;
+}
+
+.notes {
+	width: 95%;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+}
+
+.notes p {
+	padding-bottom: 10px;
+	text-align: justify;
+}
+
+.text {
+	padding-bottom: 40px;
+	padding-top: 40px;
+}
