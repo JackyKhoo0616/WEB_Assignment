@@ -1,5 +1,7 @@
 <?php
 include "connection.php";
+include "session-check.php";
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the classname from the form
@@ -12,20 +14,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Insert data into tblclass
         $sql_insert_class = "INSERT INTO tblclass (teacherid, classname) VALUES ('$teacherid', '$classname')";
 
-        if (mysqli_query($your_db_connection, $sql_insert_class)) {
-            $classid = mysqli_insert_id($your_db_connection); // Get the last inserted ID
+        if (mysqli_query($connection, $sql_insert_class)) {
+            $classid = mysqli_insert_id($connection); // Get the last inserted ID
 
             // Echo success message
-            echo "Your class has been created and Your Class Code is " . $classid;
+            echo "Your class has been created, and Your Class Code is " . $classid;
         } else {
             // Echo an error message if the query fails
-            echo "Error: " . mysqli_error($your_db_connection);
+            echo "Error: " . mysqli_error($connection);
         }
     } else {
         echo "Error: Teacher ID not found in session.";
     }
 }
+
+mysqli_close($connection);
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">

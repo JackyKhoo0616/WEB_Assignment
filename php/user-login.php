@@ -60,7 +60,8 @@ include "connection.php";
 
 					mysqli_close($connection);
 				}
-			?>
+				?>
+
 				<div class="input-box">
 					<input
 						type="email"
