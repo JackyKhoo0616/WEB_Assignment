@@ -64,7 +64,7 @@ checkPageAccess(['student']);
 							<ul>
 								<li><a href="#">Profile</a></li>
 								<li>
-									<a href="../html/user-index.html"
+									<a href="logout.php"
 										>Log Out</a
 									>
 								</li>
