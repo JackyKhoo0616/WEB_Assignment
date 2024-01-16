@@ -97,7 +97,6 @@ body {
 	font-weight: bold;
 	margin-top: 50px;
 	margin-bottom: 50px;
-	margin-left: 200px;
 }
 
 .button-container button:hover {
@@ -144,27 +143,66 @@ body {
 .details {
 	background-color: #31304d;
 	padding-top: 50px;
+	color: #fff;
+	margin-left: 320px;
+}
+
+.details h2 {
+	font-size: 30px;
+	margin-bottom: 20px;
 }
 
 .details-container {
 	background-color: #31304d;
-	padding-top: 50px;
+	display: flex;
+	flex-direction: row;
 }
 
 .details-left {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	background-color: #31304d;
-	padding-top: 50px;
+	padding-top: 20px;
+	text-align: left;
+	color: #c8633d;
 }
 
 .details-right {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	background-color: #31304d;
-	padding-top: 50px;
+	padding-top: 20px;
+	padding-left: 50px;
+	text-align: left;
+}
+
+.details-right h3,
+.details-left h3 {
+	padding-bottom: 5px;
+}
+
+.tablelist .student-id {
+	width: 10%;
+}
+
+.tablelist .student-name {
+	width: 25%;
+}
+
+.tablelist .email {
+	width: 30%;
+}
+
+.tablelist .dob {
+	width: 20%;
+}
+
+.tablelist .country {
+	width: 15%;
+}
+
+.tablelist .genedr {
+	width: 20%;
 }
