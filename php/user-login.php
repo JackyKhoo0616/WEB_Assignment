@@ -39,14 +39,17 @@ include "connection.php";
 						// Login as a student
 						echo 'Record Found';
 						header("Location: student-studentDashboard.php");
+						exit();
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
 						// Login as a teacher
 						echo 'Record Found';
 						header("Location: teacher-teacherDashboard.php");
+						exit();
 					} elseif (mysqli_num_rows($resultAdmin) == 1) {
 						// Login as a admin
 						echo 'Record Found';
 						header("Location: admin-adminDashboard.php");
+						exit();
 					}
 					else {
 						// Record not found in either table

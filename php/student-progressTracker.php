@@ -1,0 +1,163 @@
+<?php
+include "connection.php";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Progress Tracker</title>
+
+		<link rel="stylesheet" href="../css/nav.css" />
+		<link rel="stylesheet" href="../css/footer.css" />
+		<link rel="stylesheet" href="../css/student-progressTracker.css" />
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<!-- navigational bar -->
+		<div class="banner">
+			<div class="navbar">
+				<a href="../html/student-studentDashboard.html">
+					<img src="../picture/logo.png" class="logo" />
+				</a>
+				<ul>
+					<li><a href="../html/student-viewQuiz.html">Quiz</a></li>
+					<li>
+						<a href="../html/student-viewLearning.html"
+							>Learning Material</a
+						>
+					</li>
+					<li>
+						<a href="../html/student-progressTracker.html"
+							>Progress Tracker</a
+						>
+					</li>
+					<li class="no-a">
+						Other Pages<i class="bx bxs-chevron-down"></i>
+
+						<div class="sub-menu">
+							<ul>
+								<li>
+									<a href="../html/student-aboutUs.html"
+										>About Us</a
+									>
+								</li>
+								<li><a href="#">Educational Regulation</a></li>
+								<li><a href="#">Data Privacy Law</a></li>
+							</ul>
+						</div>
+					</li>
+					<li class="no-a">
+						Wilson<i class="bx bxs-chevron-down"></i>
+
+						<div class="sub-menu">
+							<ul>
+								<li><a href="#">Profile</a></li>
+								<li>
+									<a href="../html/user-index.html"
+										>Log Out</a
+									>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- content -->
+		<div class="wrapper">
+			<div class="header">
+				<h1>Progress Tracker</h1>
+			</div>
+			<div class="filter-section">
+				<h2>Filter by:</h2>
+				<div class="filter">
+					<h3>Class Code:</h3>
+					<select name="code" id="code">
+						<option value="all">All</option>
+						<option value="math">Math</option>
+					</select>
+					<h3>Quiz Name:</h3>
+					<select name="quiz" id="quiz">
+						<option value="all">All</option>
+						<option value="a">A</option>
+						<option value="b">B</option>
+						<option value="c">C</option>
+						<option value="d">D</option>
+						<option value="e">E</option>
+						<option value="f">F</option>
+						<option value="g">G</option>
+						<option value="h">H</option>
+						<option value="i">I</option>
+						<option value="j">J</option>
+						<option value="k">K</option>
+						<option value="l">L</option>
+						<option value="m">M</option>
+						<option value="n">N</option>
+						<option value="o">O</option>
+						<option value="p">P</option>
+						<option value="q">Q</option>
+						<option value="r">R</option>
+						<option value="s">S</option>
+						<option value="t">T</option>
+						<option value="u">U</option>
+						<option value="v">V</option>
+						<option value="w">W</option>
+						<option value="x">X</option>
+						<option value="y">Y</option>
+						<option value="z">Z</option>
+					</select>
+				</div>
+			</div>
+			<div class="tracker">
+				<table>
+					<tr>
+						<th>Class Code</th>
+						<th>Class Name</th>
+						<th>Quiz Name</th>
+						<th>Status</th>
+					</tr>
+					<tr>
+						<td>123456</td>
+						<td>Mathematics</td>
+						<td>Quiz 1</td>
+						<td>Not Attempted</td>
+					</tr>
+					<tr>
+						<td>123456</td>
+						<td>Mathematics</td>
+						<td>Quiz 1</td>
+						<td>Not Attempted</td>
+					</tr>
+					<tr>
+						<td>123456</td>
+						<td>Mathematics</td>
+						<td>Quiz 1</td>
+						<td>Not Attempted</td>
+					</tr>
+					<tr>
+						<td>123456</td>
+						<td>Mathematics</td>
+						<td>Quiz 1</td>
+						<td>Not Attempted</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		<!-- copyright part -->
+		<div class="copyright">
+			<p>© 2024 BreezeQuiz. All rights reserved.</p>
+		</div>
+	</body>
+</html>
