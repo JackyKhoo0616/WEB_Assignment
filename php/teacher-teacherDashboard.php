@@ -97,10 +97,10 @@ include "connection.php";
 		<div class="wrapper">
 			<h2>Teacher Function</h2>
 			<div class="function">
-				<a href="#">
+				<a href="../php/teacher-createQuiz.php">
 					<button>Create Quiz</button>
 				</a>
-				<a href="#">
+				<a href="../php/teacher-createLearning.php">
 					<button>Create Learning Material</button>
 				</a>
 			</div>

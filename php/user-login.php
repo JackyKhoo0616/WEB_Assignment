@@ -78,7 +78,7 @@ include "connection.php";
 				<div class="forgot">
 					<a href="#">Forgot Password?</a>
 				</div>
-				<input type="submit" class="submit" value="Login" />
+				<input type="submit" name="btnlogin" class="submit" value="Login" />
 				<div class="register-link">
 					<p>Don't have an account? <a href="../php/user-register.php">Sign Up</a></p>
 				</div>

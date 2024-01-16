@@ -62,4 +62,3 @@ if (isset($_POST['btnCreateLM'])) {
     echo "Learning material created successfully!";
 }
 ?>
-
