@@ -1,5 +1,8 @@
 <?php
 include "connection.php";
+include 'session-check.php';
+
+checkPageAccess(['teacher']);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +65,7 @@ include "connection.php";
 						<div class="sub-menu">
 							<ul>
 								<li><a href="#">Profile</a></li>
-								<li><a href="#">Log Out</a></li>
+								<li><a href="../php/logout.php">Log Out</a></li>
 							</ul>
 						</div>
 					</li>
@@ -97,10 +100,10 @@ include "connection.php";
 		<div class="wrapper">
 			<h2>Teacher Function</h2>
 			<div class="function">
-				<a href="#">
+				<a href="../php/teacher-createQuiz.php">
 					<button>Create Quiz</button>
 				</a>
-				<a href="#">
+				<a href="../php/teacher-createLearning.php">
 					<button>Create Learning Material</button>
 				</a>
 			</div>

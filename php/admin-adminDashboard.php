@@ -1,3 +1,10 @@
+<?php
+include "connection.php";
+include "session-check.php";
+
+checkPageAccess(['admin']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,39 +20,53 @@
 <body>
     <header>
         <!-- navigational bar -->
-        <div class="banner">
-            <div class="navbar">
-                <a href="#">
-                    <img src="../picture/logo.png" class="logo" />
-                </a>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li>
-                        <a href="#">Service</a>
-                        <div class="sub-menu">
-                            <ul>
-                                <li><a href="#">Quiz</a></li>
-                                <li><a href="#">Learning Material</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li><a href="#">About Us</a></li>
-                    <li>
-                        <a href="#">Other Pages</a>
-                        <div class="sub-menu">
-                            <ul>
-                                <li><a href="#">Sign Up</a></li>
-                                <li>
-                                    <a href="#">Educational Regulation</a>
-                                </li>
-                                <li><a href="#">Data Privacy Law</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <button class="login"><a href="#">Login</a></button>
-                </ul>
-            </div>
-        </div>
+		<div class="banner">
+			<div class="navbar">
+				<a href="#">
+					<img src="../picture/logo.png" class="logo" />
+				</a>
+				<ul>
+					<li><a href="../html/viewQuiz.html">Quiz</a></li>
+					<li>
+						<a href="../html/viewLearning.html"
+							>Learning Material</a
+						>
+					</li>
+					<li>
+						<a href="../html/progressTracker.html"
+							>Progress Tracker</a
+						>
+					</li>
+					<li>
+						<a href="#"
+							>Other Pages<i class="bx bxs-chevron-down"></i
+						></a>
+
+						<div class="sub-menu">
+							<ul>
+								<li>
+									<a href="../html/aboutUs.html">About Us</a>
+								</li>
+								<li><a href="#">Educational Regulation</a></li>
+								<li><a href="#">Data Privacy Law</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="#"
+							>Wilson<i class="bx bxs-chevron-down"></i
+						></a>
+
+						<div class="sub-menu">
+							<ul>
+								<li><a href="#">Profile</a></li>
+								<li><a href="../php/logout.php">Log Out</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 
         <!-- headline & welcome msg -->
         <div class="content">

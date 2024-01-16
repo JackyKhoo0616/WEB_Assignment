@@ -30,7 +30,7 @@ if (isset($_POST['btnRegister'])) {
 		if (mysqli_query($connection, $query)) {
 			echo "Registration Successful";
 		} else {
-			echo "Registration Failed";
+			echo "Registration Failed" . mysqli_error($connection);
 		}
 	}
 

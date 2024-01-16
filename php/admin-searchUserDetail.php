@@ -1,5 +1,8 @@
 <?php
 include 'connection.php';
+include "session-check.php";
+
+checkPageAccess(['admin']);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
@@ -68,7 +71,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -145,12 +147,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								</div>
 	
 								<div class="input-box">
-									<input
-										type="text"
-										name="userroles"
-										placeholder="User's Roles"
-										required
-									/>
+									<select name="userroles" class="input-field" required>
+										<option value="" disabled selected hidden>User's Role</option>
+										<option value="student">Student</option>
+										<option value="teacher">Teacher</option>
+									</select>
 								</div>
 							</div>
 	
