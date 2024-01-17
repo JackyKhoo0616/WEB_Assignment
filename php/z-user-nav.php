@@ -32,7 +32,7 @@
                 </div>
             </li>
             <button class="login">
-                <a href="../php/user-login.php" target="_blank">
+                <a href="../php/user-login.php">
                     Login
                 </a>
             </button>

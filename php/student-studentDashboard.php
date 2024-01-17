@@ -1,6 +1,6 @@
 <?php
 include "connection.php";
-include "session-check.php";
+include_once "session-check.php";
 
 checkPageAccess(['student']);
 ?>
@@ -30,17 +30,62 @@ checkPageAccess(['student']);
         </div>
     </div>
     <div class="search">
-        <form action="">
+        <form action="#" method="post">
             <h1>Join A Class</h1>
             <div class="search-container">
                 <i class="bx bx-search"></i>
-                <input type="text" placeholder="Enter Class Code" required />
+                <input type="text" placeholder="Enter Class Code" name="classCode" required />
             </div>
             <div class="button-container">
-                <a href="#">
-                    <button type="submit">Join</button>
-                </a>
+                <input type="submit" value="Join" name="txtSubmit" />
             </div>
+
+            <?php
+            // Check if the form is submitted
+            if (isset($_POST['txtSubmit'])) {
+                // Get the class ID from the form
+                $classid = $_POST['classCode'];
+
+                // Check if the class exists
+                $stmt = mysqli_prepare($connection, "SELECT classid FROM tblclass WHERE classid = ?");
+                mysqli_stmt_bind_param($stmt, "i", $classid);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_bind_result($stmt, $classid);
+                mysqli_stmt_store_result($stmt);
+
+                if (mysqli_stmt_num_rows($stmt) > 0) {
+                    mysqli_stmt_fetch($stmt);
+                    mysqli_stmt_close($stmt);
+
+                    // Class exists, now check if the student is already enrolled
+                    $studentid = $_SESSION['studentid']; // The student ID should be stored in the session
+
+                    $checkEnrollment = mysqli_prepare($connection, "SELECT * FROM tblenrollment WHERE studentid = ? AND classid = ?");
+                    mysqli_stmt_bind_param($checkEnrollment, "ii", $studentid, $classid);
+                    mysqli_stmt_execute($checkEnrollment);
+                    mysqli_stmt_store_result($checkEnrollment);
+
+                    if (mysqli_stmt_num_rows($checkEnrollment) == 0) {
+                        // Student is not enrolled, proceed with enrollment
+                        $insertStmt = mysqli_prepare($connection, "INSERT INTO tblenrollment (studentid, classid) VALUES (?, ?)");
+                        mysqli_stmt_bind_param($insertStmt, "ii", $studentid, $classid);
+                        mysqli_stmt_execute($insertStmt);
+                        if (mysqli_stmt_affected_rows($insertStmt) > 0) {
+                            echo '<script>alert("You have successfully joined the class!");</script>';
+                        } else {
+                            echo '<script>alert("Failed to join the class. Please try again.");</script>';
+                        }
+                        mysqli_stmt_close($insertStmt);
+                    } else {
+                        echo '<script>alert("You are already enrolled in this class.");</script>';
+                    }
+                    mysqli_stmt_close($checkEnrollment);
+                } else {
+                    echo '<script>alert("No such class exists.");</script>';
+                }
+                mysqli_close($connection);
+            }
+            ?>
         </form>
     </div>
 
@@ -52,6 +97,7 @@ checkPageAccess(['student']);
                 <div class="quiz">
                     <div class="quiz-info">
                         <h3>Quiz 1</h3>
+                        <h4>ITSE</h4>
                     </div>
                     <div class="view-button">
                         <a href="../html/student-quizDesc.html">
@@ -75,6 +121,7 @@ checkPageAccess(['student']);
                 <div class="learning-material">
                     <div class="learning-info">
                         <h3>Learning Material 1</h3>
+                        <h4>DGDR</h4>
                     </div>
                     <div class="view-button">
                         <a href="../html/student-learning.html" target="_blank">
