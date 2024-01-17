@@ -111,3 +111,14 @@ body {
 	height: auto;
 	top: 150px;
 }
+
+.copyright {
+	text-align: center;
+	padding: 15px;
+	color: #fff;
+	font-size: 15px;
+	background-color: #c8633d;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
