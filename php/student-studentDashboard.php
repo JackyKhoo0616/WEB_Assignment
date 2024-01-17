@@ -14,9 +14,9 @@ checkPageAccess(['student']);
     <title>Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/nav.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
+
     <link rel="stylesheet" href="../css/student-studentDashboard.css" />
+    <link rel="stylesheet" href="../javascript/scrollRemain.js" />
 </head>
 
 <body>
@@ -41,6 +41,7 @@ checkPageAccess(['student']);
             </div>
 
             <?php
+
             // Check if the form is submitted
             if (isset($_POST['txtSubmit'])) {
                 // Get the class ID from the form
@@ -70,12 +71,16 @@ checkPageAccess(['student']);
                         $insertStmt = mysqli_prepare($connection, "INSERT INTO tblenrollment (studentid, classid) VALUES (?, ?)");
                         mysqli_stmt_bind_param($insertStmt, "ii", $studentid, $classid);
                         mysqli_stmt_execute($insertStmt);
+
                         if (mysqli_stmt_affected_rows($insertStmt) > 0) {
                             echo '<script>alert("You have successfully joined the class!");</script>';
+
                         } else {
                             echo '<script>alert("Failed to join the class. Please try again.");</script>';
                         }
+                        
                         mysqli_stmt_close($insertStmt);
+                        
                     } else {
                         echo '<script>alert("You are already enrolled in this class.");</script>';
                     }
@@ -90,24 +95,72 @@ checkPageAccess(['student']);
     </div>
 
     <div class="content">
+
         <!-- quiz -->
         <div class="quiz-wrapper">
             <h2>Quiz</h2>
             <div class="quizzes">
-                <div class="quiz">
-                    <div class="quiz-info">
-                        <h3>Quiz 1</h3>
-                        <h4>ITSE</h4>
-                    </div>
-                    <div class="view-button">
-                        <a href="../html/student-quizDesc.html">
-                            <button type="submit">View</button>
-                        </a>
-                    </div>
-                </div>
+
+                <?php
+
+                // get the student ID from the session
+                $studentId = $_SESSION['studentid'];
+
+                // SQL query to retrieve up to 4 quizzes for classes the student is enrolled in
+                $query = "SELECT q.quizid, q.quizname, c.classname, q.creationdate
+                        FROM tblquiz q
+                        JOIN tblenrollment e ON q.classid = e.classid
+                        JOIN tblclass c ON q.classid = c.classid
+                        WHERE e.studentid = ?
+                        ORDER BY q.creationdate ASC
+                        LIMIT 4";
+
+                $quizzesFound = false; // Flag to track if any quizzes have been found
+
+                if ($stmt = mysqli_prepare($connection, $query)) {
+                    mysqli_stmt_bind_param($stmt, "i", $studentId);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_bind_result($stmt, $quizId, $quizName, $className, $creationDate);
+
+                    while (mysqli_stmt_fetch($stmt)) {
+                        $quizzesFound = true; // Set the flag to true as we found a quiz
+
+                        // Output the HTML structure for each quiz
+                        echo '<div class="quiz">
+                                <div class="quiz-info">
+                                    <h3>' . htmlspecialchars($quizName) . '</h3>
+                                    <h4>' . htmlspecialchars($className) . '</h4>
+                                </div>
+                                <div class="view-button">
+                                    <a href="../html/student-quizDesc.html?quizid=' . urlencode($quizId) . '">
+                                        <button type="submit">View</button>
+                                    </a>
+                                </div>
+                            </div>';
+                    }
+
+                    mysqli_stmt_close($stmt);
+
+                    if (!$quizzesFound) {
+                        // No quizzes were found
+                        echo '<div class="quiz">
+                                <div class="quiz-info">
+                                    <h3>No quizzes available at the moment.</h3>
+                                </div>
+                            </div>';
+                    }
+                } else {
+                    echo "SQL Error: " . mysqli_error($connection);
+                }
+
+                mysqli_close($connection);
+                
+                ?>
+
             </div>
+
             <div class="view-more">
-                <a href="../html/student-viewQuiz.html">
+                <a href="../php/student-viewQuiz.php">
                     <p>View More</p>
                     <i class="bx bx-right-arrow-alt"></i>
                 </a>
