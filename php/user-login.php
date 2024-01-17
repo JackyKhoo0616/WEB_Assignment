@@ -40,7 +40,14 @@ include "connection.php";
 					if (mysqli_num_rows($resultStudents) == 1) {
 						// Login as a student
 						$studentData = mysqli_fetch_assoc($resultStudents);
+						$_SESSION['studentid'] = $studentData['studentid'];
 						$_SESSION['fname'] = $studentData['fname'];
+						$_SESSION['lname'] = $studentData['lname'];
+						$_SESSION['email'] = $studentData['email'];
+						$_SESSION['dob'] = $studentData['dob'];
+						$_SESSION['country'] = $studentData['country'];
+						$_SESSION['gender'] = $studentData['gender'];
+						$_SESSION['password'] = $studentData['password'];
 						$_SESSION['role'] = 'student';
 						header("Location: student-studentDashboard.php");
 						exit();
