@@ -12,30 +12,42 @@
 
 <body>
     <div class="navbar">
-        <a href="../php/user-index.php">
+        <a href="../php/student-studentDashboard.php">
             <img src="../picture/logo.png" class="logo" />
         </a>
         <ul>
-            <li><a href="../php/user-index.php">Home</a></li>
-            <li><a href="../php/user-aboutUs.php">About Us</a></li>
+            <li><a href="../html/student-viewQuiz.html">Quiz</a></li>
+            <li>
+                <a href="../html/student-viewLearning.html">Learning Material</a>
+            </li>
+            <li>
+                <a href="../html/student-progressTracker.html">Progress Tracker</a>
+            </li>
             <li class="no-a">
                 Other Pages<i class="bx bxs-chevron-down"></i>
 
                 <div class="sub-menu">
                     <ul>
                         <li>
-                            <a href="../php/user-register.php" target="_blank">Sign Up</a>
+                            <a href="../html/student-aboutUs.html">About Us</a>
                         </li>
-                        <li><a href="../php/user-eduRegulation.php" target="_blank">Educational Regulation</a></li>
-                        <li><a href="../php/user-dataPrivacy.php" target="_blank">Data Privacy Law</a></li>
+                        <li><a href="#">Educational Regulation</a></li>
+                        <li><a href="#">Data Privacy Law</a></li>
                     </ul>
                 </div>
             </li>
-            <button class="login">
-                <a href="../php/user-login.php" target="_blank">
-                    Login
-                </a>
-            </button>
+            <li class="no-a">
+                Wilson<i class="bx bxs-chevron-down"></i>
+
+                <div class="sub-menu">
+                    <ul>
+                        <li><a href="#">Profile</a></li>
+                        <li>
+                            <a href="../html/user-index.html">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 </body>

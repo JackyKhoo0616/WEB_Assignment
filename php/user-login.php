@@ -39,24 +39,32 @@ include "connection.php";
 
 					if (mysqli_num_rows($resultStudents) == 1) {
 						// Login as a student
-						$_SESSION['role'] = 'student'; // Set the user role in the session
+						$studentData = mysqli_fetch_assoc($resultStudents);
+						$_SESSION['fname'] = $studentData['fname'];
+						$_SESSION['role'] = 'student';
 						header("Location: student-studentDashboard.php");
 						exit();
+
+
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
 						// Login as a teacher
 						$teacherData = mysqli_fetch_assoc($resultTeachers);
-						$_SESSION['role'] = 'teacher'; // Set the user role in the session
+						$_SESSION['role'] = 'teacher';
 						$_SESSION['teacherid'] = $teacherData['teacherid'];
 						header("Location: teacher-teacherDashboard.php");
 						exit();
+
+						
 					} elseif (mysqli_num_rows($resultAdmin) == 1) {
 						// Login as an admin
-						$_SESSION['role'] = 'admin'; // Set the user role in the session
+						$_SESSION['role'] = 'admin';
 						header("Location: admin-adminDashboard.php");
 						exit();
+
+						
 					} else {
 						// Record not found in either table
-						echo 'Record Not Found';
+						echo '<script>alert("Record Not Found")</script>';
 					}
 
 					mysqli_close($connection);
