@@ -9,30 +9,34 @@
 	width: 100%;
 	height: 100vh;
 	background-image: linear-gradient(rgba(251, 248, 248, 0.05), rgba(255, 255, 255, 0.05)),
-		url(../picture/Dashboard_blue.png);
+		url(../picture/AdminDashboard_2-Adjust.jpg);
 	background-size: cover;
+	background-repeat: no-repeat;
 	background-position: center;
 }
 
 .content {
 	width: 100%;
 	position: absolute;
-	top: 50%;
+	top: 60%;
 	transform: translateY(-50%);
 	color: #000;
+	display: flex;
+	flex-direction: column;
+    justify-content: space-between;
 }
 
-.content h1 {
-	color: black;
-	font-size: 40px;
-	margin-top: -250px;
+.heading {
+	color: whitesmoke;
+	font-size: 30px;
+	margin-top: 20px;
 	text-align: center;
 }
 
 .welcome {
-	color: black;
+	color: whitesmoke;
 	font-size: 20px;
-	margin-left: 50px;
+	margin-left: 100px;
 	margin-bottom: 50px;
 }
 
@@ -44,7 +48,8 @@
     flex-wrap: wrap; 
 
 	margin-left: 100px;
-	padding: 50px;
+	margin-top: 150px;
+	padding: 50px 10px;
 	justify-content: center;
 	align-items: center;
 	border-radius: 15px; /* Add rounded corners */
@@ -61,11 +66,7 @@
 
 	margin-right: 10px; /* Adjust as needed */
     margin-bottom: 20px; /* Adjust as needed */
-	background-color: #68b6d09f;
-
-
-	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
-	
+	background-color: #54B7D1;	
 }
 
 .data1 {
@@ -76,12 +77,18 @@
 	margin-right: 30px;
 }
 
+.content .image img{
+	width: 400px;
+	margin-bottom: 100px;
+	margin-left: 1000px;
+}
+
 
 .function-wrapper{
 	width: 100%;
 	height: 100vh;
 	background-image: linear-gradient(rgb(0, 0, 0, 0.05), rgb(0, 0, 0, 0.05)),
-		url(../picture/Dashboard_blue.png);
+		url(../picture/AdminDashboard_2-Adjust.jpg);
 	background-size: cover;
 	background-position: center;
 	display: flex;
@@ -90,6 +97,11 @@
 .image{
 	width: 50%;
 	height: 50%;
+}
+
+.image img {
+    width: 100%;
+    height: auto;
 }
 
 .container {
@@ -102,11 +114,51 @@
 	margin-left: 300px;
 }
 
+.function-wrapper {
+	display: flex; /* Make this a flex container */
+	flex-direction: row ;
+	justify-content: flex-start;
+	
+  
+}
+
+.container{
+	display: flex; /* Make this a flex container */
+    justify-content: center; /* Center items horizontally */
+    flex-direction: column; /* Stack items vertically */
+	align-items: flex-end;
+	margin-right: 400px;
+	margin-top: 150px;
+	background: #454b4c3e;
+	width: 800px;
+	padding: 60px;
+	border-radius: 15px;	
+}
+
+.function{
+	padding: 15px 30px;
+	font-size: 20px;
+	font-weight: bold;
+	border-radius: 20px;
+	background-color: rgb(84, 209, 195);
+	border: none;
+	cursor: pointer;
+	width: 350px;	
+	border: 2px solid whitesmoke;
+	margin-bottom: 20px;
+}
+
+.function-wrapper .image img{
+	width: 300px;
+	margin-top: 200px;
+	margin-left: 200px;
+}
+
 .OtherPages{
 	width: 100%;
 	height: 100vh;
 	background-image: linear-gradient(rgb(0, 0, 0, 0.05), rgb(0, 0, 0, 0.05)),
-		url(../picture/Dashboard_blue.png);
+		url(../picture/AdminDashboard_2-Adjust.jpg);
 	background-size: cover;
 	background-position: center;
 	display: flex;
@@ -117,16 +169,18 @@
 	
 }
 
-
-
-.EducationalRegulation .DataPrivacyLaw{
+.EducationalRegulation,.DataPrivacyLaw button{
 	border: 2px;
 	border-color: #000;
-	background-color: #fff;
-
+	border-radius: 15px;
+	background-color: #454b4cb1;	
 	height: 450px;
 	border-radius: 15px;
+	height: 300px;
+	width: 200px;
+	cursor: pointer;
 }
+
 
 .EducationalRegulation h3, .DataPrivacyLaw h3 {
 	text-align: center;
@@ -147,21 +201,6 @@
 	height: auto;
 
 }
-
-
-
-.function{
-	padding: 10px 30px;
-	font-size: 20px;
-	font-weight: bold;
-	border-radius: 20px;
-	background-color: #2584d7;
-	border: none;
-	cursor: pointer;
-	width: 350px;	
-}
-
-
 
 
 .login {
