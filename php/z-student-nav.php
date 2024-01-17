@@ -30,7 +30,7 @@
                 </div>
             </li>
 
-            <li class="no-a">Wilson<i class="bx bxs-chevron-down"></i>
+            <li class="no-a"><?php echo htmlspecialchars($_SESSION['fname']) ?><i class="bx bxs-chevron-down"></i>
                 <div class="sub-menu">
                     <ul>
                         <li><a href="../php/student-viewProfile.php">Profile</a></li>
