@@ -1,3 +1,10 @@
+<?php
+include "connection.php";
+include "session-check.php";
+
+checkPageAccess(['admin']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
