@@ -30,7 +30,13 @@
                 </div>
             </li>
 
-            <li class="no-a"><?php echo htmlspecialchars($_SESSION['fname']) ?><i class="bx bxs-chevron-down"></i>
+            <li class="no-a"><?php 
+            if (isset($_SESSION['fname']) && !empty($_SESSION['fname'])) {
+                echo htmlspecialchars($_SESSION['fname']);
+            } else {
+                echo "Student";
+            }
+            ?><i class="bx bxs-chevron-down"></i>
                 <div class="sub-menu">
                     <ul>
                         <li><a href="../php/student-viewProfile.php">Profile</a></li>
