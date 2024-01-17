@@ -3,7 +3,7 @@ include "connection.php";
 include "session-check.php";
 
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-submit'])) {
     // Get the classname from the form
     $classname = $_POST["quizName"];
 
@@ -30,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 mysqli_close($connection);
 ?>
+
+
 
 
 
@@ -73,7 +75,7 @@ mysqli_close($connection);
 							required
 						/>
 						<div class="btn">
-							<button type="submit" class="btn-submit">
+							<button type="submit" class="btn-submit" name="btn-submit">
 								Create
 							</button>
 						</div>

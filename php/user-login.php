@@ -44,7 +44,9 @@ include "connection.php";
 						exit();
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
 						// Login as a teacher
+						$teacherData = mysqli_fetch_assoc($resultTeachers);
 						$_SESSION['role'] = 'teacher'; // Set the user role in the session
+						$_SESSION['teacherid'] = $teacherData['teacherid'];
 						header("Location: teacher-teacherDashboard.php");
 						exit();
 					} elseif (mysqli_num_rows($resultAdmin) == 1) {
