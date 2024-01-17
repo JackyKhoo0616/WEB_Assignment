@@ -86,6 +86,16 @@
 	text-align: center;
 }
 
+.learning-info h4 {
+	font-size: 20px;
+	color: #c8633d;
+	width: 230px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	padding-top: 20px;
+}
+
 .view-button {
 	background-color: transparent;
 }

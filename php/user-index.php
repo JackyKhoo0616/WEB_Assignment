@@ -34,10 +34,10 @@
             <br /><br />Start your success journey today!
         </h1>
         <div class="button-wrap">
-            <a href="../php/user-register.php" target="_blank">
+            <a href="../php/user-register.php">
                 <button class="intro-btn">Sign Up</button>
             </a>
-            <a href="../php/user-login.php" target="_blank">
+            <a href="../php/user-login.php">
                 <span class="button-wrap2">
                     <button class="intro-btn">Log In</button>
                 </span>
