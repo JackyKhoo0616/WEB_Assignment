@@ -56,7 +56,7 @@ include "connection.php";
 						exit();
 					} else {
 						// Record not found in either table
-						echo 'Record Not Found';
+						echo '<script>alert("Record Not Found")</script>';
 					}
 
 					mysqli_close($connection);
