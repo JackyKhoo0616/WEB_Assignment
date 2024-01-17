@@ -1,3 +1,10 @@
+<?php
+include "connection.php";
+include "session-check.php";
+
+checkPageAccess(['student']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -14,45 +21,53 @@
 		/>
 		<link rel="stylesheet" href="../css/nav.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
-		<link rel="stylesheet" href="../css/studentDashboard.css" />
+		<link rel="stylesheet" href="../css/student-studentDashboard.css" />
 	</head>
 	<body>
 		<!-- navigational bar -->
 		<div class="banner">
 			<div class="navbar">
-				<a href="#">
+				<a href="../html/student-studentDashboard.html">
 					<img src="../picture/logo.png" class="logo" />
 				</a>
 				<ul>
-					<li><a href="../html/quiz.html">Quiz</a></li>
+					<li><a href="../html/student-viewQuiz.html">Quiz</a></li>
 					<li>
-						<a href="../html/learning.html">Learning Material</a>
+						<a href="../html/student-viewLearning.html"
+							>Learning Material</a
+						>
 					</li>
-					<li><a href="#">Progress Tracker</a></li>
 					<li>
-						<a href="#"
-							>Other Pages<i class="bx bxs-chevron-down"></i
-						></a>
+						<a href="../html/student-progressTracker.html"
+							>Progress Tracker</a
+						>
+					</li>
+					<li class="no-a">
+						Other Pages<i class="bx bxs-chevron-down"></i>
 
 						<div class="sub-menu">
 							<ul>
 								<li>
-									<a href="../html/aboutUs.html">About Us</a>
+									<a href="../html/student-aboutUs.html"
+										>About Us</a
+									>
 								</li>
 								<li><a href="#">Educational Regulation</a></li>
 								<li><a href="#">Data Privacy Law</a></li>
 							</ul>
 						</div>
 					</li>
-					<li>
-						<a href="#"
-							>Wilson<i class="bx bxs-chevron-down"></i
-						></a>
+					<li class="no-a">
+						Wilson<i class="bx bxs-chevron-down"></i>
 
 						<div class="sub-menu">
 							<ul>
 								<li><a href="#">Profile</a></li>
-								<li><a href="#">Log Out</a></li>
+								<li>
+									<a href="logout.php"
+										>Log Out</a
+									>
+								</li>
 							</ul>
 						</div>
 					</li>
@@ -63,20 +78,26 @@
 		<!-- top part -->
 		<div class="header">
 			<div class="img-container">
-				<img src="../picture/header.png" />
+				<img src="../picture/header_student.png" />
 			</div>
 		</div>
 		<div class="search">
-			<h1>Join A Class</h1>
-			<div class="search-container">
-				<i class="bx bx-search"></i>
-				<input type="text" placeholder="Enter Class Code" />
-			</div>
-			<div class="button-container">
-				<a href="#">
-					<button type="submit">Join</button>
-				</a>
-			</div>
+			<form action="">
+				<h1>Join A Class</h1>
+				<div class="search-container">
+					<i class="bx bx-search"></i>
+					<input
+						type="text"
+						placeholder="Enter Class Code"
+						required
+					/>
+				</div>
+				<div class="button-container">
+					<a href="#">
+						<button type="submit">Join</button>
+					</a>
+				</div>
+			</form>
 		</div>
 
 		<div class="content">
@@ -89,44 +110,14 @@
 							<h3>Quiz 1</h3>
 						</div>
 						<div class="view-button">
-							<a href="#">
-								<button type="submit">View</button>
-							</a>
-						</div>
-					</div>
-					<div class="quiz">
-						<div class="quiz-info">
-							<h3>Quiz 2</h3>
-						</div>
-						<div class="view-button">
-							<a href="#">
-								<button type="submit">View</button>
-							</a>
-						</div>
-					</div>
-					<div class="quiz">
-						<div class="quiz-info">
-							<h3>Quiz 3</h3>
-						</div>
-						<div class="view-button">
-							<a href="#">
-								<button type="submit">View</button>
-							</a>
-						</div>
-					</div>
-					<div class="quiz">
-						<div class="quiz-info">
-							<h3>Quiz 4</h3>
-						</div>
-						<div class="view-button">
-							<a href="#">
+							<a href="../html/student-quizDesc.html">
 								<button type="submit">View</button>
 							</a>
 						</div>
 					</div>
 				</div>
 				<div class="view-more">
-					<a href="../html/quiz.html">
+					<a href="../html/student-viewQuiz.html">
 						<p>View More</p>
 						<i class="bx bx-right-arrow-alt"></i>
 					</a>
@@ -142,44 +133,17 @@
 							<h3>Learning Material 1</h3>
 						</div>
 						<div class="view-button">
-							<a href="#">
-								<button type="submit">View</button>
-							</a>
-						</div>
-					</div>
-					<div class="learning-material">
-						<div class="learning-info">
-							<h3>Learning Material 2</h3>
-						</div>
-						<div class="view-button">
-							<a href="#">
-								<button type="submit">View</button>
-							</a>
-						</div>
-					</div>
-					<div class="learning-material">
-						<div class="learning-info">
-							<h3>Learning Material 3</h3>
-						</div>
-						<div class="view-button">
-							<a href="#">
-								<button type="submit">View</button>
-							</a>
-						</div>
-					</div>
-					<div class="learning-material">
-						<div class="learning-info">
-							<h3>Learning Material 4</h3>
-						</div>
-						<div class="view-button">
-							<a href="#">
+							<a
+								href="../html/student-learning.html"
+								target="_blank"
+							>
 								<button type="submit">View</button>
 							</a>
 						</div>
 					</div>
 				</div>
 				<div class="view-more">
-					<a href="../html/learning.html">
+					<a href="../html/student-viewLearning.html">
 						<p>View More</p>
 						<i class="bx bx-right-arrow-alt"></i>
 					</a>
@@ -230,7 +194,7 @@
 					</table>
 				</div>
 				<div class="view-more">
-					<a href="#">
+					<a href="../html/student-progressTracker.html">
 						<p>View More</p>
 						<i class="bx bx-right-arrow-alt"></i>
 					</a>
@@ -243,32 +207,42 @@
 				<div class="all-gamification">
 					<div class="gamification">
 						<div class="gamification-info">
-							<img src="../picture/pen4.png" />
+							<img src="../picture/G1.png" />
 							<h3>Quiz Master</h3>
+							<p>Get the quiz all correct</p>
+							<h3>5</h3>
 						</div>
 					</div>
 					<div class="gamification">
 						<div class="gamification-info">
-							<img src="../picture/pen4.png" />
-							<h3>Quiz Master</h3>
+							<img src="../picture/G2.png" />
+							<h3>Quick learner</h3>
+							<p>Answer quiz 75% correctly but not 100%</p>
+							<h3>0</h3>
 						</div>
 					</div>
 					<div class="gamification">
 						<div class="gamification-info">
-							<img src="../picture/pen4.png" />
-							<h3>Quiz Master</h3>
+							<img src="../picture/G3.png" />
+							<h3>The lost lamb</h3>
+							<p>Answer quiz 25% correctly</p>
+							<h3>0</h3>
 						</div>
 					</div>
 					<div class="gamification">
 						<div class="gamification-info">
-							<img src="../picture/pen4.png" />
-							<h3>Quiz Master</h3>
+							<img src="../picture/G4.png" />
+							<h3>Goals!</h3>
+							<p>Answer 5 questions correctly in a row</p>
+							<h3>1</h3>
 						</div>
 					</div>
 					<div class="gamification">
 						<div class="gamification-info">
-							<img src="../picture/pen4.png" />
-							<h3>Quiz Master</h3>
+							<img src="../picture/G5.png" />
+							<h3>Hardworking</h3>
+							<p>Done every 10 quiz</p>
+							<h3>0</h3>
 						</div>
 					</div>
 				</div>
@@ -290,7 +264,7 @@
 			</div>
 			<div class="right">
 				<div class="footer-logo">
-					<a href="../html/index.html">
+					<a href="../html/user-index.html" target="_blank">
 						<img src="../picture/logo.png" />
 					</a>
 				</div>

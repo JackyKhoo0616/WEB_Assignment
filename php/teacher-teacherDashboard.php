@@ -1,5 +1,8 @@
 <?php
 include "connection.php";
+include 'session-check.php';
+
+checkPageAccess(['teacher']);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +65,7 @@ include "connection.php";
 						<div class="sub-menu">
 							<ul>
 								<li><a href="#">Profile</a></li>
-								<li><a href="#">Log Out</a></li>
+								<li><a href="../php/logout.php">Log Out</a></li>
 							</ul>
 						</div>
 					</li>
@@ -78,30 +81,46 @@ include "connection.php";
 		</div>
 		<div class="search">
 			<h1>Enroll Student</h1>
-			<div class="search-container">
-				<i class="bx bx-user-plus"></i>
-				<input type="text" placeholder="Enter Student ID" />
-			</div>
-			<div class="search-container">
-				<i class="bx bx-search"></i>
-				<input type="text" placeholder="Enter Class Code" />
-			</div>
-			<div class="button-container">
-				<a href="#">
+			<form action="">
+				<div class="search-container">
+					<i class="bx bx-user-plus"></i>
+					<input
+						type="text"
+						placeholder="Enter Student ID"
+						required
+					/>
+				</div>
+				<div class="search-container">
+					<i class="bx bx-search"></i>
+					<input
+						type="text"
+						placeholder="Enter Class Code"
+						required
+					/>
+				</div>
+				<div class="button-container">
 					<button type="submit">Add Student</button>
-				</a>
-			</div>
+				</div>
+			</form>
 		</div>
 
 		<!-- content -->
 		<div class="wrapper">
 			<h2>Teacher Function</h2>
 			<div class="function">
-				<a href="#">
+				<a href="../html/teacher-createQuiz.html" target="_blank">
 					<button>Create Quiz</button>
 				</a>
-				<a href="#">
+				<a href="../html/teacher-createLearning.html" target="_blank">
 					<button>Create Learning Material</button>
+				</a>
+			</div>
+			<div class="function-additional">
+				<a href="../html/teacher-createClassroom.html">
+					<button>Create Classroom</button>
+				</a>
+				<a href="../html/teacher-createClassroom.html">
+					<button>View All Classroom</button>
 				</a>
 			</div>
 		</div>
@@ -140,9 +159,9 @@ include "connection.php";
 						<td>No Attempted</td>
 					</tr>
 				</table>
-			</div>
+				</div>
 			<div class="view-more">
-				<a href="#">
+				<a href="../html/teacher-progressTracker.html">
 					<button>
 						View More<i class="bx bx-right-arrow-alt"></i>
 					</button>
@@ -165,7 +184,7 @@ include "connection.php";
 			</div>
 			<div class="right">
 				<div class="footer-logo">
-					<a href="../html/index.html">
+					<a href="../html/user-index.html" target="_blank">
 						<img src="../picture/logo.png" />
 					</a>
 				</div>
