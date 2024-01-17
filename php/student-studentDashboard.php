@@ -171,20 +171,76 @@ checkPageAccess(['student']);
         <div class="material-wrapper">
             <h2>Learning Material</h2>
             <div class="materials">
-                <div class="learning-material">
-                    <div class="learning-info">
-                        <h3>Learning Material 1</h3>
-                        <h4>DGDR</h4>
-                    </div>
-                    <div class="view-button">
-                        <a href="../html/student-learning.html" target="_blank">
-                            <button type="submit">View</button>
-                        </a>
-                    </div>
-                </div>
+
+                <?php
+                include "connection.php";
+
+                // get the student ID from the session
+                $studentId = $_SESSION['studentid'];
+
+                // SQL query to fetch learning materials for classes in which the student is enrolled
+                $query = "SELECT lm.lmid, lm.lmname, lm.creationdate, c.classname 
+                        FROM tbllm lm
+                        INNER JOIN tblclass c ON lm.classid = c.classid
+                        INNER JOIN tblenrollment e ON lm.classid = e.classid
+                        WHERE e.studentid = ?
+                        ORDER BY lm.creationdate ASC
+                        LIMIT 4";
+
+                // Prepare the statement
+                if ($stmt = mysqli_prepare($connection, $query)) {
+                    // Bind the student ID to the statement
+                    mysqli_stmt_bind_param($stmt, "i", $studentId);
+
+                    // Execute the query
+                    mysqli_stmt_execute($stmt);
+
+                    // Bind the result variables
+                    mysqli_stmt_bind_result($stmt, $lmid, $lmname, $creationdate, $classname);
+
+                    // Flag to check if learning materials are available
+                    $hasLearningMaterials = false;
+
+                    // Fetch values
+                    while (mysqli_stmt_fetch($stmt)) {
+                        
+                        $hasLearningMaterials = true;
+                        echo '<div class="learning-material">
+                                <div class="learning-info">
+                                    <h3>' . htmlspecialchars($lmname) . '</h3>
+                                    <h4>' . htmlspecialchars($classname) . '</h4>
+                                </div>
+                                <div class="view-button">
+                                    <a href="../html/student-learning.html?lmid=' . urlencode($lmid) . '" target="_blank">
+                                        <button type="button">View</button>
+                                    </a>
+                                </div>
+                            </div>';
+                    }
+
+                    // If no learning materials are available, display a message
+                    if (!$hasLearningMaterials) {
+                        echo '<div class="learning-material">
+                                <div class="learning-info">
+                                    <h3>No learning material available at the moment.</h3>
+                                </div>
+                            </div>';
+                    }
+
+                    // Close the statement
+                    mysqli_stmt_close($stmt);
+                
+                } else {
+                    echo "SQL Error: " . mysqli_error($connection);
+                }
+
+                // Close the database connection
+                mysqli_close($connection);
+                ?>
+
             </div>
             <div class="view-more">
-                <a href="../html/student-viewLearning.html">
+                <a href="../php/student-viewLearning.php">
                     <p>View More</p>
                     <i class="bx bx-right-arrow-alt"></i>
                 </a>
@@ -192,6 +248,42 @@ checkPageAccess(['student']);
         </div>
 
         <!-- Progress Tracker -->
+
+        <?php
+        include "connection.php";
+
+        $studentId = $_SESSION['studentid'];
+
+        $query = "SELECT p.studentid, p.quizid, p.status, p.marks, p.date, c.classname, q.quizname
+                FROM tblprogress p
+                JOIN tblquiz q ON p.quizid = q.quizid
+                JOIN tblclass c ON q.classid = c.classid
+                WHERE p.studentid = ?
+                ORDER BY p.date DESC LIMIT 5";
+
+        $progressRecords = [];
+
+        if ($stmt = mysqli_prepare($connection, $query)) {
+            mysqli_stmt_bind_param($stmt, "i", $studentId);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $studentid, $quizid, $status, $marks, $date, $classname, $quizname);
+
+            while (mysqli_stmt_fetch($stmt)) {
+                $progressRecords[] = [
+                    'classname' => $classname,
+                    'quizname' => $quizname,
+                    'status' => $status
+                ];
+            }
+            mysqli_stmt_close($stmt);
+            
+        } else {
+            echo "SQL Error: " . htmlspecialchars(mysqli_error($connection));
+        }
+
+        mysqli_close($connection);
+        ?>
+
         <div class="tracker-wrapper">
             <h2>Progress Tracker</h2>
             <div class="progress">
@@ -202,40 +294,30 @@ checkPageAccess(['student']);
                         <th class="quiz-title">Quiz</th>
                         <th class="status-title">Status</th>
                     </tr>
+
+                    <?php if (!empty($progressRecords)): ?>
+                    <?php foreach ($progressRecords as $index => $record): ?>
+
                     <tr>
-                        <td>1</td>
-                        <td>Physic</td>
-                        <td>Quiz 1</td>
-                        <td>Not completed</td>
+                        <td><?php echo ($index + 1); ?></td>
+                        <td><?php echo htmlspecialchars($record['classname']); ?></td>
+                        <td><?php echo htmlspecialchars($record['quizname']); ?></td>
+                        <td><?php echo htmlspecialchars($record['status']); ?></td>
                     </tr>
+
+                    <?php endforeach; ?>
+                    <?php else: ?>
+
                     <tr>
-                        <td>2</td>
-                        <td>Chemistry</td>
-                        <td>Quiz 2</td>
-                        <td>Not completed</td>
+                        <td colspan="4">No progress records found.</td>
                     </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>English</td>
-                        <td>Quiz 1</td>
-                        <td>Not completed</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Networking</td>
-                        <td>Quiz 4</td>
-                        <td>Not completed</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Math</td>
-                        <td>Quiz 2</td>
-                        <td>Not completed</td>
-                    </tr>
+
+                    <?php endif; ?>
+
                 </table>
             </div>
             <div class="view-more">
-                <a href="../html/student-progressTracker.html">
+                <a href="../php/student-progressTracker.php">
                     <p>View More</p>
                     <i class="bx bx-right-arrow-alt"></i>
                 </a>

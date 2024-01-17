@@ -68,12 +68,44 @@ body {
 	padding-left: 10px;
 }
 
+.filter input[type="text"] {
+	width: 500px;
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	margin: 20px;
+	padding-left: 10px;
+	font-size: 15px;
+}
+
 .filter {
 	display: flex;
 	flex-direction: row;
 	align-items: baseline;
 	color: #c8633d;
 	margin-left: 20px;
+}
+
+.filter input[type="submit"] {
+	width: 100px;
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	margin-left: 60px;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: #c8633d;
+	color: #fff;
+	cursor: pointer;
+	align-self: baseline;
+}
+
+.filter input[type="submit"]:hover {
+	background-color: #fff;
+	color: #c8633d;
+	transition: 0.3s;
 }
 
 .tracker {
