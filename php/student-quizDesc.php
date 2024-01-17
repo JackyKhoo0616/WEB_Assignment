@@ -1,3 +1,53 @@
+<?php
+session_start();
+include "connection.php";
+
+$studentId = $_SESSION['studentid']; // Assuming you store student ID in the session
+$quizId = $_GET['quizid'] ?? null; // The quiz ID should be passed as a parameter in the URL
+
+// Initialize variables to store quiz details
+$classId = '';
+$className = '';
+$quizStatus = 'No attempt';
+$creationDate = '';
+$marks = '-';
+
+if ($quizId !== null) {
+    // Prepare the SQL query to retrieve quiz details and progress
+    $query = "SELECT q.classid, c.classname, q.quizname, q.creationdate, p.status, p.marks
+                FROM tblquiz q
+                LEFT JOIN tblprogress p ON q.quizid = p.quizid AND p.studentid = ?
+                LEFT JOIN tblclass c ON q.classid = c.classid
+                WHERE q.quizid = ?";
+
+    if ($stmt = mysqli_prepare($connection, $query)) { // Bind parameters
+    mysqli_stmt_bind_param($stmt, "ii", $studentId, $quizId); // Execute the query
+    mysqli_stmt_execute($stmt); // Bind the result variables
+    mysqli_stmt_bind_result($stmt, $classId, $className, $quizName, $creationDate, $quizStatus, $marks);  // Fetch the results
+
+        if (mysqli_stmt_fetch($stmt)) {
+            // If the quiz has been attempted, format the date and marks
+            $creationDate = date('d F Y', strtotime($creationDate));
+            $marks = $quizStatus === 'Finish' ? $marks : '-';
+            
+        }else {
+            // Handle the case where no quiz record is found
+            echo '<script>alert("No quiz found."); window.location.href="../php/student-viewQuiz.php";</script>';
+        }
+
+        // Close statement
+        mysqli_stmt_close($stmt);
+    } else {
+        // Handle errors with the query
+        echo "SQL Error: " . htmlspecialchars(mysqli_error($connection));
+    }
+}
+
+// Close the database connection
+mysqli_close($connection);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,95 +56,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz</title>
 
-    <link rel="stylesheet" href="../css/nav.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
     <link rel="stylesheet" href="../css/student-quizDesc.css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet" />
 
     <script src="../javascript/backBtnLogic.js"></script>
+    <script>
+    < script >
+        // Get the quiz status from PHP
+        var quizStatus = "<?php echo $quizStatus; ?>";
+
+    // If the quiz is finished, disable the "Start Quiz" button
+    if (quizStatus === "Finish") {
+        document.getElementById("startQuizButton").disabled = true;
+    }
+    </script>
+
 </head>
 
 <body>
     <!-- navigational bar -->
-    <div class="banner">
-        <div class="navbar">
-            <a href="../html/student-studentDashboard.html">
-                <img src="../picture/logo.png" class="logo" />
-            </a>
-            <ul>
-                <li><a href="../html/student-viewQuiz.html">Quiz</a></li>
-                <li>
-                    <a href="../html/student-viewLearning.html">Learning Material</a>
-                </li>
-                <li>
-                    <a href="../html/student-progressTracker.html">Progress Tracker</a>
-                </li>
-                <li class="no-a">
-                    Other Pages<i class="bx bxs-chevron-down"></i>
-
-                    <div class="sub-menu">
-                        <ul>
-                            <li>
-                                <a href="../html/student-aboutUs.html">About Us</a>
-                            </li>
-                            <li><a href="#">Educational Regulation</a></li>
-                            <li><a href="#">Data Privacy Law</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="no-a">
-                    Wilson<i class="bx bxs-chevron-down"></i>
-
-                    <div class="sub-menu">
-                        <ul>
-                            <li><a href="#">Profile</a></li>
-                            <li>
-                                <a href="../html/user-index.html">Log Out</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <?php include '../php/z-student-nav.php'; ?>
 
     <div class="main">
         <h1>Quiz 1</h1>
         <div class="quiz-info">
             <table>
                 <tr>
+                    <th>Class Name</th>
+                    <td><?= htmlspecialchars($className) ?></td>
+                </tr>
+                <tr>
                     <th>Quiz Status</th>
-                    <td>No attempt</td>
+                    <td><?= htmlspecialchars($quizStatus) ?></td>
                 </tr>
                 <tr>
                     <th>Creation Date</th>
-                    <td>11 January 2024</td>
+                    <td><?= htmlspecialchars($creationDate) ?></td>
                 </tr>
                 <tr>
                     <th>Marks</th>
-                    <td>-</td>
+                    <td><?= htmlspecialchars($marks) ?></td>
                 </tr>
             </table>
         </div>
         <div class="quiz-button">
             <div class="back-button">
-                <a href="../html/student-viewQuiz.html">
+                <a href="../php/student-viewQuiz.php">
                     <button type="submit">Back</button>
                 </a>
             </div>
             <div class="start-button">
-                <a href="../html/student-answerQuiz.html">
+                <?php if ($quizStatus !== 'Finish'): ?>
+
+                <a href="../php/student-answerQuiz.php">
                     <button type="submit">Start Quiz</button>
                 </a>
+
+                <?php else: ?>
+
+                <!-- If the quiz is finished, disable the button -->
+
+                <button type="submit" disabled>Quiz Completed</button>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 
     <!-- copyright part -->
-    <div class="copyright">
-        <p>© 2024 BreezeQuiz. All rights reserved.</p>
-    </div>
+    <?php include '../php/z-user-copyright.php'; ?>
 </body>
 
 </html>
