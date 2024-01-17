@@ -34,7 +34,7 @@
                 <div class="sub-menu">
                     <ul>
                         <li><a href="#">Profile</a></li>
-                        <li><a href="../html/user-index.html">Log Out</a></li>
+                        <li><a href="../php/logout.php">Log Out</a></li>
                     </ul>
                 </div>
             </li>

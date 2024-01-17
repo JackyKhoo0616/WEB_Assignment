@@ -1,5 +1,50 @@
 <?php
+session_start();
 include "connection.php";
+
+if (isset($_POST['btnlogin'])) {
+	$email = $_POST['txtEmail'];
+	$password = $_POST['txtPassword'];
+
+	// Check credentials in tblstudents
+	$queryStudents = "SELECT * FROM tblstudents WHERE email='$email' AND password='$password'";
+	$resultStudents = mysqli_query($connection, $queryStudents);
+
+	// Check credentials in tblteachers
+	$queryTeachers = "SELECT * FROM tblteachers WHERE email='$email' AND password='$password'";
+	$resultTeachers = mysqli_query($connection, $queryTeachers);
+
+	// Check credentials in tbladmin
+	$queryAdmin = "SELECT * FROM tbladmin WHERE email='$email' AND password='$password'";
+	$resultAdmin = mysqli_query($connection, $queryAdmin);
+
+	if (mysqli_num_rows($resultStudents) == 1) {
+		// Login as a student
+		$_SESSION['role'] = 'student'; // Set the user role in the session
+		echo '<script>alert("Successful")</script>';
+		header("Location: student-studentDashboard.php");
+		exit();
+	} elseif (mysqli_num_rows($resultTeachers) == 1) {
+		// Login as a teacher
+		$teacherData = mysqli_fetch_assoc($resultTeachers);
+		$_SESSION['role'] = 'teacher'; // Set the user role in the session
+		$_SESSION['teacherid'] = $teacherData['teacherid'];
+		header("Location: teacher-teacherDashboard.php");
+		exit();
+	} elseif (mysqli_num_rows($resultAdmin) == 1) {
+		// Login as an admin
+		$_SESSION['role'] = 'admin'; // Set the user role in the session
+		header("Location: admin-adminDashboard.php");
+		exit();
+	} else {
+		// Record not found in either table
+		echo '<script>alert("Record Not Found")</script>';
+	}
+
+	mysqli_close($connection);
+}
+
+include_once "session-check.php";
 ?>
 
 <!DOCTYPE html>
@@ -18,51 +63,6 @@ include "connection.php";
     <div class="wrapper">
         <form action="#" method="post">
             <h1>Login</h1>
-            <?php
-				include "session-check.php";
-
-				if (isset($_POST['btnlogin'])) {
-					$email = $_POST['txtEmail'];
-					$password = $_POST['txtPassword'];
-
-					// Check credentials in tblstudents
-					$queryStudents = "SELECT * FROM tblstudents WHERE email='$email' AND password='$password'";
-					$resultStudents = mysqli_query($connection, $queryStudents);
-
-					// Check credentials in tblteachers
-					$queryTeachers = "SELECT * FROM tblteachers WHERE email='$email' AND password='$password'";
-					$resultTeachers = mysqli_query($connection, $queryTeachers);
-
-					// Check credentials in tbladmin
-					$queryAdmin = "SELECT * FROM tbladmin WHERE email='$email' AND password='$password'";
-					$resultAdmin = mysqli_query($connection, $queryAdmin);
-
-					if (mysqli_num_rows($resultStudents) == 1) {
-						// Login as a student
-						$_SESSION['role'] = 'student'; // Set the user role in the session
-						header("Location: student-studentDashboard.php");
-						exit();
-					} elseif (mysqli_num_rows($resultTeachers) == 1) {
-						// Login as a teacher
-						$teacherData = mysqli_fetch_assoc($resultTeachers);
-						$_SESSION['role'] = 'teacher'; // Set the user role in the session
-						$_SESSION['teacherid'] = $teacherData['teacherid'];
-						header("Location: teacher-teacherDashboard.php");
-						exit();
-					} elseif (mysqli_num_rows($resultAdmin) == 1) {
-						// Login as an admin
-						$_SESSION['role'] = 'admin'; // Set the user role in the session
-						header("Location: admin-adminDashboard.php");
-						exit();
-					} else {
-						// Record not found in either table
-						echo 'Record Not Found';
-					}
-
-					mysqli_close($connection);
-				}
-				?>
-
             <div class="input-box">
                 <input type="email" name="txtEmail" placeholder="Email" required />
             </div>

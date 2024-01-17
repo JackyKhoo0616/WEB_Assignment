@@ -1,9 +1,22 @@
 <?php
 session_start();
 
-// Destroy the session
+// Unset all session variables
+$_SESSION = array();
+
+// If using cookies for the session, destroy the cookie
+if (ini_get("session.use_cookies")) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', 1,
+        $params["path"], $params["domain"],
+        $params["secure"], $params["httponly"]
+    );
+}
+
+// Finally, destroy the session
 session_destroy();
 
-header("Location: ../html/user-index.html");
-exit();
+// Redirect to the home page or login page
+header("Location: user-index.php");
+exit;
 ?>

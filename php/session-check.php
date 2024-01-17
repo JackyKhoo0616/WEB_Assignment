@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 function checkSession() {
     // Check if the user is logged in
     if (!isset($_SESSION['role'])) {
@@ -24,4 +22,3 @@ function checkPageAccess($allowedRoles) {
     }
 }
 ?>
-
