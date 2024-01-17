@@ -60,9 +60,9 @@ if (isset($_POST['btn-submit'])) {
 					<img src="../picture/logo.png" class="logo" />
 				</a>
 				<ul>
-					<li><a href="../html/viewQuiz.html">Quiz</a></li>
+					<li><a href="teacher-viewQuiz.php">Quiz</a></li>
 					<li>
-						<a href="../html/viewLearning.html"
+						<a href="teacher-viewLearning.php"
 							>Learning Material</a
 						>
 					</li>
