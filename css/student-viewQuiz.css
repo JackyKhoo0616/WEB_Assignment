@@ -25,18 +25,6 @@
 	margin: 160px 0 30px 320px;
 }
 
-.header i {
-	font-size: 50px;
-	color: #c8633d;
-	margin: 169px 0 30px 300px;
-}
-
-.header i:hover {
-	color: #fff;
-	scale: 1.1;
-	transition: 0.3s;
-}
-
 .quizpage-container {
 	display: flex;
 	flex-direction: row;
@@ -65,8 +53,6 @@
 
 .quiz:hover {
 	box-shadow: 0 0 20px #c8633d50;
-	scale: 1.1;
-	transition: 0.5s;
 }
 
 .quiz-info {
@@ -98,6 +84,8 @@
 
 .view-button {
 	background-color: transparent;
+	position: absolute;
+	bottom: 50px;
 }
 
 .view-button button {

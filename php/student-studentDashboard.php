@@ -132,7 +132,7 @@ checkPageAccess(['student']);
                                     <h4>' . htmlspecialchars($className) . '</h4>
                                 </div>
                                 <div class="view-button">
-                                    <a href="../html/student-quizDesc.html?quizid=' . urlencode($quizId) . '">
+                                    <a href="../php/student-quizDesc.php?quizid=' . urlencode($quizId) . '">
                                         <button type="submit">View</button>
                                     </a>
                                 </div>
@@ -211,7 +211,7 @@ checkPageAccess(['student']);
                                     <h4>' . htmlspecialchars($classname) . '</h4>
                                 </div>
                                 <div class="view-button">
-                                    <a href="../html/student-learning.html?lmid=' . urlencode($lmid) . '" target="_blank">
+                                    <a href="../php/student-learning.php?lmid=' . urlencode($lmid) . '" target="_blank">
                                         <button type="button">View</button>
                                     </a>
                                 </div>
