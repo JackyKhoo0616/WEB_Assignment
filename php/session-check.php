@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 function checkSession() {
     // Check if the user is logged in
@@ -24,4 +26,3 @@ function checkPageAccess($allowedRoles) {
     }
 }
 ?>
-
