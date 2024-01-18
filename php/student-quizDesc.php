@@ -1,6 +1,8 @@
 <?php
-session_start();
 include "connection.php";
+include 'session-check.php';
+
+checkPageAccess(['student']);
 
 $studentId = $_SESSION['studentid']; // Assuming you store student ID in the session
 $quizId = $_GET['quizid'] ?? null; // The quiz ID should be passed as a parameter in the URL
@@ -79,7 +81,7 @@ mysqli_close($connection);
     <?php include '../php/z-student-nav.php'; ?>
 
     <div class="main">
-        <h1>Quiz 1</h1>
+        <h1><?= htmlspecialchars($quizName) ?></h1>
         <div class="quiz-info">
             <table>
                 <tr>

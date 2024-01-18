@@ -1,6 +1,8 @@
 <?php
-session_start();
 include "connection.php";
+include 'session-check.php';
+
+checkPageAccess(['student']);
 
 // check if the user clicks the update button
 if(isset($_POST['btnUpdate'])){
