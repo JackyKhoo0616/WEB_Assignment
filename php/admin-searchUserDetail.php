@@ -4,71 +4,65 @@ include "session-check.php";
 
 checkPageAccess(['admin']);
 
+$row = array();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve form data
-    $userid = $_POST["userid"];
-    $userfullname = $_POST["userfullname"];
-    $userroles = $_POST["userroles"];
-    $classcode = $_POST["classcode"];
+	// Retrieve form data
+	$userid = $_POST["userid"];
+	$userfullname = $_POST["userfullname"];
+	$userroles = $_POST["userroles"];
+	$classcode = $_POST["classcode"];
+	
 
-    // Search for user based on the provided criteria
-    if ($userroles == "teacher") {
-        // Search in tblteachers
-        $query = "SELECT * FROM tblteachers WHERE teacherid = ? OR CONCAT(fname, ' ', lname) = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $userid, $userfullname);
-        $stmt->execute();
-        $result = $stmt->get_result();
+	// Check if user role is admin
+	if ($_SESSION['role'] != "admin") {
+		echo "You do not have permission to perform this action.";
+		exit();
+	}
 
-        if ($result->num_rows > 0) {
-            // User found, display details
-            $row = $result->fetch_assoc();
-            // Display teacher details here
-            echo "Teacher Details: ";
-            echo "ID: " . $row['teacherid'] . "<br>";
-            echo "First Name: " . $row['fname'] . "<br>";
-            echo "Last Name: " . $row['lname'] . "<br>";
-            echo "Email: " . $row['email'] . "<br>";
-            echo "Date of Birth: " . $row['dob'] . "<br>";
-            echo "Country: " . $row['country'] . "<br>";
-            echo "Gender: " . $row['gender'] . "<br>";
-            // Display other details as needed
-        } else {
-            echo "The User Has Not Found";
+	 // Check if both fields are empty
+	 if (empty($userid) && empty($userfullname)) {
+        echo "Please fill out either the User ID or User Full Name field.";
+        exit();
+    }
+
+	$params = array();
+	$types = "";
+    $query = "SELECT * FROM tblstudents WHERE ";
+
+    // Check if userid is provided
+    if (!empty($userid)) {
+        $query .= "studentid = ?";
+        array_push($params, $userid);
+        $types .= "s";
+    }
+
+    // Check if userfullname is provided
+    if (!empty($userfullname)) {
+        // If userid is also provided, add an OR clause
+        if (!empty($userid)) {
+            $query .= " OR ";
         }
+        $query .= "CONCAT(fname, ' ', lname) = ?";
+        array_push($params, $userfullname);
+        $types .= "s";
+    }
 
-    } elseif ($userroles == "student") {
-        // Search in tblstudents
-        $query = "SELECT * FROM tblstudents WHERE studentid = ? OR CONCAT(fname, ' ', lname) = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $userid, $userfullname);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    $stmt = $connection->prepare($query);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            // User found, display details
-            $row = $result->fetch_assoc();
-            // Display student details here
-            echo "Student Details: ";
-            echo "ID: " . $row['studentid'] . "<br>";
-            echo "First Name: " . $row['fname'] . "<br>";
-            echo "Last Name: " . $row['lname'] . "<br>";
-            echo "Email: " . $row['email'] . "<br>";
-            echo "Date of Birth: " . $row['dob'] . "<br>";
-            echo "Country: " . $row['country'] . "<br>";
-            echo "Gender: " . $row['gender'] . "<br>";
-            // Display other details as needed
-        } else {
-            echo "The User Has Not Found";
-        }
-
+    if ($result->num_rows > 0) {
+        // User found, fetch details
+        $row = $result->fetch_assoc();
     } else {
-        echo "Invalid user role";
+        echo "No user found with the given details.";
     }
 
     // Close the database connection
     $stmt->close();
-    $conn->close();
+    $connection->close();
 }
 ?>
 
@@ -123,16 +117,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 					<div class="boxWrapper">
 	
-						<form action="searchUserDetail.php" method="post">
+						<form action="admin-searchUserDetail.php" method="post">
 							<h1>Enter User Details</h1>
 	
 							<div class="boxlvl1">
 								<div class="input-box">
 									<input
 										type="text"
+										id="userid"
 										name="userid"
 										placeholder="User ID"
-										required
 									/>
 								</div>
 							
@@ -142,7 +136,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										type="text"
 										name="userfullname"
 										placeholder="User Fullname"
-										required
 									/>
 								</div>
 	
@@ -161,7 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										type="text"
 										name="classcode"
 										placeholder="Class Code"
-										required
 									/>
 								</div>
 							</div>
@@ -171,6 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 								class="submit" 
 								value="Search" 
 								onclick="location.href='#sutdentInfo';"/>
+							
 						</form>
 					</div>
 				</div>
@@ -179,40 +172,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</header>
 
 		<main>
-			<div class="infoWrapper">
+		<div class="infoWrapper">
+			<div class="studentInfo" id="sutdentInfo">
+				<div class="info-box">
+					<div class="label">ID:</div>
+					<div class="value"><?php echo isset($row['studentid']) ? $row['studentid'] : ''; ?></div>
+				</div>
+				<div class="info-box">
+					<div class="label">Full Name:</div>
+					<div class="value"><?php echo isset($row['fname']) ? $row['fname'] . " " . $row['lname'] : ''; ?></div>
+				</div>
+				<div class="info-box">
+					<div class="label">Date of Birth:</div>
+					<div class="value"><?php echo isset($row['dob']) ? $row['dob'] : ''; ?></div>
+				</div>
+				<div class="info-box">
+					<div class="label">Gender:</div>
+					<div class="value"><?php echo isset($row['gender']) ? $row['gender'] : ''; ?></div>
+				</div>
+				<div class="info-box">
+					<div class="label">Email:</div>
+					<div class="value"><?php echo isset($row['email']) ? $row['email'] : ''; ?></div>
+				</div>
+				<div class="info-box">
+					<div class="label">Password:</div>
+					<div class="value"><?php echo isset($row['password']) ? $row['password'] : ''; ?></div>
+				</div>
 
-					<div class="studentInfo" id="sutdentInfo">
-						<div class="info-box">
-							<div class="label">ID:</div>
-							<div class="value">ID 0001</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Full Name:</div>
-							<div class="value">Jacky khoo</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Date of Birth:</div>
-							<div class="value">2016-06-03</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Gender:</div>
-							<div class="value">male</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Email:</div>
-							<div class="value">jk@gmail.com</div>
-						</div>
-						<div class="info-box">
-							<div class="label">Password:</div>
-							<div class="value">Password</div>
-						</div>
-
-						<div class="button-wrapper">
-						<button class="info-button">Edit</button>
-					</div>
-					</div>
-			
-			</div> 
+				<div class="button-wrapper">
+					<button class="info-button">Edit</button>
+				</div>
+			</div>
+</div>
 		</main>
 
 		<footer>
