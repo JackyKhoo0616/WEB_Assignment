@@ -105,7 +105,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 						<img src="../picture/logo.png" class="logo" />
 					</a>
 					<ul>
-						<li><a href="user-index.php">Home</a></li>
+						<li>
+						<a href="">Home</a>
+						<div class="sub-menu">
+								<ul>
+									<li><a href="user-index.php">Main Page</a></li>
+									<li><a href="admin-adminDashboard.php">Dashboard</a></li>
+								</ul>
+							</div>
+						</li>
 						<li>
 							<a href="">Service</a>
 							<div class="sub-menu">
