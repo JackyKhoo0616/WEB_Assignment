@@ -12,7 +12,7 @@ checkPageAccess(['admin']);
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>BreezeQuiz</title>
 		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/admin-adminDashboard.css" />
+		<link rel="stylesheet" href="../css/admin-searchClassCode.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
 	</head>
 
@@ -56,97 +56,112 @@ checkPageAccess(['admin']);
 								</ul>
 							</div>
 						</li>
-						<button class="login"><a href="user-login.php">Login</a></button>
+						<button class="login"><a href="login.html">Login</a></button>
 					</ul>
 				</div>
-			</div>
 
-			<!-- headline & welcome msg -->
-			<div class="content">
-				<div class="heading">
-					<h1>Admin Dashboard</h1>
-				</div>
+				<div class="content">
 
-				<div class="welcome">
-					<h2>Welcome back, admin</h2>
+					<div class="boxWrapper">
+	
+						<form action="searchUserDetail.php" method="post">
+							<h1>Enter User Details</h1>
+	
+							<div class="boxlvl1">
+								<div class="input-box">
+									<input
+										type="text"
+										name="userid"
+										placeholder="User ID"
+										required
+									/>
+								</div>
+							
+	
+								<div class="input-box">
+									<input
+										type="text"
+										name="userfullname"
+										placeholder="User Fullname"
+										required
+									/>
+								</div>
+	
+								<div class="input-box">
+									<select name="userroles" class="input-field" required>
+										<option value="" disabled selected hidden>User's Role</option>
+										<option value="student">Student</option>
+										<option value="teacher">Teacher</option>
+									</select>
+								</div>
+							</div>
+	
+	
+							<div class="boxlvl2">
+								<div class="input-box">
+									<input
+										type="text"
+										name="classcode"
+										placeholder="Class Code"
+										required
+									/>
+								</div>
+							</div>
+	
+							<input 
+								type="submit" 
+								class="submit" 
+								value="Search" 
+								onclick="location.href='#classcode';"/>
+						</form>
+					</div>
 				</div>
 				
-				<div class="datawrapper">
-
-					<div class="data1">
-						<h3>Total Quizzes</h3>
-						<p>1</p>
-					</div>
-	
-					<div class="data2">
-						<h3>Total Learning Module</h3>
-						<p>1</p>
-					</div>
-	
-					<div class="data3">
-						<h3>Total Student</h3>
-						<p>2</p>
-					</div>
-	
-					<div class="data4">
-						<h3>Total Teacher</h3>
-						<p>2</p>
-					</div>
-
-				</div>
-
-				<div class="image">
-					<img src="../picture/Dabbing_Penguin-removebg-preview.png" alt="">
-				</div>
 			</div>
-
-			
 		</header>
 
 		<main>
-			<div class="function-wrapper">
-
-				<div class="image">
-					<img src="../picture/Penguin_pointing-removebg-preview.png" alt="">
+			<div class="classcode" id="classcode"> 
+				<h2>CC 0175</h2>
+				<div class="result">
+					<table>
+						<tr>
+							<th>Student ID</th>
+							<th>Student Name</th>
+							<th>Date of Born</th>
+							<th>Gender</th>
+							<th>Email</th>
+						</tr>
+						<tr>
+							<td>ID 0001</td>
+							<td>Jacky Khoo</td>
+							<td>2016-06-03</td>
+							<td>Male</td>
+							<td>jk@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0002</td>
+							<td>Chew Mun Lok</td>
+							<td>2003-12-16</td>
+							<td>Male</td>
+							<td>ml@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0003</td>
+							<td>Wilson Lim</td>
+							<td>2013-11-06</td>
+							<td>Male</td>
+							<td>ck@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0004</td>
+							<td>Kwan Wen Sheng</td>
+							<td>2002-05-26</td>
+							<td>Female</td>
+							<td>kws@gmail.com</td>
+						</tr>
+					</table>
 				</div>
-
-				<div class="container">
-
-					<a href="admin-searchUserDetail.php">
-						<button class="function">
-							<p>Search User Details</p>
-						</button>
-
-					<a href="student-viewQuiz.php">
-						<button class="function">
-							<p>Access All Quiz</p>
-						</button>
-
-					<a href="student-viewLearning.php">
-						<button class="function">
-							<p>Access All Learning Material</p>
-						</button>
-					</a>
-
-				</div>
-			</div>
-
-			<div class="OtherPages">
-
-				<a href="user-eduRegulation.php">
-					<button class="EducationalRegulation">
-						<img src="../picture/Regulation_2-removebg.png" />
-						<h3>Educational <br> Regulation</h3>
-					</button>
-				</a>
-
-				<a href="user-dataPrivacy.php">
-					<button class="EducationalRegulation">
-						<img src="../picture/Laws-removebg.png" />
-						<h3>Data <br> Privacy Law</h3>
-					</button>
-				</a>
-
 			</div>
 		</main>
 

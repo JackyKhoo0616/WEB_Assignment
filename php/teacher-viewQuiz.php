@@ -34,9 +34,9 @@ include "connection.php";
 					<img src="../picture/logo.png" class="logo" />
 				</a>
 				<ul>
-					<li><a href="../html/teacher-viewQuiz.html">Quiz</a></li>
+					<li><a href="../php/teacher-viewQuiz.php">Quiz</a></li>
 					<li>
-						<a href="../html/teacher-viewLearning.html"
+						<a href="../php/teacher-viewLearning.php"
 							>Learning Material</a
 						>
 					</li>
@@ -81,7 +81,7 @@ include "connection.php";
 			<div class="header">
 				<h1>Quiz</h1>
 				<div class="add-on-btn">
-					<a href="../html/teacher-createQuiz.html" target="_blank">
+					<a href="../php/teacher-createQuiz.php" target="_blank">
 						<button type="submit">Create Quiz</button>
 					</a>
 				</div>

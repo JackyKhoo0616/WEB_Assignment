@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>BreezeQuiz</title>
 		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/admin-searchUserDetail.css" />
+		<link rel="stylesheet" href="../css/admin-searchUserDetail_Edit.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
 	</head>
 
@@ -105,15 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 						<img src="../picture/logo.png" class="logo" />
 					</a>
 					<ul>
-						<li>
-						<a href="">Home</a>
-						<div class="sub-menu">
-								<ul>
-									<li><a href="user-index.php">Main Page</a></li>
-									<li><a href="admin-adminDashboard.php">Dashboard</a></li>
-								</ul>
-							</div>
-						</li>
+						<li><a href="user-index.php">Home</a></li>
 						<li>
 							<a href="">Service</a>
 							<div class="sub-menu">
@@ -136,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 								</ul>
 							</div>
 						</li>
-						<button class="login"><a href="user-login.php">Login</a></button>
+						<button class="login"><a href="login.html">Login</a></button>
 					</ul>
 				</div>
 

@@ -1,24 +1,35 @@
+<?php
+session_start();
+include "connection.php";  // Include the connection file
+include "session-check.php";
+
+// Check if the teacher is logged in
+if ($_SESSION['role'] == 'teacher') {
+    $teacherid = $_SESSION['teacherid'];
+
+    // Fetch quiz details from tblquiz based on teacherid
+    $quiz_query = "SELECT * FROM tblquiz WHERE teacherid = '$teacherid'";
+    $quiz_result = mysqli_query($connection, $quiz_query);
+
+    // Check if the query was successful
+    if ($quiz_result) {
+        // Fetch quiz details
+        $quiz_data = mysqli_fetch_assoc($quiz_result);
+
+        // Display quiz details
+        $className = $quiz_data['quizname'];
+        $creationDate = $quiz_data['creationdate'];
+
+        // Output HTML with dynamic quiz details
+        echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Quiz</title>
-
-		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/footer.css" />
-		<link rel="stylesheet" href="../css/teacher-quizDesc.css" />
-
-		<link
-			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
-			rel="stylesheet"
-		/>
-
-		<script src="../javascript/backBtnLogic.js"></script>
-	</head>
-	<body>
-		<!-- navigational bar -->
-		<div class="banner">
+<head>
+    <!-- Add your meta tags, title, and CSS links here -->
+</head>
+<body>
+	<div class="banner">
+		<!--navigation bar-->
 			<div class="navbar">
 				<a href="../html/teacher-teacherDashboard.html">
 					<img src="../picture/logo.png" class="logo" />
@@ -66,36 +77,66 @@
 			</div>
 		</div>
 
-		<div class="main">
-			<h1>Quiz 1</h1>
-			<div class="quiz-info">
-				<table>
-					<tr>
-						<th>Quiz Assigned To</th>
-						<td>Raiden Maths</td>
-					</tr>
-					<tr>
-						<th>Creation Date</th>
-						<td>17-01-2024</td>
-					</tr>
-					<tr>
-						<th>Marks</th>
-						<td>-</td>
-					</tr>
-				</table>
-			</div>
-			<div class="quiz-button">
-				<div class="back-button">
-					<a href="../html/teacher-viewQuiz.html">
-						<button>Back</button>
-					</a>
-				</div>
-				<div class="start-button">
-					<button type="submit">Delete</button>
-				</div>
-			</div>
-		</div>
+    <div class="main">
+        <h1>Quiz 1</h1>
+        <div class="quiz-info">
+            <table>
+                <tr>
+                    <th>Quiz Assigned To</th>
+                    <td>$className</td>
+                </tr>
+                <tr>
+                    <th>Creation Date</th>
+                    <td>$creationDate</td>
+                </tr>
+                <tr>
+                    <th>Marks</th>
+                    <td>-</td>
+                </tr>
+            </table>
+        </div>
+        <div class="quiz-button">
+            <div class="back-button">
+                <a href="../../php/teacher-viewQuiz.php">
+                    <button>Back</button>
+                </a>
+            </div>
+            <div class="start-button">
+                <button type="submit">Delete</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+HTML;
+    } else {
+        echo "Failed to fetch quiz details. Please try again.";
+    }
+} else {
+    echo "Teacher is not logged in. Please log in first.";
+}
+?>
 
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Quiz</title>
+
+		<link rel="stylesheet" href="../css/nav.css" />
+		<link rel="stylesheet" href="../css/footer.css" />
+		<link rel="stylesheet" href="../css/teacher-quizDesc.css" />
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
+			rel="stylesheet"
+		/>
+
+		<script src="../javascript/backBtnLogic.js"></script>
+	</head>
+	<body>
 		<!-- copyright part -->
 		<div class="copyright">
 			<p>© 2024 BreezeQuiz. All rights reserved.</p>
