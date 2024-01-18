@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 	$stmt->bind_param("sssss", $dob, $gender, $email, $password, $userid);
 	$stmt->execute();
 
-	// Close the statement and the database connection
+	// Close the statement and connection
 	$stmt->close();
 	$connection->close();
 

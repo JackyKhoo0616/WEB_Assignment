@@ -28,7 +28,7 @@
 .content h1 {
     color: black;
     font-size: 40px;
-    margin-bottom: 20px; /* Add this */
+    margin-bottom: 20px; 
     text-align: center;
 }
 
@@ -59,12 +59,12 @@
 }
 
 .boxlvl1 {
-    display: flex; /* Add this */
-    justify-content: space-between; /* Add this */
+    display: flex;
+    justify-content: space-between; 
 }
 
 .input-box {
-    margin: 0 10px; /* Add this */
+    margin: 0 10px; 
 }
 
 .input-box input {
@@ -96,7 +96,7 @@
 }
 
 .input-box select.input-field option {
-	color: #4a47a3; /* Change the color */
+	color: #4a47a3; 
 }
 
 .input-box input::placeholder {
