@@ -25,26 +25,26 @@ checkPageAccess(['admin']);
 						<img src="../picture/logo.png" class="logo" />
 					</a>
 					<ul>
-						<li><a href="#">Home</a></li>
+						<li><a href="user-index.php">Home</a></li>
 						<li>
 							<a href="#">Service</a>
 							<div class="sub-menu">
 								<ul>
-									<li><a href="#">Quiz</a></li>
-									<li><a href="#">Learning Material</a></li>
+									<li><a href="student-viewQuiz.php">Quiz</a></li>
+									<li><a href="student-viewLearning.php">Learning Material</a></li>
 								</ul>
 							</div>
 						</li>
-						<li><a href="#">About Us</a></li>
+						<li><a href="user-aboutUs.php">About Us</a></li>
 						<li>
 							<a href="#">Other Pages</a>
 							<div class="sub-menu">
 								<ul>
-									<li><a href="#">Sign Up</a></li>
+									<li><a href="user-register.php">Sign Up</a></li>
 									<li>
-										<a href="#">Educational Regulation</a>
+										<a href="user-eduRegulation.php">Educational Regulation</a>
 									</li>
-									<li><a href="#">Data Privacy Law</a></li>
+									<li><a href="user-dataPrivacy.php">Data Privacy Law</a></li>
 								</ul>
 							</div>
 						</li>
@@ -60,29 +60,29 @@ checkPageAccess(['admin']);
 				</div>
 
 				<div class="welcome">
-					<h2>Welcome back, admin JK</h2>
+					<h2>Welcome back, admin</h2>
 				</div>
 				
 				<div class="datawrapper">
 
 					<div class="data1">
 						<h3>Total Quizzes</h3>
-						<p>600</p>
+						<p>1</p>
 					</div>
 	
 					<div class="data2">
 						<h3>Total Learning Module</h3>
-						<p>200</p>
+						<p>1</p>
 					</div>
 	
 					<div class="data3">
 						<h3>Total Student</h3>
-						<p>200</p>
+						<p>2</p>
 					</div>
 	
 					<div class="data4">
 						<h3>Total Teacher</h3>
-						<p>22</p>
+						<p>2</p>
 					</div>
 
 				</div>
@@ -125,14 +125,14 @@ checkPageAccess(['admin']);
 
 			<div class="OtherPages">
 
-				<a href="admin-eduRegulation.html">
+				<a href="user-eduRegulation.php">
 					<button class="EducationalRegulation">
 						<img src="../picture/Regulation_2-removebg.png" />
 						<h3>Educational <br> Regulation</h3>
 					</button>
 				</a>
 
-				<a href="admin-dataPrivacy.html">
+				<a href="user-dataPrivacy.php">
 					<button class="EducationalRegulation">
 						<img src="../picture/Laws-removebg.png" />
 						<h3>Data <br> Privacy Law</h3>
