@@ -34,9 +34,9 @@ include "connection.php";
 					<img src="../picture/logo.png" class="logo" />
 				</a>
 				<ul>
-					<li><a href="../html/teacher-viewQuiz.html">Quiz</a></li>
+					<li><a href="../php/teacher-viewQuiz.php">Quiz</a></li>
 					<li>
-						<a href="../html/teacher-viewLearning.html"
+						<a href="../php/teacher-viewLearning.php"
 							>Learning Material</a
 						>
 					</li>
@@ -95,7 +95,7 @@ include "connection.php";
 						<h3>Learning Material 1</h3>
 					</div>
 					<div class="view-button">
-						<a href="../html/student-learning.html" target="_blank">
+						<a href="../php/student-learning.php" target="_blank">
 							<button>View</button>
 						</a>
 					</div>
