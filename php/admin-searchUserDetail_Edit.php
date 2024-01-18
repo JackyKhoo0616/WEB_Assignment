@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>BreezeQuiz</title>
 		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/admin-searchUserDetail.css" />
+		<link rel="stylesheet" href="../css/admin-searchUserDetail_Edit.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
 	</head>
 
