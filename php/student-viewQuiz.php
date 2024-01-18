@@ -65,7 +65,7 @@ include "connection.php";
 									<h4>" . htmlspecialchars($className) . "</h4>
 								</div>
 								<div class='view-button'>
-									<a href='../html/student-quizDesc.html?quizid=" . urlencode($quizId) . "'>
+									<a href='../php/student-quizDesc.php?quizid=" . urlencode($quizId) . "'>
 										<button type='submit'>View</button>
 									</a>
 								</div>

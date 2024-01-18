@@ -1,8 +1,37 @@
 <?php
-include "connection.php";
-include 'session-check.php';
+include "session-check.php";
+include "connection.php";  // Include the connection file
 
-checkPageAccess(['teacher']);
+if (isset($_POST['btn-submit'])) {
+    
+    // Check if 'teacherid' is set in the session for teachers
+    if (isset($_SESSION['teacherid'])) {
+        $teacherid = $_SESSION['teacherid'];
+
+        $classid = $_POST['classid'];
+        
+        $query = "SELECT * FROM tblclass WHERE teacherid = '$teacherid' AND classid = '$classid'";
+
+        $result = mysqli_query($connection, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            // Teacher owns the class, proceed with enrollment
+            $studentid = $_POST['studentid'];
+            $enroll_query = "INSERT INTO tblenrollment (studentid, classid) VALUES ('$studentid', '$classid')";
+            $enroll_result = mysqli_query($connection, $enroll_query);
+
+            if ($enroll_result) {
+                echo "Successfully Enrolled";
+            } else {
+                echo "Failed to Enroll";
+            }
+        } else {
+            echo "You don't have permission to enroll in this class.";
+        }
+    } else {
+        echo "User is not logged in. Please log in first.";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,9 +60,9 @@ checkPageAccess(['teacher']);
 					<img src="../picture/logo.png" class="logo" />
 				</a>
 				<ul>
-					<li><a href="../html/viewQuiz.html">Quiz</a></li>
+					<li><a href="teacher-viewQuiz.php">Quiz</a></li>
 					<li>
-						<a href="../html/viewLearning.html"
+						<a href="teacher-viewLearning.php"
 							>Learning Material</a
 						>
 					</li>
@@ -81,11 +110,12 @@ checkPageAccess(['teacher']);
 		</div>
 		<div class="search">
 			<h1>Enroll Student</h1>
-			<form action="">
+			<form action="teacher-teacherDashboard.php" method="post">
 				<div class="search-container">
 					<i class="bx bx-user-plus"></i>
 					<input
 						type="text"
+						name="studentid"
 						placeholder="Enter Student ID"
 						required
 					/>
@@ -94,12 +124,13 @@ checkPageAccess(['teacher']);
 					<i class="bx bx-search"></i>
 					<input
 						type="text"
+						name="classid"
 						placeholder="Enter Class Code"
 						required
 					/>
 				</div>
 				<div class="button-container">
-					<button type="submit">Add Student</button>
+					<button type="btn-submit" name="btn-submit">Add Student</button>
 				</div>
 			</form>
 		</div>

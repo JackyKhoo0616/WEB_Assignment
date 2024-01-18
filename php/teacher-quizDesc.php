@@ -13,6 +13,8 @@
 			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
 			rel="stylesheet"
 		/>
+
+		<script src="../javascript/backBtnLogic.js"></script>
 	</head>
 	<body>
 		<!-- navigational bar -->
@@ -70,11 +72,11 @@
 				<table>
 					<tr>
 						<th>Quiz Assigned To</th>
-						<td>Class Name</td>
+						<td>Raiden Maths</td>
 					</tr>
 					<tr>
 						<th>Creation Date</th>
-						<td>11 January 2024</td>
+						<td>17-01-2024</td>
 					</tr>
 					<tr>
 						<th>Marks</th>
