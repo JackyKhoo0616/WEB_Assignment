@@ -16,12 +16,12 @@
             <img src="../picture/logo.png" class="logo" />
         </a>
         <ul>
-            <li><a href="../html/student-viewQuiz.html">Quiz</a></li>
+            <li><a href="../php/teacher-viewQuiz.php">Quiz</a></li>
             <li>
-                <a href="../html/student-viewLearning.html">Learning Material</a>
+                <a href="../php/teacher-viewLearning.php">Learning Material</a>
             </li>
             <li>
-                <a href="../html/student-progressTracker.html">Progress Tracker</a>
+                <a href="../php/teacher-progressTracker.php">Progress Tracker</a>
             </li>
             <li class="no-a">
                 Other Pages<i class="bx bxs-chevron-down"></i>
@@ -29,22 +29,25 @@
                 <div class="sub-menu">
                     <ul>
                         <li>
-                            <a href="../html/student-aboutUs.html">About Us</a>
+                            <a href="../php/teacher-aboutUs.php">About Us</a>
                         </li>
-                        <li><a href="#">Educational Regulation</a></li>
-                        <li><a href="#">Data Privacy Law</a></li>
+                        <li><a href="../php/user-eduRegulation.php">Educational Regulation</a></li>
+                        <li><a href="../php/user-dataPrivacy.php">Data Privacy Law</a></li>
                     </ul>
                 </div>
             </li>
-            <li class="no-a">
-                Wilson<i class="bx bxs-chevron-down"></i>
+            <li class="no-a"><?php 
+            if (isset($_SESSION['fname']) && !empty($_SESSION['fname'])) {
+                echo htmlspecialchars($_SESSION['fname']);
+            } else {
+                echo "Student";
+            }
+            ?><i class="bx bxs-chevron-down"></i>
 
                 <div class="sub-menu">
                     <ul>
-                        <li><a href="#">Profile</a></li>
-                        <li>
-                            <a href="../html/user-index.html">Log Out</a>
-                        </li>
+                        <!-- <li><a href="../php/student-viewProfile.php">Profile</a></li> -->
+                        <li><a href="../php/logout.php">Log Out</a></li>
                     </ul>
                 </div>
             </li>
