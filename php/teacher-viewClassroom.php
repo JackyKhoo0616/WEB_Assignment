@@ -127,8 +127,6 @@
 		</div>
 
 		<!-- copyright part -->
-		<div class="copyright">
-			<p>© 2024 BreezeQuiz. All rights reserved.</p>
-		</div>
+		<?php include '../php/z-user-copyright.php'; ?>
 	</body>
 </html>

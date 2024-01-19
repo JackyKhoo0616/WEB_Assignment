@@ -25,26 +25,34 @@ checkPageAccess(['admin']);
 						<img src="../picture/logo.png" class="logo" />
 					</a>
 					<ul>
-						<li><a href="#">Home</a></li>
 						<li>
-							<a href="#">Service</a>
-							<div class="sub-menu">
+						<a href="">Home</a>
+						<div class="sub-menu">
 								<ul>
-									<li><a href="#">Quiz</a></li>
-									<li><a href="#">Learning Material</a></li>
+									<li><a href="user-index.php">Main Page</a></li>
+									<li><a href="admin-adminDashboard.php">Dashboard</a></li>
 								</ul>
 							</div>
 						</li>
-						<li><a href="#">About Us</a></li>
 						<li>
-							<a href="#">Other Pages</a>
+							<a href="">Service</a>
 							<div class="sub-menu">
 								<ul>
-									<li><a href="#">Sign Up</a></li>
+									<li><a href="student-viewQuiz.php">Quiz</a></li>
+									<li><a href="student-viewLearning.php">Learning Material</a></li>
+								</ul>
+							</div>
+						</li>
+						<li><a href="user-aboutUs.php">About Us</a></li>
+						<li>
+							<a href="">Other Pages</a>
+							<div class="sub-menu">
+								<ul>
+									<li><a href="user-register.php">Sign Up</a></li>
 									<li>
-										<a href="#">Educational Regulation</a>
+										<a href="user-eduRegulation.php">Educational Regulation</a>
 									</li>
-									<li><a href="#">Data Privacy Law</a></li>
+									<li><a href="user-dataPrivacy.php">Data Privacy Law</a></li>
 								</ul>
 							</div>
 						</li>

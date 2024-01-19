@@ -1,7 +1,10 @@
 <?php
-session_start();
 include "connection.php";
+include 'session-check.php';
+
+checkPageAccess(['student']);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

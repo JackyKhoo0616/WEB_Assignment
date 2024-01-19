@@ -1,6 +1,8 @@
 <?php
-session_start();
 include "connection.php";
+include 'session-check.php';
+
+checkPageAccess(['student']);
 
 if(isset($_POST['btnUpdate'])){
     $fname = $_POST['txtFname'];

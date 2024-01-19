@@ -33,8 +33,6 @@ mysqli_close($connection);
 		<title>Create Quiz</title>
 
 		<link rel="stylesheet" href="../css/teacher-createClassroom.css" />
-		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/footer.css" />
 
 		<link
 			href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -74,8 +72,6 @@ mysqli_close($connection);
 			</div>
 		</div>
 		<!-- copyright part -->
-		<div class="copyright">
-			<p>© 2024 BreezeQuiz. All rights reserved.</p>
-		</div>
+		<?php include '../php/z-user-copyright.php'; ?>
 	</body>
 </html>

@@ -52,53 +52,7 @@ if (isset($_POST['btn-submit'])) {
 	</head>
 	<body>
 		<!-- navigational bar -->
-		<div class="banner">
-			<div class="navbar">
-				<a href="#">
-					<img src="../picture/logo.png" class="logo" />
-				</a>
-				<ul>
-					<li><a href="teacher-viewQuiz.php">Quiz</a></li>
-					<li>
-						<a href="teacher-viewLearning.php"
-							>Learning Material</a
-						>
-					</li>
-					<li>
-						<a href="../php/teacher-progressTracker.php"
-							>Progress Tracker</a
-						>
-					</li>
-					<li>
-						<a href="#"
-							>Other Pages<i class="bx bxs-chevron-down"></i
-						></a>
-
-						<div class="sub-menu">
-							<ul>
-								<li>
-									<a href="../php/user-aboutUs.php">About Us</a>
-								</li>
-								<li><a href="../php/user-eduRegulation.php">Educational Regulation</a></li>
-								<li><a href="../php/user-dataPrivacy.php">Data Privacy Law</a></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<a href="#"
-							>Raiden<i class="bx bxs-chevron-down"></i
-						></a>
-
-						<div class="sub-menu">
-							<ul>
-								<li><a href="#">Profile</a></li>
-								<li><a href="../php/logout.php">Log Out</a></li>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
+		<?php include "z-teacher-nav.php"; ?>
 
 		<!-- top part -->
 		<div class="header">
@@ -198,65 +152,8 @@ if (isset($_POST['btn-submit'])) {
 			</div>
 		</div>
 
-		<!-- footer -->
-		<div class="footer">
-			<div class="left">
-				<div class="desc">
-					<h2>BreezeQuiz</h2>
-					<p>
-						BreezeQuiz is an interactive quiz platform enhancing
-						learning with gamification, real-time analytics, and a
-						resource library for students and educators to improve
-						engagement and performance.
-					</p>
-				</div>
-			</div>
-			<div class="right">
-				<div class="footer-logo">
-					<a href="../html/user-index.html" target="_blank">
-						<img src="../picture/logo.png" />
-					</a>
-				</div>
-				<div class="contact">
-					<p>
-						<span class="contact-span1">Email:</span>
-						breezequiz@gmail.com
-					</p>
-					<p>
-						<span class="contact-span2">Phone:</span> 09 - 523 -
-						2288
-					</p>
-				</div>
-				<div class="social_media">
-					<div class="social_media_icons">
-						<div class="facebook">
-							<a href="https://www.facebook.com/">
-								<img src="../picture/facebook.svg" />
-							</a>
-						</div>
-						<div class="instagram">
-							<a href="https://www.instagram.com/">
-								<img src="../picture/instagram.svg" />
-							</a>
-						</div>
-						<div class="twitter">
-							<a href="https://twitter.com/home">
-								<img src="../picture/twitter.svg" />
-							</a>
-						</div>
-						<div class="github">
-							<a href="https://github.com/">
-								<img src="../picture/github.svg" />
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!-- copyright part -->
-		<div class="copyright">
-			<p>© 2024 BreezeQuiz. All rights reserved.</p>
-		</div>
+	<!-- footer -->
+	<?php include '../php/z-user-footer.php'; ?>
+	<?php include '../php/z-user-copyright.php'; ?>
 	</body>
 </html>

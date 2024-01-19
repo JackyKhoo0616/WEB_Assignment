@@ -25,9 +25,17 @@ checkPageAccess(['admin']);
 						<img src="../picture/logo.png" class="logo" />
 					</a>
 					<ul>
-						<li><a href="user-index.php">Home</a></li>
 						<li>
-							<a href="#">Service</a>
+						<a href="">Home</a>
+						<div class="sub-menu">
+								<ul>
+									<li><a href="user-index.php">Main Page</a></li>
+									<li><a href="admin-adminDashboard.php">Dashboard</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="">Service</a>
 							<div class="sub-menu">
 								<ul>
 									<li><a href="student-viewQuiz.php">Quiz</a></li>
@@ -37,7 +45,7 @@ checkPageAccess(['admin']);
 						</li>
 						<li><a href="user-aboutUs.php">About Us</a></li>
 						<li>
-							<a href="#">Other Pages</a>
+							<a href="">Other Pages</a>
 							<div class="sub-menu">
 								<ul>
 									<li><a href="user-register.php">Sign Up</a></li>
@@ -48,7 +56,7 @@ checkPageAccess(['admin']);
 								</ul>
 							</div>
 						</li>
-						<button class="login"><a href="#">Login</a></button>
+						<button class="login"><a href="user-login.php">Login</a></button>
 					</ul>
 				</div>
 			</div>

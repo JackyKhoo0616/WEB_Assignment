@@ -59,7 +59,7 @@
 }
 
 .boxlvl1 {
-    display: flex; 
+    display: flex;
     justify-content: space-between; 
 }
 
@@ -173,6 +173,7 @@
     align-items: center;
 	color: #ffffff; 
     font-family: Arial, sans-serif; 
+	text-align: center;
 }
 .info-button {
 	margin-top: 20px;

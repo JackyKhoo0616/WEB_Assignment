@@ -2,7 +2,7 @@
 include "connection.php";
 include 'session-check.php';
 
-checkPageAccess(['student']);
+checkPageAccess(['teacher']);
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ checkPageAccess(['student']);
 
 <body>
     <!-- navigational bar -->
-    <?php include '../php/z-student-nav.php'; ?>
+    <?php include "z-teacher-nav.php"; ?>
 
     <!-- content -->
     <div class="wrapper">
