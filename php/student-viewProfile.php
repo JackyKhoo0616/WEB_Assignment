@@ -4,7 +4,6 @@ include 'session-check.php';
 
 checkPageAccess(['student']);
 
-// check if the user clicks the update button
 if(isset($_POST['btnUpdate'])){
     $fname = $_POST['txtFname'];
     $lname = $_POST['txtLname'];
@@ -17,14 +16,13 @@ if(isset($_POST['btnUpdate'])){
     $query = "UPDATE `tblstudents` SET `fname`='$fname', `lname`='$lname', `email`='$email', `dob`='$dob', `country`='$country', `gender`='$gender', `password`='$password' WHERE `studentid` = '".$_SESSION['studentid']."'";
 
     if (mysqli_query($connection, $query)) {
-        // Update the session variables
         $_SESSION['fname'] = $fname;
         $_SESSION['lname'] = $lname;
         $_SESSION['dob'] = $dob;
         $_SESSION['country'] = $country;
         $_SESSION['gender'] = $gender;
         $_SESSION['email'] = $email;
-        $_SESSION['password'] = $password; // Again, consider hashing the password
+        $_SESSION['password'] = $password;
 
         echo '<script>alert("User Information Updated Successfully"); 
 		window.location.href=window.location.href;</script>';

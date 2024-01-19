@@ -2,25 +2,19 @@
 include "connection.php";
 include "session-check.php";
 
-// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-submit'])) {
-    // Get the classname from the form
+
     $classname = $_POST["quizName"];
 
-    // Check if teacherid is set in the session
     if (isset($_SESSION["teacherid"])) {
         $teacherid = $_SESSION["teacherid"];
 
-        // Insert data into tblclass
         $sql_insert_class = "INSERT INTO tblclass (teacherid, classname) VALUES ('$teacherid', '$classname')";
 
         if (mysqli_query($connection, $sql_insert_class)) {
-            $classid = mysqli_insert_id($connection); // Get the last inserted ID
-
-            // Echo success message
+            $classid = mysqli_insert_id($connection);
             echo "Your class has been created, and Your Class Code is " . $classid;
         } else {
-            // Echo an error message if the query fails
             echo "Error: " . mysqli_error($connection);
         }
     } else {
@@ -30,10 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['btn-submit'])) {
 
 mysqli_close($connection);
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">

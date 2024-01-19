@@ -11,23 +11,18 @@ if (isset($_POST['btnRegister'])) {
 	$country = $_POST['country'];
 	$gender = $_POST['txtGender'];
 	$password = $_POST['txtPassword'];
-	$role = $_POST['role']; // Retrieve the selected role
+	$role = $_POST['role'];
 
-	// Check if the email exists in tblstudents
 	$queryStudents = "SELECT * FROM `tblstudents` WHERE `email` = '$email'";
 	$resultStudents = mysqli_query($connection, $queryStudents);
 
-	// Check if the email exists in tblteachers
 	$queryTeachers = "SELECT * FROM `tblteachers` WHERE `email` = '$email'";
 	$resultTeachers = mysqli_query($connection, $queryTeachers);
 
-	// Check if the email exists in either tblstudents and tblteachers
 	if (mysqli_num_rows($resultStudents) > 0 || mysqli_num_rows($resultTeachers) > 0) {
-		// Email already exists in either tblstudents or tblteachers
 		echo '<script>alert("This Email Has Been Registered")</script>';
 
 	} else {
-		// Email is not registered, proceed with the registration in the selected role's table
 		$queryRole = ($role == 'Student') ? 'tblstudents' : 'tblteachers';
 		$query = "INSERT INTO `$queryRole`(`fname`, `lname`, `email`, `dob`, `country`, `gender`, `password`) VALUES ('$fname','$lname','$email','$dob','$country','$gender','$password')";
 

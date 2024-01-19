@@ -1,10 +1,9 @@
 <?php
 include "session-check.php";
-include "connection.php";  // Include the connection file
+include "connection.php";
 
 if (isset($_POST['btn-submit'])) {
     
-    // Check if 'teacherid' is set in the session for teachers
     if (isset($_SESSION['teacherid'])) {
         $teacherid = $_SESSION['teacherid'];
 
@@ -15,7 +14,6 @@ if (isset($_POST['btn-submit'])) {
         $result = mysqli_query($connection, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
-            // Teacher owns the class, proceed with enrollment
             $studentid = $_POST['studentid'];
             $enroll_query = "INSERT INTO tblenrollment (studentid, classid) VALUES ('$studentid', '$classid')";
             $enroll_result = mysqli_query($connection, $enroll_query);
