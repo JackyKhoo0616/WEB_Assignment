@@ -41,7 +41,7 @@
                 ?>
 
                 <i class="bx bxs-chevron-down"></i>
-                
+
                 <div class="sub-menu">
                     <ul>
                         <li><a href="../php/student-viewProfile.php">Profile</a></li>

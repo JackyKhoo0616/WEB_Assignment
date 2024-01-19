@@ -87,6 +87,21 @@
 	border: 2px solid #c8633d;
 }
 
+.data select {
+	display: inline-block;
+	width: 300px;
+	height: 40px;
+	border-radius: 10px;
+	border: 1px solid #c8633d;
+	font-size: 20px;
+	padding-left: 10px;
+}
+
+.data select:focus {
+	outline: none;
+	border: 2px solid #c8633d;
+}
+
 .button-container {
 	display: flex;
 	flex-direction: row;

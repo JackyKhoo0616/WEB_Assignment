@@ -10,3 +10,4 @@ if($connection === false){
 }else{
     //echo 'Connection Established' . "<br>";
 }
+?>
