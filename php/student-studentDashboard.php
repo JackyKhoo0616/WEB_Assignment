@@ -103,7 +103,6 @@ checkPageAccess(['student']);
 
                 <?php
 
-                // get the student ID from the session
                 $studentId = $_SESSION['studentid'];
 
                 // SQL query to retrieve up to 4 quizzes for classes the student is enrolled in
