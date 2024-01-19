@@ -1,31 +1,24 @@
 <?php
 session_start();
-include "connection.php";  // Include the connection file
+include "connection.php";  
 include "session-check.php";
 
-// Check if the teacher is logged in
 if ($_SESSION['role'] == 'teacher') {
     $teacherid = $_SESSION['teacherid'];
 
-    // Fetch quiz details from tblquiz based on teacherid
     $quiz_query = "SELECT * FROM tblquiz WHERE teacherid = '$teacherid'";
     $quiz_result = mysqli_query($connection, $quiz_query);
 
-    // Check if the query was successful
     if ($quiz_result) {
-        // Fetch quiz details
         $quiz_data = mysqli_fetch_assoc($quiz_result);
 
-        // Display quiz details
         $className = $quiz_data['quizname'];
         $creationDate = $quiz_data['creationdate'];
 
-        // Output HTML with dynamic quiz details
         echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add your meta tags, title, and CSS links here -->
 </head>
 <body>
 	<div class="banner">

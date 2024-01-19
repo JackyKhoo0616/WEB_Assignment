@@ -2,8 +2,6 @@
 include "session-check.php";
 include "connection.php";
 
-
-
 ?>
 
 <!DOCTYPE html>

@@ -1,10 +1,9 @@
 <?php
 include "session-check.php";
-include "connection.php";  // Include the connection file
+include "connection.php";
 
 if (isset($_POST['btn-submit'])) {
     
-    // Check if 'teacherid' is set in the session for teachers
     if (isset($_SESSION['teacherid'])) {
         $teacherid = $_SESSION['teacherid'];
 
@@ -15,7 +14,6 @@ if (isset($_POST['btn-submit'])) {
         $result = mysqli_query($connection, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
-            // Teacher owns the class, proceed with enrollment
             $studentid = $_POST['studentid'];
             $enroll_query = "INSERT INTO tblenrollment (studentid, classid) VALUES ('$studentid', '$classid')";
             $enroll_result = mysqli_query($connection, $enroll_query);
@@ -67,7 +65,7 @@ if (isset($_POST['btn-submit'])) {
 						>
 					</li>
 					<li>
-						<a href="../html/progressTracker.html"
+						<a href="../php/teacher-progressTracker.php"
 							>Progress Tracker</a
 						>
 					</li>
@@ -79,16 +77,16 @@ if (isset($_POST['btn-submit'])) {
 						<div class="sub-menu">
 							<ul>
 								<li>
-									<a href="../html/aboutUs.html">About Us</a>
+									<a href="../php/user-aboutUs.php">About Us</a>
 								</li>
-								<li><a href="#">Educational Regulation</a></li>
-								<li><a href="#">Data Privacy Law</a></li>
+								<li><a href="../php/user-eduRegulation.php">Educational Regulation</a></li>
+								<li><a href="../php/user-dataPrivacy.php">Data Privacy Law</a></li>
 							</ul>
 						</div>
 					</li>
 					<li>
 						<a href="#"
-							>Wilson<i class="bx bxs-chevron-down"></i
+							>Raiden<i class="bx bxs-chevron-down"></i
 						></a>
 
 						<div class="sub-menu">
