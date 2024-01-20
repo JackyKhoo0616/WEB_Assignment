@@ -29,18 +29,6 @@ body {
 	margin: 160px 0 30px 320px;
 }
 
-.header i {
-	font-size: 50px;
-	color: #c8633d;
-	margin: 169px 0 30px 300px;
-}
-
-.header i:hover {
-	color: #fff;
-	scale: 1.1;
-	transition: 0.3s;
-}
-
 .filter-section {
 	display: flex;
 	flex-direction: column;
@@ -132,7 +120,6 @@ body {
 	font-size: 20px;
 	color: #fff;
 	padding: 20px;
-	width: 400px;
 	border-bottom: 2px solid #c8633d;
 }
 
@@ -142,4 +129,28 @@ body {
 	color: #fff;
 	padding: 10px;
 	width: 400px;
+}
+
+.tracker-no {
+	width: 10%;
+}
+
+.tracker-classname {
+	width: 20%;
+}
+
+.tracker-quizname {
+	width: 30%;
+}
+
+.tracker-status {
+	width: 15%;
+}
+
+.tracker-marks {
+	width: 10%;
+}
+
+.tracker-date {
+	width: auto;
 }

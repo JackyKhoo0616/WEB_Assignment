@@ -3,7 +3,7 @@ session_start();
 include "connection.php";
 include 'session-check.php';
 
-checkPageAccess(['student']);
+checkPageAccess(['teacher']);
 
 // Function to insert questions into the database
 function insertQuestions($connection, $quizId, $questions) {

@@ -4,74 +4,55 @@ include 'session-check.php';
 
 checkPageAccess(['student']);
 
-// Initialize an array to hold the progress records
+// store the progress records
 $progressRecords = [];
+
+$studentId = $_SESSION['studentid'];
 
 // Check if the form has been submitted
 if (isset($_POST['btnSubmit'])) {
-    $classId = $_POST['txtclassid'] ?? ''; // Get the class code from the form
-    $quizFirstChar = $_POST['quiz'] ?? 'all'; // Get the selected quiz character from the form
+    $classIdFilter = $_POST['txtclassid'] ?? '';
+    $quizNameFilter = $_POST['quiz'] ?? 'all';
 
-    // Start the query
-    $query = "SELECT p.date, p.status, p.marks, q.quizname, c.classname, c.classid 
-              FROM tblprogress p
-              JOIN tblquiz q ON p.quizid = q.quizid
-              JOIN tblclass c ON q.classid = c.classid
-              WHERE p.studentid = ?";
-
-    // Add class ID filter to the query if provided
-    if (!empty($classId)) {
-        $query .= " AND c.classid = ?";
+    // SQL to get the student's classes
+    $enrolledClassesQuery = "SELECT classid FROM tblenrollment WHERE studentid = '{$studentId}'";
+    $enrolledClassesResult = mysqli_query($connection, $enrolledClassesQuery);
+    $enrolledClasses = [];
+    while ($classRow = mysqli_fetch_assoc($enrolledClassesResult)) {
+        $enrolledClasses[] = $classRow['classid'];
     }
 
-    // Add quiz name filter to the query if a letter is chosen
-    if ($quizFirstChar !== 'all') {
-        $query .= " AND q.quizname LIKE ?";
+    // SQL to get the progress records
+    $progressQuery = "SELECT p.*, c.classname, c.classid, q.quizname, COUNT(tq.questionnum) as totalQuestions
+                    FROM tblprogress p
+                    JOIN tblquiz q ON p.quizid = q.quizid
+                    JOIN tblclass c ON q.classid = c.classid
+                    LEFT JOIN tblquestion tq ON q.quizid = tq.quizid
+                    WHERE p.studentid = '{$studentId}'
+                    AND q.classid IN ('" . implode("','", $enrolledClasses) . "')
+                    GROUP BY q.quizid, p.attemptdate, p.marks, c.classname, c.classid, q.quizname";
+                    
+    // class ID filter
+    if (!empty($classIdFilter)) {
+        $progressQuery .= " AND q.classid = '{$classIdFilter}'";
     }
 
-    $query .= " ORDER BY p.date DESC"; // Order the results by date
-
-    // Prepare the statement
-    if ($stmt = mysqli_prepare($connection, $query)) {
-        // Bind parameters based on what filters are set
-        if (!empty($classId) && $quizFirstChar !== 'all') {
-            $quizFirstChar = $quizFirstChar . '%';
-            mysqli_stmt_bind_param($stmt, "iis", $_SESSION['studentid'], $classId, $quizFirstChar);
-        } elseif (!empty($classId)) {
-            mysqli_stmt_bind_param($stmt, "ii", $_SESSION['studentid'], $classId);
-        } elseif ($quizFirstChar !== 'all') {
-            $quizFirstChar = $quizFirstChar . '%';
-            mysqli_stmt_bind_param($stmt, "is", $_SESSION['studentid'], $quizFirstChar);
+    // quiz name filter
+    if ($quizNameFilter !== 'all') {
+        if ($quizNameFilter === '#') {
+            // Filter by quiz names starting with a number or symbol
+            $progressQuery .= " AND q.quizname REGEXP '^[0-9].*'";
         } else {
-            mysqli_stmt_bind_param($stmt, "i", $_SESSION['studentid']);
+            // Filter by quiz names starting with the selected letter
+            $progressQuery .= " AND q.quizname LIKE '{$quizNameFilter}%'";
         }
+    }
 
-        // Execute the query
-        mysqli_stmt_execute($stmt);
-
-        // Bind the result variables
-        mysqli_stmt_bind_result($stmt, $date, $status, $marks, $quizname, $classname, $classid);
-
-        // Fetch the results
-        while (mysqli_stmt_fetch($stmt)) {
-            $progressRecords[] = [
-                'date' => $date,
-                'status' => $status,
-                'marks' => $marks,
-                'quizname' => $quizname,
-                'classname' => $classname,
-                'classid' => $classid
-            ];
-        }
-
-        mysqli_stmt_close($stmt);
-    } else {
-        // Handle errors with the query
-        echo "SQL Error: " . htmlspecialchars(mysqli_error($connection));
+    $progressResult = mysqli_query($connection, $progressQuery);
+    while ($progressRow = mysqli_fetch_assoc($progressResult)) {
+        $progressRecords[] = $progressRow;
     }
 }
-
-mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -87,39 +68,6 @@ mysqli_close($connection);
     <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet" />
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
-    <style>
-    .filter input[type="text"] {
-        width: 500px;
-        height: 40px;
-        border-radius: 5px;
-        border: none;
-        outline: none;
-        margin: 20px;
-        padding-left: 10px;
-        font-size: 15px;
-    }
-
-    .filter input[type="submit"] {
-        width: 100px;
-        height: 40px;
-        border-radius: 5px;
-        border: none;
-        outline: none;
-        margin-left: 60px;
-        font-size: 20px;
-        font-weight: bold;
-        background-color: #c8633d;
-        color: #fff;
-        cursor: pointer;
-        align-self: baseline;
-    }
-
-    .filter input[type="submit"]:hover {
-        background-color: #fff;
-        color: #c8633d;
-        transition: 0.3s;
-    }
-    </style>
 </head>
 
 <body>
@@ -166,9 +114,9 @@ mysqli_close($connection);
                         <option value="x">X</option>
                         <option value="y">Y</option>
                         <option value="z">Z</option>
-                        <option value="#">Z</option>
+                        <option value="#">#</option>
                     </select>
-                    <input type="submit" name="btnSubmit" value="Submit">
+                    <input type="submit" name="btnSubmit" value="Filter">
                 </div>
             </div>
         </form>
@@ -179,6 +127,8 @@ mysqli_close($connection);
                     <th>Class Name</th>
                     <th>Quiz Name</th>
                     <th>Status</th>
+                    <th>Marks</th>
+                    <th>Attempt Date</th>
                 </tr>
 
                 <?php foreach ($progressRecords as $index => $record): ?>
@@ -188,13 +138,22 @@ mysqli_close($connection);
                     <td><?php echo htmlspecialchars($record['classname']); ?></td>
                     <td><?php echo htmlspecialchars($record['quizname']); ?></td>
                     <td><?php echo htmlspecialchars($record['status']); ?></td>
+                    <td>
+                        <?php
+                        // display "marks/totalQuestions", otherwise "-"
+                        echo isset($record['marks']) ? htmlspecialchars($record['marks']) . ' / ' . htmlspecialchars($record['totalQuestions']) : '-';
+                        ?>
+                    </td>
+                    <td><?php echo htmlspecialchars($record['attemptdate'] !== NULL ? $record['attemptdate'] : '-'); ?>
+                    </td>
                 </tr>
 
                 <?php endforeach; ?>
+
                 <?php if (empty($progressRecords)): ?>
 
                 <tr>
-                    <td colspan="4">No records found.</td>
+                    <td colspan="6">No records found.</td>
                 </tr>
 
                 <?php endif; ?>

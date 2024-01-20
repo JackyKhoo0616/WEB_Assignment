@@ -32,12 +32,68 @@ if ($quizId !== null) {
     if ($questionRow = mysqli_fetch_assoc($questionResult)) {
         $totalQuestions = $questionRow['totalQuestions'];
     }
-
-    mysqli_close($connection);
+    
 } else {
     echo "<script>alert('No quiz ID provided.'); window.location.href='../php/student-viewQuiz.php';</script>";
     exit;
 }
+
+
+
+
+
+// Gamification part
+
+// Fetch all the quiz attempts for the student
+$quizAttemptQuery = "SELECT * FROM tblprogress WHERE studentid = '{$studentId}'";
+$quizAttemptResult = mysqli_query($connection, $quizAttemptQuery);
+$quizAttempts = mysqli_fetch_all($quizAttemptResult, MYSQLI_ASSOC);
+
+// Fetch the total number of quizzes attempted
+$totalQuizzesAttempted = count($quizAttempts);
+
+// Function to update badge collection number
+function updateBadgeCollection($connection, $studentId, $badgeId) {
+    // Check current collection number
+    $checkBadgeQuery = "SELECT collectionnum FROM tblaward WHERE studentid = '{$studentId}' AND badgeid = '{$badgeId}'";
+    $checkBadgeResult = mysqli_query($connection, $checkBadgeQuery);
+
+    if ($row = mysqli_fetch_assoc($checkBadgeResult)) {
+        // Badge exists, increment collection number
+        $newCollectionNum = $row['collectionnum'] + 1;
+        $updateBadgeQuery = "UPDATE tblaward SET collectionnum = '{$newCollectionNum}' WHERE studentid = '{$studentId}' AND badgeid = '{$badgeId}'";
+    } else {
+        // Badge doesn't exist, insert new record
+        $newCollectionNum = 1;
+        $updateBadgeQuery = "INSERT INTO tblaward (studentid, badgeid, collectionnum) VALUES ('{$studentId}', '{$badgeId}', '{$newCollectionNum}')";
+    }
+
+    mysqli_query($connection, $updateBadgeQuery);
+}
+
+// Fetch total number of questions for the quiz
+$totalQuestionsQuery = "SELECT COUNT(*) as totalQuestions FROM tblquestion WHERE quizid = '{$quizId}'";
+$totalQuestionsResult = mysqli_query($connection, $totalQuestionsQuery);
+$totalQuestionsRow = mysqli_fetch_assoc($totalQuestionsResult);
+$totalQuestions = $totalQuestionsRow['totalQuestions'];
+
+// Determine the percentage of correct answers
+$percentageCorrect = ($marks / $totalQuestions) * 100;
+
+// Determine which badge(s) to award
+if ($percentageCorrect == 100) {
+    updateBadgeCollection($connection, $studentId, 1); // Quiz master
+} elseif ($percentageCorrect >= 75 && $percentageCorrect < 100) {
+    updateBadgeCollection($connection, $studentId, 2); // Quick learner
+} elseif ($percentageCorrect > 0 && $percentageCorrect <= 25) {
+    updateBadgeCollection($connection, $studentId, 3); // The lost lamb
+} elseif ($percentageCorrect == 0) {
+    updateBadgeCollection($connection, $studentId, 4); // Try again
+}
+
+// Close the connection
+mysqli_close($connection);
+
 ?>
 
 <!DOCTYPE html>
