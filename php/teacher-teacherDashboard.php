@@ -112,18 +112,18 @@ checkPageAccess(['teacher']);
     <div class="wrapper">
         <h2>Teacher Function</h2>
         <div class="function">
-            <a href="teacher-createQuiz.php" target="_blank">
+            <a href="../php/teacher-createQuiz.php" target="_blank">
                 <button>Create Quiz</button>
             </a>
-            <a href="teacher-createLearning.php" target="_blank">
+            <a href="../php/teacher-createLearning.php" target="_blank">
                 <button>Create Learning Material</button>
             </a>
         </div>
         <div class="function-additional">
-            <a href="teacher-createClassroom.php" target="_blank">
+            <a href="../php/teacher-createClassroom.php">
                 <button>Create Classroom</button>
             </a>
-            <a href="teacher-viewClassroom.php" target="_blank">
+            <a href="../php/teacher-viewClassroom.php">
                 <button>View All Classroom</button>
             </a>
         </div>

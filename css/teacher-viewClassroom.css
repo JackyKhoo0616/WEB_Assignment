@@ -183,26 +183,36 @@ body {
 	padding-bottom: 5px;
 }
 
-.tablelist .student-id {
+.tablelist {
+	display: flex;
+	justify-content: center;
+	width: 70%;
+	position: relative;
+	top: 20px;
+	left: 300px;
+	right: 300px;
+}
+
+.student-id {
 	width: 10%;
 }
 
-.tablelist .student-name {
+.student-name {
 	width: 25%;
 }
 
-.tablelist .email {
+.email {
 	width: 30%;
 }
 
-.tablelist .dob {
+.dob {
 	width: 20%;
 }
 
-.tablelist .country {
+.country {
 	width: 15%;
 }
 
-.tablelist .genedr {
+.genedr {
 	width: 20%;
 }

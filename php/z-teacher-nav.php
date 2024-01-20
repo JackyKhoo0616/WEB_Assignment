@@ -18,7 +18,7 @@
         <ul>
             <li><a href="../php/teacher-viewQuiz.php">Quiz</a></li>
             <li><a href="../php/teacher-viewLearning.php">Learning Material</a></li>
-            <li><a href="../php/teacher-progressTracker.php">Progress Tracker</a></li>
+            <li><a href="../php/teacher-progressTracker.php">Performance Monitoring</a></li>
 
             <li class="no-a">Other Pages<i class="bx bxs-chevron-down"></i>
                 <div class="sub-menu">
