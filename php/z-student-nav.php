@@ -24,8 +24,8 @@
                 <div class="sub-menu">
                     <ul>
                         <li><a href="../php/student-aboutUs.php">About Us</a></li>
-                        <li><a href="../php/user-eduRegulation.php">Educational Regulation</a></li>
-                        <li><a href="../php/user-dataPrivacy.php">Data Privacy Law</a></li>
+                        <li><a href="../php/user-eduRegulation.php" target="_blank">Educational Regulation</a></li>
+                        <li><a href="../php/user-dataPrivacy.php" target="_blank">Data Privacy Law</a></li>
                     </ul>
                 </div>
             </li>

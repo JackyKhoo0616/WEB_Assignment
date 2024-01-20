@@ -73,53 +73,56 @@
 			<div class="header">
 				<h1>Performance Monitoring</h1>
 			</div>
-			<div class="filter-section">
-				<h2>Filter by:</h2>
-				<div class="filter">
-					<h3>Student ID:</h3>
-					<input
-						type="text"
-						name="studentID"
-						id="studentID"
-						placeholder="Student ID"
-					/>
-					<h3>Class Code:</h3>
-					<select name="code" id="code">
-						<option value="all">All</option>
-						<option value="math">Math</option>
-					</select>
-					<h3>Quiz Name:</h3>
-					<select name="quiz" id="quiz">
-						<option value="all">All</option>
-						<option value="a">A</option>
-						<option value="b">B</option>
-						<option value="c">C</option>
-						<option value="d">D</option>
-						<option value="e">E</option>
-						<option value="f">F</option>
-						<option value="g">G</option>
-						<option value="h">H</option>
-						<option value="i">I</option>
-						<option value="j">J</option>
-						<option value="k">K</option>
-						<option value="l">L</option>
-						<option value="m">M</option>
-						<option value="n">N</option>
-						<option value="o">O</option>
-						<option value="p">P</option>
-						<option value="q">Q</option>
-						<option value="r">R</option>
-						<option value="s">S</option>
-						<option value="t">T</option>
-						<option value="u">U</option>
-						<option value="v">V</option>
-						<option value="w">W</option>
-						<option value="x">X</option>
-						<option value="y">Y</option>
-						<option value="z">Z</option>
-					</select>
+			<form action="#" method="post">
+				<div class="filter-section">
+					<h2>Filter by:</h2>
+					<div class="filter">
+						<h3>Student ID:</h3>
+						<input
+							type="text"
+							name="studentID"
+							id="studentID"
+							placeholder="Student ID"
+						/>
+						<h3>Class Code:</h3>
+						<select name="code" id="code">
+							<option value="all">All</option>
+							<option value="math">1</option>
+						</select>
+						<h3>Quiz Name:</h3>
+						<select name="quiz" id="quiz">
+							<option value="all">All</option>
+							<option value="a">A</option>
+							<option value="b">B</option>
+							<option value="c">C</option>
+							<option value="d">D</option>
+							<option value="e">E</option>
+							<option value="f">F</option>
+							<option value="g">G</option>
+							<option value="h">H</option>
+							<option value="i">I</option>
+							<option value="j">J</option>
+							<option value="k">K</option>
+							<option value="l">L</option>
+							<option value="m">M</option>
+							<option value="n">N</option>
+							<option value="o">O</option>
+							<option value="p">P</option>
+							<option value="q">Q</option>
+							<option value="r">R</option>
+							<option value="s">S</option>
+							<option value="t">T</option>
+							<option value="u">U</option>
+							<option value="v">V</option>
+							<option value="w">W</option>
+							<option value="x">X</option>
+							<option value="y">Y</option>
+							<option value="z">Z</option>
+						</select>
+						<input type="submit" name="btnSubmit" value="Filter" />
+					</div>
 				</div>
-			</div>
+			</form>
 			<div class="tracker">
 				<table>
 					<tr>
@@ -128,6 +131,8 @@
 						<th class="class-code">Class Code</th>
 						<th class="quiz-name">Quiz Name</th>
 						<th class="status">Status</th>
+						<th class="marks">Marks</th>
+						<th class="date">Date Attempt</th>
 					</tr>
 					<tr>
 						<td>tp069263</td>
@@ -135,13 +140,8 @@
 						<td>123456</td>
 						<td>Quiz 1</td>
 						<td>Completed</td>
-					</tr>
-					<tr>
-						<td>tp069263</td>
-						<td>Yow Li Geng</td>
-						<td>123456</td>
-						<td>Quiz 2</td>
-						<td>Completed</td>
+						<td>8 / 10</td>
+						<td>2024-01-20</td>
 					</tr>
 				</table>
 			</div>

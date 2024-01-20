@@ -51,8 +51,15 @@ include "connection.php";
 
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
 						$teacherData = mysqli_fetch_assoc($resultTeachers);
-						$_SESSION['role'] = 'teacher';
 						$_SESSION['teacherid'] = $teacherData['teacherid'];
+						$_SESSION['fname'] = $teacherData['fname'];
+						$_SESSION['lname'] = $teacherData['lname'];
+						$_SESSION['email'] = $teacherData['email'];
+						$_SESSION['dob'] = $studentData['dob'];
+						$_SESSION['country'] = $studentData['country'];
+						$_SESSION['gender'] = $studentData['gender'];
+						$_SESSION['password'] = $studentData['password'];
+						$_SESSION['role'] = 'teacher';
 						header("Location: teacher-teacherDashboard.php");
 						exit();
 

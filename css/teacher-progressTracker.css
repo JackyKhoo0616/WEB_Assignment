@@ -82,6 +82,27 @@ body {
 	align-items: baseline;
 }
 
+.filter input[type="submit"] {
+	width: 150px;
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	margin-left: 60px;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: #c8633d;
+	color: #fff;
+	cursor: pointer;
+	align-self: baseline;
+}
+
+.filter input[type="submit"]:hover {
+	background-color: #fff;
+	color: #c8633d;
+	transition: 0.3s;
+}
+
 .button-container {
 	display: flex;
 	justify-content: center;
@@ -129,7 +150,6 @@ body {
 	font-size: 20px;
 	color: #fff;
 	padding: 20px;
-	width: 400px;
 	border-bottom: 2px solid #c8633d;
 }
 
@@ -139,4 +159,32 @@ body {
 	color: #fff;
 	padding: 10px;
 	width: 400px;
+}
+
+.student-id {
+	width: 9%;
+}
+
+.student-name {
+	width: 20%;
+}
+
+.class-code {
+	width: 10%;
+}
+
+.quiz-name {
+	width: 30%;
+}
+
+.status {
+	width: 10%;
+}
+
+.marks {
+	width: 8%;
+}
+
+.date {
+	width: 13%;
 }
