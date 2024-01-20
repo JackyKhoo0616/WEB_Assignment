@@ -166,7 +166,7 @@ checkPageAccess(['admin']);
 				</div>
 				<div class="right">
 					<div class="footer-logo">
-						<a href="../html/index.html">
+						<a href="admin-adminDashboard.php">
 							<img src="../picture/logo.png" />
 						</a>
 					</div>

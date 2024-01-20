@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search"])) {
 	// Retrieve form data
 	$userid = $_POST["userid"];
 	$userfullname = $_POST["userfullname"];
-
+	$userroles = $_POST["userroles"];
 	$classcode = $_POST["classcode"];
 
 	// Check if user role is admin
@@ -19,81 +19,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search"])) {
 		exit();
 	}
 
+	 // Check if both fields are empty
+	 if (empty($userid) && empty($userfullname)) {
+        echo "Please fill out either the User ID or User Full Name field.";
+        exit();
+    }
+
 	$params = array();
 	$types = "";
     $query = "SELECT * FROM tblstudents WHERE ";
 
-	// Check if classcode field is empty
-	if (!empty($classcode)) {
-        $query = "SELECT tblenrollment.classid, tblenrollment.studentid, 
-		tblstudents.fname, tblstudents.lname, tblstudents.dob, tblstudents.gender, tblstudents.email 
-                  FROM tblenrollment 
-                  INNER JOIN tblstudents ON tblenrollment.studentid = tblstudents.studentid 
-                  WHERE tblenrollment.classid = ?";
-        array_push($params, $classcode);
+    // Check if userid is provided
+    if (!empty($userid)) {
+        $query .= "studentid = ?";
+        array_push($params, $userid);
         $types .= "s";
-    } else {
-		$userroles = $_POST["userroles"];
+    }
 
-        // Check if both userid and userfullname fields are empty
-		if (empty($userid) && empty($userfullname)) {
-			echo json_encode(array('error' => 'Please fill out either the User ID or User Full Name field.'));
-			exit();
-		}
+    // Check if userfullname is provided
+    if (!empty($userfullname)) {
+        // If userid is also provided, add an OR clause
+        if (!empty($userid)) {
+            $query .= " OR ";
+        }
+        $query .= "CONCAT(fname, ' ', lname) = ?";
+        array_push($params, $userfullname);
+        $types .= "s";
+    }
 
-		// Check if userid is provided
-		if (!empty($userid)) {
-			$query .= "studentid = ?";
-			array_push($params, $userid);
-			$types .= "s";
-		}
-
-		// Check if userfullname is provided
-		else if (!empty($userfullname)) {
-			$query .= "userfullname = ?";
-			array_push($params, $userfullname);
-			$types .= "s";
-		}
-	}
-
-	// Execute the query and fetch the results
     $stmt = $connection->prepare($query);
     $stmt->bind_param($types, ...$params);
     $stmt->execute();
     $result = $stmt->get_result();
 
-	// Check if there are any results
-	if ($result->num_rows > 0) {
-		// Loop through the results and store each one in the $rows array
-		$rows = [];
-		while ($row = $result->fetch_assoc()) {
-			$rows[] = $row;
-		}
-		// Display the results
-		foreach ($rows as $row) {
-			echo "Student ID: " . htmlspecialchars($row['studentid']) . "<br>";
-			echo "Student Name: " . htmlspecialchars($row['fname'] . ' ' . $row['lname']) . "<br>";
-			echo "Date of Birth: " . htmlspecialchars($row['dob']) . "<br>";
-			echo "Gender: " . htmlspecialchars($row['gender']) . "<br>";
-			echo "Email: " . htmlspecialchars($row['email']) . "<br>";
-			echo "-------------------------<br>";
-		}
-	} 
-	else {
-		echo "No user found with the given details.";
-	}
+    if ($result->num_rows > 0) {
+        // User found, fetch details
+        $row = $result->fetch_assoc();
+    } else {
+        echo "No user found with the given details.";
+    }
 
-	if (isset($_POST['userid'])) {
-		$userid = $_POST['userid'];
-		$query = "SELECT * FROM tblstudents WHERE studentid = ?";
-		$stmt = $connection->prepare($query);
-		$stmt->bind_param("s", $userid);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$row = $result->fetch_assoc();
-	}
+    // Close the database connection
+    $stmt->close();
+    $connection->close();
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 	// Retrieve form data
 	$userid = $_POST["studentid"];
@@ -108,10 +77,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 	$stmt->bind_param("sssss", $dob, $gender, $email, $password, $userid);
 	$stmt->execute();
 
+	// Close the statement and the database connection
+	$stmt->close();
+	$connection->close();
+
 	echo "<script>alert('User information updated successfully.');</script>";	
-
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 			<!-- navigational bar -->
 			<div class="banner">
 				<div class="navbar">
-					<a href="admin-adminDashboard.php">
+					<a href="#">
 						<img src="../picture/logo.png" class="logo" />
 					</a>
 					<ul>
@@ -196,11 +167,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 								</div>
 	
 								<div class="input-box">
-								<select name="userroles" class="input-field">
-									<option value="" disabled selected hidden>User's Role</option>
-									<option value="student">Student</option>
-									<option value="teacher">Teacher</option>
-								</select>
+									<select name="userroles" class="input-field" required>
+										<option value="" disabled selected hidden>User's Role</option>
+										<option value="student">Student</option>
+										<option value="teacher">Teacher</option>
+									</select>
 								</div>
 							</div>
 	
@@ -276,83 +247,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 		</main>
 
 		<div class="classcode" id="classcode"> 
-			<h2><?php echo isset($classcode) ? htmlspecialchars($classcode) : 'No Class Code Entered'; ?></h2>
-			<div class="result">
-				<table>
-					<tbody>
-						<?php
-						if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["search"])) {
-							// Retrieve form data
-							$userid = isset($_POST["userid"]) ? $_POST["userid"] : '';
-							$userfullname = isset($_POST["userfullname"]) ? $_POST["userfullname"] : '';
-							$userroles = isset($_POST["userroles"]) ? $_POST["userroles"] : '';
-							$classcode = isset($_POST["classcode"]) ? $_POST["classcode"] : '';
-
-							// Check if user role is admin
-							if ($_SESSION['role'] != "admin") {
-								echo "You do not have permission to perform this action.";
-								exit();
-							}
-
-							// Check if classcode field is empty
-							if (empty($classcode)) {
-								echo "Please fill out the Class Code field.";
-								exit();
-							}
-
-							// Prepare the query
-							$query = "SELECT tblstudents.studentid, CONCAT(tblstudents.fname, ' ', tblstudents.lname) AS username, tblstudents.dob, tblstudents.gender, tblstudents.email 
-										FROM tblenrollment 
-										INNER JOIN tblstudents ON tblenrollment.studentid = tblstudents.studentid 
-										WHERE tblenrollment.classid = ?";
-
-							// Prepare and execute the query
-							$stmt = $connection->prepare($query);
-							$stmt->bind_param('s', $classcode);
-							$stmt->execute();
-							$result = $stmt->get_result();
-
-							// Fetch the results into an array
-							$rows = [];
-							while ($row = $result->fetch_assoc()) {
-								$rows[] = $row;
-							}
-
-							echo "<table border='1'>";
-							echo "<thead>";
-							echo "<tr>";
-							echo "<th>Student ID</th>";
-							echo "<th>Name</th>";
-							echo "<th>Date of Birth</th>";
-							echo "<th>Gender</th>";
-							echo "<th>Email</th>";
-							echo "<th>Message</th>";
-							echo "</tr>";
-							echo "</thead>";
-							echo "<tbody>";
-
-							// Display the results
-							foreach ($rows as $row) {
-								echo "<tr>";
-								echo "<td>" . htmlspecialchars($row['studentid']) . "</td>";
-								echo "<td>" . htmlspecialchars($row['fname'] . ' ' . $row['lname']) . "</td>";
-								echo "<td>" . htmlspecialchars($row['dob']) . "</td>";
-								echo "<td>" . htmlspecialchars($row['gender']) . "</td>";
-								echo "<td>" . htmlspecialchars($row['email']) . "</td>";
-								echo "</tr>";
-							}
-
-							echo "</tbody>";
-							echo "</table>";
-						}
-						
-						// Close the database connection
-						$stmt->close();
-						$connection->close();
-						?>
-					</tbody>
-				</table>
-			</div>
+			<h2>CC 0175</h2>
+				<div class="result">
+					<table>
+						<tr>
+							<th>Student ID</th>
+							<th>Student Name</th>
+							<th>Date of Born</th>
+							<th>Gender</th>
+							<th>Email</th>
+						</tr>
+						<tr>
+							<td>ID 0001</td>
+							<td>Jacky Khoo</td>
+							<td>2016-06-03</td>
+							<td>Male</td>
+							<td>jk@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0002</td>
+							<td>Chew Mun Lok</td>
+							<td>2003-12-16</td>
+							<td>Male</td>
+							<td>ml@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0003</td>
+							<td>Wilson Lim</td>
+							<td>2013-11-06</td>
+							<td>Male</td>
+							<td>ck@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0004</td>
+							<td>Kwan Wen Sheng</td>
+							<td>2002-05-26</td>
+							<td>Female</td>
+							<td>kws@gmail.com</td>
+						</tr>
+					</table>
+				</div>
 		</div>
 
 
@@ -372,7 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 				</div>
 				<div class="right">
 					<div class="footer-logo">
-						<a href="admin-adminDashboard.php">
+						<a href="../html/index.html">
 							<img src="../picture/logo.png" />
 						</a>
 					</div>
@@ -420,28 +354,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 		</footer>
 	</body>
 </html>
-
-<script>
-    // Get the form element
-    var form = document.querySelector('.boxwrapper form');
-
-    // Listen for the submit event
-    form.addEventListener('submit', function(event) {
-        // Prevent the form from submitting normally
-        event.preventDefault();
-
-        // Get the input value
-        var input = document.querySelector('.boxwrapper input[name="userid"]').value;
-
-        // Check if the input is a class code
-        if (input.startsWith('CC')) {
-            // Scroll to the classcode div
-            var classcodeDiv = document.getElementById('classcode');
-            classcodeDiv.scrollIntoView();
-        } else {
-            // Scroll to the studentinfo div
-            var studentinfoDiv = document.getElementById('studentinfo');
-            studentinfoDiv.scrollIntoView();
-        }
-    });
-</script>
