@@ -1,107 +1,85 @@
 <?php
-session_start();
 include "connection.php";
 include 'session-check.php';
 
 checkPageAccess(['teacher']);
 
-// Function to insert questions into the database
-function insertQuestions($connection, $quizId, $questions) {
-    foreach ($questions as $question) {
-        $questionText = $question['text'];
-        $optionA = $question['optionA'];
-        $optionB = $question['optionB'];
-        $optionC = $question['optionC'];
-        $optionD = $question['optionD'];
-        $correctAnswer = $question['correctAnswer'];
-
-        $insertQuestionQuery = "INSERT INTO tblquestion (quizid, question, choicea, choiceb, choicec, choiced, answer)
-                                VALUES (?, ?, ?, ?, ?, ?, ?)";
-        if ($stmt = mysqli_prepare($connection, $insertQuestionQuery)) {
-            mysqli_stmt_bind_param($stmt, "issssss", $quizId, $questionText, $optionA, $optionB, $optionC, $optionD, $correctAnswer);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        }
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['createQuiz'])) {
+if (isset($_POST['createQuiz'])) {
+    // Get the quiz name and class code from the form
     $quizName = $_POST['quizName'];
     $classCode = $_POST['classCode'];
-    $teacherId = $_SESSION['teacherid'];
+    $currentDate = date('Y-m-d H:i:s'); // Get the current date and time
 
-    // Extract questions from the form data
-    $questions = [];
-    for ($i = 1; $i <= 10; $i++) {
-        if (isset($_POST["question$i"])) {
-            $questions[] = [
-                'text' => $_POST["question$i"],
-                'optionA' => $_POST["option$i-A"],
-                'optionB' => $_POST["option$i-B"],
-                'optionC' => $_POST["option$i-C"],
-                'optionD' => $_POST["option$i-D"],
-                'correctAnswer' => $_POST["correctAnswer$i"]
-            ];
-        }
-    }
+    // Check if the class code exists in tblclass
+    $classQuery = "SELECT classid FROM tblclass WHERE classid = '$classCode'";
+    $classResult = mysqli_query($connection, $classQuery);
 
-    // Check if class exists
-    $classExistsQuery = "SELECT COUNT(*) FROM tblclass WHERE classid = ?";
-    if ($classExistsStmt = mysqli_prepare($connection, $classExistsQuery)) {
-        mysqli_stmt_bind_param($classExistsStmt, "i", $classCode);
-        mysqli_stmt_execute($classExistsStmt);
-        mysqli_stmt_bind_result($classExistsStmt, $classCount);
-        mysqli_stmt_fetch($classExistsStmt);
-        mysqli_stmt_close($classExistsStmt);
+    if ($classResult && mysqli_num_rows($classResult) == 1) {
+        $classRow = mysqli_fetch_assoc($classResult);
+        $classid = $classRow['classid'];
 
-        if ($classCount == 0) {
-            echo "<script>alert('Error: The class code you entered does not exist.');</script>";
-        } else {
-            // Proceed with quiz creation
-            mysqli_begin_transaction($connection);
+        // Insert the quiz into tblquiz and get the quizid
+        $insertQuizQuery = "INSERT INTO tblquiz (teacherid, classid, quizname, creationdate) VALUES ('{$_SESSION['teacherid']}', '$classid', '$quizName', '$currentDate')";
+        if (mysqli_query($connection, $insertQuizQuery)) {
+            $quizid = mysqli_insert_id($connection);
 
-            try {
-                // Insert the new quiz
-                $insertQuizQuery = "INSERT INTO tblquiz (quizname, classid, teacherid, creationdate) VALUES (?, ?, ?, NOW())";
-                if ($stmt = mysqli_prepare($connection, $insertQuizQuery)) {
-                    mysqli_stmt_bind_param($stmt, "sii", $quizName, $classCode, $teacherId);
-                    mysqli_stmt_execute($stmt);
-                    $quizId = mysqli_insert_id($connection);
-                    mysqli_stmt_close($stmt);
+            // Loop through the posted questions and insert them into tblquestion
+            for ($i = 1; isset($_POST["question$i"]); $i++) {
+                $question = $_POST["question$i"];
+                $choiceA = $_POST["option{$i}-A"];
+                $choiceB = $_POST["option{$i}-B"];
+                $choiceC = $_POST["option{$i}-C"];
+                $choiceD = $_POST["option{$i}-D"];
+                $correctAnswer = strtolower($_POST["correctAnswer$i"]);
+
+                $insertQuestionQuery = "INSERT INTO tblquestion (quizid, question, choicea, choiceb, choicec, choiced, answer) VALUES ('$quizid', '$question', '$choiceA', '$choiceB', '$choiceC', '$choiceD', '$correctAnswer')";
+                if (!mysqli_query($connection, $insertQuestionQuery)) {
+                    echo '<script>alert("Error inserting question: ' . mysqli_error($connection) . '");</script>';
+                    // Break the loop if there is an error
+                    break;
                 }
-
-                // Insert questions
-                insertQuestions($connection, $quizId, $questions);
-
-                // Update progress for each enrolled student
-                $studentsQuery = "SELECT studentid FROM tblenrollment WHERE classid = ?";
-                if ($stmt = mysqli_prepare($connection, $studentsQuery)) {
-                    mysqli_stmt_bind_param($stmt, "i", $classCode);
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_bind_result($stmt, $studentId);
-
-                    while (mysqli_stmt_fetch($stmt)) {
-                        $insertProgressQuery = "INSERT INTO tblprogress (studentid, quizid, status, marks, date) VALUES (?, ?, 'No Attempt', '-', NULL)";
-                        if ($progressStmt = mysqli_prepare($connection, $insertProgressQuery)) {
-                            mysqli_stmt_bind_param($progressStmt, "ii", $studentId, $quizId);
-                            mysqli_stmt_execute($progressStmt);
-                            mysqli_stmt_close($progressStmt);
-                        }
-                    }
-                    mysqli_stmt_close($stmt);
-                }
-
-                mysqli_commit($connection);
-                echo "<script>alert('Quiz created successfully');</script>";
-            } catch (Exception $e) {
-                mysqli_rollback($connection);
-                echo "<script>alert('Error: " . htmlspecialchars($e->getMessage()) . "');</script>";
             }
+            // If loop completes without breaking, show success message
+            echo '<script>alert("Quiz created successfully!");</script>';
+        } else {
+            echo '<script>alert("Error creating quiz: ' . mysqli_error($connection) . '");</script>';
         }
+    } else {
+        echo '<script>alert("Class code does not exist.");</script>';
     }
-    mysqli_close($connection);
 }
 
+if (isset($_POST['createQuiz'])) {
+    // ... (existing code for creating the quiz and inserting questions)
+
+    // Assuming $quizid is set after inserting the quiz successfully
+    if (isset($quizid) && $quizid > 0) {
+        // Fetch all student IDs for the class
+        $studentsQuery = "SELECT studentid FROM tblenrollment WHERE classid = '$classid'";
+        $studentsResult = mysqli_query($connection, $studentsQuery);
+
+        if ($studentsResult) {
+            while ($student = mysqli_fetch_assoc($studentsResult)) {
+                $studentId = $student['studentid'];
+
+                // Insert 'No Attempt' status for each student for the new quiz
+                $progressInsertQuery = "INSERT INTO tblprogress (studentid, quizid, status, marks, attemptdate) VALUES ('$studentId', '$quizid', 'No Attempt', NULL, NULL)";
+                if (!mysqli_query($connection, $progressInsertQuery)) {
+                    // Handle error here if needed
+                    echo '<script>alert("Error recording progress for student ID: ' . $studentId . ' - ' . mysqli_error($connection) . '");</script>';
+                }
+            }
+            // If progress records are created successfully
+            echo '<script>alert("Quiz and questions added successfully, and progress records initialized!");</script>';
+        } else {
+            // Handle error here if needed
+            echo '<script>alert("Error fetching students from class: ' . mysqli_error($connection) . '");</script>';
+        }
+    }
+    
+    // Close the connection
+    mysqli_close($connection);
+}
 ?>
 
 
@@ -176,10 +154,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['createQuiz'])) {
                 </div>
 
                 <div class="btn">
-                    <button type="button" id="addQuestion">
-                        Add Question
-                    </button>
-                    <button type="submit" name="createQuiz">Create Quiz</button>
+                    <button type="button" id="addQuestion">Add Question</button>
+                    <input type="submit" name="createQuiz" value="Create Quiz" />
                 </div>
             </form>
         </div>
