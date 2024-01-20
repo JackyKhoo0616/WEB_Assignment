@@ -13,7 +13,7 @@ if(isset($_POST['btnUpdate'])){
     $email = $_POST['txtEmail'];
     $password = $_POST['txtPassword'];
 
-    $query = "UPDATE `tblstudents` SET `fname`='$fname', `lname`='$lname', `email`='$email', `dob`='$dob', `country`='$country', `gender`='$gender', `password`='$password' WHERE `studentid` = '".$_SESSION['studentid']."'";
+    $query = "UPDATE `tblteachers` SET `fname`='$fname', `lname`='$lname', `email`='$email', `dob`='$dob', `country`='$country', `gender`='$gender', `password`='$password' WHERE `teacherid` = '".$_SESSION['teacherid']."'";
 
     if (mysqli_query($connection, $query)) {
         $_SESSION['fname'] = $fname;
@@ -61,7 +61,7 @@ mysqli_close($connection);
             <form action="#" method="post">
                 <div class="data">
                     <label for="txtID">ID</label>
-                    <input type="text" name="txtID" id="txtID" value="<?php echo $_SESSION['studentid']; ?>" />
+                    <input type="text" name="txtID" id="txtID" value="<?php echo $_SESSION['teacherid']; ?>" />
                 </div>
                 <div class="data">
                     <label for="txtFname">First Name</label>
@@ -77,8 +77,8 @@ mysqli_close($connection);
                 </div>
                 <div class="data">
                     <label for="txtCountry">Country</label>
-                    <select id="txtCountry" name="txtCountry" class="form-control"
-                        value="<?php echo $_SESSION['country']; ?>">
+                    <select id="txtCountry" name="txtCountry" class="form-control">
+                        <option value="<?php echo $_SESSION['country']; ?>"><?php echo $_SESSION['country']; ?></option>
                         <option value="Afghanistan">Afghanistan</option>
                         <option value="Åland Islands">Åland Islands</option>
                         <option value="Albania">Albania</option>

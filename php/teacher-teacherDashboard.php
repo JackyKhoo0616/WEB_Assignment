@@ -1,6 +1,6 @@
 <?php
 include "connection.php";
-include "session-check.php";
+include_once "session-check.php";
 
 checkPageAccess(['teacher']);
 ?>

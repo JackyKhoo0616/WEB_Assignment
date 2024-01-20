@@ -77,8 +77,8 @@ mysqli_close($connection);
                 </div>
                 <div class="data">
                     <label for="txtCountry">Country</label>
-                    <select id="txtCountry" name="txtCountry" class="form-control"
-                        value="<?php echo $_SESSION['country']; ?>">
+                    <select id="txtCountry" name="txtCountry" class="form-control">
+                        <option value="<?php echo $_SESSION['country']; ?>"><?php echo $_SESSION['country']; ?></option>
                         <option value="Afghanistan">Afghanistan</option>
                         <option value="Åland Islands">Åland Islands</option>
                         <option value="Albania">Albania</option>
