@@ -77,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 	$stmt->bind_param("sssss", $dob, $gender, $email, $password, $userid);
 	$stmt->execute();
 
-	// Close the statement and connection
+	// Close the statement and the database connection
 	$stmt->close();
 	$connection->close();
 
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>BreezeQuiz</title>
 		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/admin-searchUserDetail_Edit.css" />
+		<link rel="stylesheet" href="../css/admin-searchUserDetail.css" />
 		<link rel="stylesheet" href="../css/footer.css" />
 	</head>
 
@@ -105,7 +105,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 						<img src="../picture/logo.png" class="logo" />
 					</a>
 					<ul>
-						<li><a href="user-index.php">Home</a></li>
+						<li>
+						<a href="">Home</a>
+						<div class="sub-menu">
+								<ul>
+									<li><a href="user-index.php">Main Page</a></li>
+									<li><a href="admin-adminDashboard.php">Dashboard</a></li>
+								</ul>
+							</div>
+						</li>
 						<li>
 							<a href="">Service</a>
 							<div class="sub-menu">
@@ -128,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 								</ul>
 							</div>
 						</li>
-						<button class="login"><a href="login.html">Login</a></button>
+						<button class="login"><a href="user-login.php">Login</a></button>
 					</ul>
 				</div>
 
@@ -192,54 +200,95 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["edit"])) {
 		</header>
 
 		<main>
+			<form action="" method="POST">
+				<div class="infoWrapper">
+					<div class="studentInfo" id="sutdentInfo">
+						<div class="info-box">
+							<div class="label">ID:</div>
+							<div class="value"><?php echo isset($row['studentid']) ? $row['studentid'] : ''; ?></div>
+							<input type="hidden" name="studentid" value="<?php echo isset($row['studentid']) ? $row['studentid'] : ''; ?>">
+						</div>
+						<div class="info-box">
+							<div class="label">Full Name:</div>
+							<input 
+							class="value" style="text-align: center;" value="<?php echo isset($row['fname']) ? $row['fname'] . " " . $row['lname'] : ''; ?>"></input>	
+						</div>
+						<div class="info-box">
+							<div class="label">Date of Birth:</div>
+							<input 
+							name="dob"
+							class="value" style="text-align: center;" value="<?php echo isset($row['dob']) ? $row['dob'] : ''; ?>"></input>	
+						</div>
+						<div class="info-box">
+							<div class="label">Gender:</div>			
+							<input 
+							name="gender"
+							class="value" style="text-align: center;" value="<?php echo isset($row['gender']) ? $row['gender'] : ''; ?>"></input>
+						</div>
+						<div class="info-box">
+							<div class="label">Email:</div>
+							<input 
+							name="email"
+							class="value" style="text-align: center;" value="<?php echo isset($row['email']) ? $row['email'] : ''; ?>"></input>
+						</div>
+						<div class="info-box">
+							<div class="label">Password:</div>
+							<input 
+							name="password"
+							class="value" style="text-align: center;" value="<?php echo isset($row['password']) ? $row['password'] : ''; ?>"></input>
+						</div>
 
-	
-		<form action="" method="POST">
-			<div class="infoWrapper">
-				<div class="studentInfo" id="sutdentInfo">
-					<div class="info-box">
-						<div class="label">ID:</div>
-						<div class="value"><?php echo isset($row['studentid']) ? $row['studentid'] : ''; ?></div>
-						<input type="hidden" name="studentid" value="<?php echo isset($row['studentid']) ? $row['studentid'] : ''; ?>">
-					</div>
-					<div class="info-box">
-						<div class="label">Full Name:</div>
-						<input 
-						class="value" style="text-align: center;" value="<?php echo isset($row['fname']) ? $row['fname'] . " " . $row['lname'] : ''; ?>"></input>	
-					</div>
-					<div class="info-box">
-						<div class="label">Date of Birth:</div>
-						<input 
-						name="dob"
-						class="value" style="text-align: center;" value="<?php echo isset($row['dob']) ? $row['dob'] : ''; ?>"></input>	
-					</div>
-					<div class="info-box">
-						<div class="label">Gender:</div>			
-						<input 
-						name="gender"
-						class="value" style="text-align: center;" value="<?php echo isset($row['gender']) ? $row['gender'] : ''; ?>"></input>
-					</div>
-					<div class="info-box">
-						<div class="label">Email:</div>
-						<input 
-						name="email"
-						class="value" style="text-align: center;" value="<?php echo isset($row['email']) ? $row['email'] : ''; ?>"></input>
-					</div>
-					<div class="info-box">
-						<div class="label">Password:</div>
-						<input 
-						name="password"
-						class="value" style="text-align: center;" value="<?php echo isset($row['password']) ? $row['password'] : ''; ?>"></input>
-					</div>
-
-					<div class="button-wrapper">
-						<button class="info-button" name="edit">Edit</button>
+						<div class="button-wrapper">
+							<button class="info-button" name="edit">Edit</button>
+						</div>
 					</div>
 				</div>
-		</form>
-
-</div>
+			</form>
 		</main>
+
+		<div class="classcode" id="classcode"> 
+			<h2>CC 0175</h2>
+				<div class="result">
+					<table>
+						<tr>
+							<th>Student ID</th>
+							<th>Student Name</th>
+							<th>Date of Born</th>
+							<th>Gender</th>
+							<th>Email</th>
+						</tr>
+						<tr>
+							<td>ID 0001</td>
+							<td>Jacky Khoo</td>
+							<td>2016-06-03</td>
+							<td>Male</td>
+							<td>jk@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0002</td>
+							<td>Chew Mun Lok</td>
+							<td>2003-12-16</td>
+							<td>Male</td>
+							<td>ml@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0003</td>
+							<td>Wilson Lim</td>
+							<td>2013-11-06</td>
+							<td>Male</td>
+							<td>ck@gmail.com</td>
+						</tr>
+						<tr>
+							<td>ID 0004</td>
+							<td>Kwan Wen Sheng</td>
+							<td>2002-05-26</td>
+							<td>Female</td>
+							<td>kws@gmail.com</td>
+						</tr>
+					</table>
+				</div>
+		</div>
+
 
 		<footer>
 			<!-- footer -->

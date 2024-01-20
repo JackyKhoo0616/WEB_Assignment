@@ -34,7 +34,7 @@ checkPageAccess(['admin']);
 								</ul>
 							</div>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="">Service</a>
 							<div class="sub-menu">
 								<ul>
@@ -42,14 +42,14 @@ checkPageAccess(['admin']);
 									<li><a href="student-viewLearning.php">Learning Material</a></li>
 								</ul>
 							</div>
-						</li>
+						</li> -->
 						<li><a href="user-aboutUs.php">About Us</a></li>
 						<li>
 							<a href="">Other Pages</a>
 							<div class="sub-menu">
 								<ul>
-									<li><a href="user-register.php">Sign Up</a></li>
-									<li>
+									<!-- <li><a href="user-register.php">Sign Up</a></li>
+									<li> -->
 										<a href="user-eduRegulation.php">Educational Regulation</a>
 									</li>
 									<li><a href="user-dataPrivacy.php">Data Privacy Law</a></li>
@@ -166,7 +166,7 @@ checkPageAccess(['admin']);
 				</div>
 				<div class="right">
 					<div class="footer-logo">
-						<a href="../html/index.html">
+						<a href="admin-adminDashboard.php">
 							<img src="../picture/logo.png" />
 						</a>
 					</div>
