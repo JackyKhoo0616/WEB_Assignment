@@ -4,55 +4,87 @@ include 'session-check.php';
 
 checkPageAccess(['student']);
 
-// Assuming you have the quiz ID stored in the session or passed via GET/POST request.
-$quizId = $_SESSION['quizId'] ?? null; // Replace with the actual method of obtaining quizId
+$studentId = $_SESSION['studentid'];
+$quizId = $_GET['quizid'] ?? null;
 
-// Prepare the SQL query
-$quizQuery = "SELECT quizname, creationdate FROM tblquiz WHERE quizid = ?";
-
-// Initialize variables to store quiz details
 $quizName = '';
 $creationDate = '';
-
-// Retrieve questions for the quiz
-$query = "SELECT * FROM tblquestion WHERE quizid = ?";
 $questions = [];
-if ($stmt = mysqli_prepare($connection, $query)) {
-    mysqli_stmt_bind_param($stmt, "i", $quizId);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $questions = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    mysqli_stmt_close($stmt);
+
+if ($quizId !== null) {
+    // Step 2: Create the SQL commands
+    $quizQuery = "SELECT quizname, creationdate FROM tblquiz WHERE quizid = '{$quizId}'";
+
+    // Step 3: Execute the query
+    $quizResult = mysqli_query($connection, $quizQuery);
+
+    // Step 4: Read the results for quiz details
+    if ($quizResult && mysqli_num_rows($quizResult) > 0) {
+        $quizRow = mysqli_fetch_assoc($quizResult);
+        $quizName = $quizRow['quizname'];
+        $creationDate = date('d F Y', strtotime($quizRow['creationdate']));
+
+        // Get the questions for the quiz
+        $questionQuery = "SELECT * FROM tblquestion WHERE quizid = '{$quizId}' ORDER BY questionnum ASC";
+        $questionResult = mysqli_query($connection, $questionQuery);
+        while ($questionRow = mysqli_fetch_assoc($questionResult)) {
+            $questions[] = $questionRow;
+        }
+    } else {
+        echo "<script>alert('Error in finding quiz.'); window.location.href='../php/student-viewQuiz.php';</script>";
+        mysqli_close($connection);
+        exit;
+    }
+    
+} else {
+    echo "<script>alert('Quiz ID not found.'); window.location.href='../php/student-viewQuiz.php';</script>";
+    exit;
 }
 
-// Check if the form was submitted
-if (isset($_POST['btnSubmit'])) {
-    $totalMarks = 0;
-    foreach ($questions as $question) {
-        $questionNum = 'q' . $question['questionnum'];
-        $selectedAnswer = $_POST[$questionNum] ?? '';
-        if ($selectedAnswer == $question['answer']) {
-            $totalMarks++; // Assuming each question is worth 1 mark
+
+if (isset($_POST['btnSubmit']) && $quizId !== null) {
+    
+    // Fetch all the correct answers
+    $query = "SELECT questionnum, answer, choicea, choiceb, choicec, choiced FROM tblquestion WHERE quizid = '{$quizId}'";
+    $result = mysqli_query($connection, $query);
+
+    $correctAnswers = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Split the answer into the question number and the correct choice
+        list($questionPart, $choicePart) = explode('-', $row['answer']);
+        $questionNum = str_replace('option', '', $questionPart); // Get the question number
+        // Get the correct answer value
+        $correctAnswerValue = $row['choice' . $choicePart];
+        $correctAnswers[$questionNum] = $correctAnswerValue;
+    }
+
+    // Calculate the marks
+    $totalQuestions = count($correctAnswers);
+    $marks = 0;
+
+    foreach ($correctAnswers as $questionNum => $correctAnswerValue) {
+        // Check if the submitted answer matches the correct answer value
+        if (isset($_POST['q' . $questionNum]) && $_POST['q' . $questionNum] === $correctAnswerValue) {
+            $marks++;
         }
     }
-
-    // Calculate the score
-    $totalScore = ($totalMarks / count($questions)) * 10;
-
+    
     // Update tblprogress
-    $updateQuery = "UPDATE tblprogress SET marks = ?, status = 'Finished' WHERE studentid = ? AND quizid = ?";
-    if ($updateStmt = mysqli_prepare($connection, $updateQuery)) {
-        mysqli_stmt_bind_param($updateStmt, "iii", $totalScore, $_SESSION['studentid'], $quizId);
-        mysqli_stmt_execute($updateStmt);
-        mysqli_stmt_close($updateStmt);
+    $updateQuery = "UPDATE tblprogress SET status = 'Finished', marks = '{$marks}', attemptdate = NOW() WHERE studentid = '{$studentId}' AND quizid = '{$quizId}'";
+
+    // Execute the update query
+    $updateResult = mysqli_query($connection, $updateQuery);
+    
+    if ($updateResult) {
+        $redirectUrl = "../php/student-quizCompleted.php?quizid=" . urlencode($quizId);
+        echo "<script>alert('Submitted successfully.'); window.location.href='" . $redirectUrl . "';</script>";
+    } else {
+        echo "<script>alert('Error submitting quiz.'); window.location.href='../php/student-viewQuiz.php';</script>";
     }
 
-    // Redirect or display a message
-    echo "Quiz completed. Your score is: $totalScore/10";
-    // Redirect to a results page or display the score
+    // Close the connection
+    mysqli_close($connection);
 }
-
-mysqli_close($connection);
 ?>
 
 
@@ -81,36 +113,29 @@ mysqli_close($connection);
             </table>
         </div>
         <div class="quiz-body">
-            <form action="#" method="post">
-
+            <form action="" method="post">
                 <?php foreach ($questions as $index => $question): ?>
-
-                <div class="quiz-question">
-                    <h2>Question <?php echo ($index + 1); ?></h2>
-                    <p><?php echo htmlspecialchars($question['question']); ?></p>
-                </div>
-
-                <div class="quiz-answers">
-                    <!-- Assuming choices are labeled 'choicea', 'choiceb', etc. in the database -->
-                    <?php for ($i = 'a'; $i <= 'd'; $i++): ?>
-
-                    <div class="answer">
-                        <input type="radio" name="q<?php echo ($index + 1); ?>"
-                            id="q<?php echo ($index + 1); ?>Ans<?php echo strtoupper($i); ?>"
-                            value="<?php echo $question['choice' . $i]; ?>" />
-                        <label
-                            for="q<?php echo ($index + 1); ?>Ans<?php echo strtoupper($i); ?>"><?php echo htmlspecialchars($question['choice' . $i]); ?></label>
+                <div class="question-body">
+                    <div class="quiz-question">
+                        <h2>Question <?php echo ($index + 1); ?></h2>
+                        <p><?php echo htmlspecialchars($question['question']); ?></p>
                     </div>
-
-                    <?php endfor; ?>
-
+                    <div class="quiz-answers">
+                        <?php foreach (['a', 'b', 'c', 'd'] as $option): ?>
+                        <div class="answer">
+                            <input type="radio" name="q<?php echo $question['questionnum']; ?>"
+                                id="q<?php echo $question['questionnum']; ?>Ans<?php echo $option; ?>"
+                                value="<?php echo $question['choice' . $option]; ?>" />
+                            <label
+                                for="q<?php echo ($index + 1); ?>Ans<?php echo $option; ?>"><?php echo htmlspecialchars($question['choice' . $option]); ?></label>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
                 <?php endforeach; ?>
-
                 <div class="complete-button">
                     <input type="submit" value="Submit" name="btnSubmit" />
                 </div>
-
             </form>
         </div>
     </div>

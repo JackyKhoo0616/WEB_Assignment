@@ -4,51 +4,60 @@ include 'session-check.php';
 
 checkPageAccess(['student']);
 
-$studentId = $_SESSION['studentid']; // Assuming you store student ID in the session
-$quizId = $_GET['quizid'] ?? null; // The quiz ID should be passed as a parameter in the URL
+$studentId = $_SESSION['studentid'];
+$quizId = $_GET['quizid'] ?? null;
 
 // Initialize variables to store quiz details
 $classId = '';
 $className = '';
-$quizStatus = 'No attempt';
+$quizStatus = '';
 $creationDate = '';
-$marks = '-';
+$marks = '';
+$totalQuestions = 0;
 
 if ($quizId !== null) {
-    // Prepare the SQL query to retrieve quiz details and progress
-    $query = "SELECT q.classid, c.classname, q.quizname, q.creationdate, p.status, p.marks
-                FROM tblquiz q
-                LEFT JOIN tblprogress p ON q.quizid = p.quizid AND p.studentid = ?
-                LEFT JOIN tblclass c ON q.classid = c.classid
-                WHERE q.quizid = ?";
+    // Step 2: Create the SQL commands
+    // get the total number of questions for the quiz
+    $questionQuery = "SELECT COUNT(*) AS totalQuestions FROM tblquestion WHERE quizid = '{$quizId}'";
+    $questionResult = mysqli_query($connection, $questionQuery);
 
-    if ($stmt = mysqli_prepare($connection, $query)) { // Bind parameters
-    mysqli_stmt_bind_param($stmt, "ii", $studentId, $quizId); // Execute the query
-    mysqli_stmt_execute($stmt); // Bind the result variables
-    mysqli_stmt_bind_result($stmt, $classId, $className, $quizName, $creationDate, $quizStatus, $marks);  // Fetch the results
-
-        if (mysqli_stmt_fetch($stmt)) {
-            // If the quiz has been attempted, format the date and marks
-            $creationDate = date('d F Y', strtotime($creationDate));
-            $marks = $quizStatus === 'Finish' ? $marks : '-';
-            
-        }else {
-            // Handle the case where no quiz record is found
-            echo '<script>alert("No quiz found."); window.location.href="../php/student-viewQuiz.php";</script>';
-        }
-
-        // Close statement
-        mysqli_stmt_close($stmt);
-    } else {
-        // Handle errors with the query
-        echo "SQL Error: " . htmlspecialchars(mysqli_error($connection));
+    if ($questionResult && mysqli_num_rows($questionResult) > 0) {
+        $questionRow = mysqli_fetch_assoc($questionResult);
+        $totalQuestions = $questionRow['totalQuestions'];
     }
+
+    // get the quiz details along with marks
+    $quizQuery = "SELECT q.quizname, c.classname, p.status, p.marks, q.creationdate
+                FROM tblquiz q
+                LEFT JOIN tblprogress p ON q.quizid = p.quizid
+                LEFT JOIN tblclass c ON q.classid = c.classid
+                WHERE p.studentid = '{$studentId}' AND q.quizid = '{$quizId}'";
+
+    // Step 3: Execute the quiz query
+    $quizResult = mysqli_query($connection, $quizQuery);
+
+    // Step 4: Read the quiz results
+    if ($quizResult && mysqli_num_rows($quizResult) > 0) {
+        $quizRow = mysqli_fetch_assoc($quizResult);
+        $quizName = $quizRow['quizname'];
+        $className = $quizRow['classname'];
+        $quizStatus = $quizRow['status'] ?? 'No attempt';
+        $marks = $quizRow['marks'] ?? '-';
+        $creationDate = date('d F Y', strtotime($quizRow['creationdate']));
+
+        // display marks and total questions if quiz is finished
+        if ($quizStatus === 'Finished') {
+            $marks = "{$marks} / {$totalQuestions}";
+        }
+    } else {
+        // if no quiz record is found
+        echo "<script>alert('No quiz found.'); window.location.href='../php/student-viewQuiz.php';</script>";
+    }
+
+    // Step 5: Close the connection
+    mysqli_close($connection);
 }
-
-// Close the database connection
-mysqli_close($connection);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,9 +73,8 @@ mysqli_close($connection);
 
     <script src="../javascript/backBtnLogic.js"></script>
     <script>
-    < script >
-        // Get the quiz status from PHP
-        var quizStatus = "<?php echo $quizStatus; ?>";
+    // Get the quiz status from PHP
+    var quizStatus = "<?php echo $quizStatus; ?>";
 
     // If the quiz is finished, disable the "Start Quiz" button
     if (quizStatus === "Finish") {
@@ -102,26 +110,24 @@ mysqli_close($connection);
                 </tr>
             </table>
         </div>
+
         <div class="quiz-button">
+
+            <!-- Back Button -->
             <div class="back-button">
                 <a href="../php/student-viewQuiz.php">
                     <button type="submit">Back</button>
                 </a>
             </div>
-            <div class="start-button">
-                <?php if ($quizStatus !== 'Finish'): ?>
 
-                <a href="../php/student-answerQuiz.php">
+            <!-- Start Quiz Button -->
+            <?php if ($quizStatus !== 'Finished'): ?>
+            <div class="start-button">
+                <a href="../php/student-answerQuiz.php?quizid= <?php echo urlencode($quizId); ?>">
                     <button type="submit">Start Quiz</button>
                 </a>
-
-                <?php else: ?>
-
-                <!-- If the quiz is finished, disable the button -->
-
-                <button type="submit" disabled>Quiz Completed</button>
-                <?php endif; ?>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 

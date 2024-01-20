@@ -16,6 +16,7 @@ checkPageAccess(['student']);
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="../css/student-studentDashboard.css" />
+
 </head>
 
 <body>
@@ -187,7 +188,7 @@ checkPageAccess(['student']);
                 include "connection.php";
                 $studentId = $_SESSION['studentid'];
 
-                // step 2: create the sql commands
+                // Step 2: create the sql commands
                 $query = "SELECT lm.lmid, lm.lmname, lm.creationdate, c.classname 
                         FROM tbllm lm
                         INNER JOIN tblenrollment e ON lm.classid = e.classid
@@ -213,7 +214,7 @@ checkPageAccess(['student']);
                                     </a>
                                 </div>
                             </div>';
-                    }
+                    }   
 
                 } else {
                     // If no learning materials are found, show the message

@@ -1,23 +1,43 @@
 <?php
-session_start();
 include "connection.php";
+include 'session-check.php';
 
-// get the quiz ID and student ID stored in the session
-$quizId = $_SESSION['quizId']; // Replace with the actual quiz ID
-$studentId = $_SESSION['studentid']; // Replace with the actual student ID
+checkPageAccess(['student']);
 
-$query = "SELECT q.quizname, p.marks
-			FROM tblquiz q
-			INNER JOIN tblprogress p ON q.quizid = p.quizid
-			WHERE p.studentid = ? AND q.quizid = ?";
-if ($stmt = mysqli_prepare($connection, $query)) {
-    mysqli_stmt_bind_param($stmt, "ii", $studentId, $quizId);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $quizName, $marks);
-    mysqli_stmt_fetch($stmt);
-    mysqli_stmt_close($stmt);
+$studentId = $_SESSION['studentid'];
+$quizId = $_GET['quizid'] ?? null;
+
+$quizName = '';
+$marks = '';
+$totalQuestions = 0;
+
+if ($quizId !== null) {
+    // Fetch quiz name and marks
+    $progressQuery = "SELECT q.quizname, p.marks
+                    FROM tblprogress p
+                    JOIN tblquiz q ON p.quizid = q.quizid
+                    WHERE p.studentid = '{$studentId}' AND p.quizid = '{$quizId}'";
+                    
+    $progressResult = mysqli_query($connection, $progressQuery);
+
+    if ($progressRow = mysqli_fetch_assoc($progressResult)) {
+        $quizName = $progressRow['quizname'];
+        $marks = $progressRow['marks'];
+    }
+
+    // Fetch total number of questions
+    $questionQuery = "SELECT COUNT(*) AS totalQuestions FROM tblquestion WHERE quizid = '{$quizId}'";
+    $questionResult = mysqli_query($connection, $questionQuery);
+
+    if ($questionRow = mysqli_fetch_assoc($questionResult)) {
+        $totalQuestions = $questionRow['totalQuestions'];
+    }
+
+    mysqli_close($connection);
+} else {
+    echo "<script>alert('No quiz ID provided.'); window.location.href='../php/student-viewQuiz.php';</script>";
+    exit;
 }
-mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +54,12 @@ mysqli_close($connection);
 <body>
     <div class="container">
         <div class="congrate">
-            <h1>Congratulation</h1>
-            <p>You have completed <?php echo htmlspecialchars($quizName); ?></p>
+            <h1>Congratulations</h1>
+            <p>You have completed _<?php echo htmlspecialchars($quizName); ?>_</p>
         </div>
         <div class="details">
             <p>You Answered</p>
-            <h3><?php echo htmlspecialchars($marks); ?></h3>
+            <h3><?php echo htmlspecialchars($marks) . ' / ' . htmlspecialchars($totalQuestions); ?></h3>
             <p>Question Correct</p>
         </div>
         <div class="btn">
