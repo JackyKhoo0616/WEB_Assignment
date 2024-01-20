@@ -25,20 +25,16 @@ include "connection.php";
 					$email = $_POST['txtEmail'];
 					$password = $_POST['txtPassword'];
 
-					// Check credentials in tblstudents
 					$queryStudents = "SELECT * FROM tblstudents WHERE email='$email' AND password='$password'";
 					$resultStudents = mysqli_query($connection, $queryStudents);
 
-					// Check credentials in tblteachers
 					$queryTeachers = "SELECT * FROM tblteachers WHERE email='$email' AND password='$password'";
 					$resultTeachers = mysqli_query($connection, $queryTeachers);
 
-					// Check credentials in tbladmin
 					$queryAdmin = "SELECT * FROM tbladmin WHERE email='$email' AND password='$password'";
 					$resultAdmin = mysqli_query($connection, $queryAdmin);
 
 					if (mysqli_num_rows($resultStudents) == 1) {
-						// Login as a student
 						$studentData = mysqli_fetch_assoc($resultStudents);
 						$_SESSION['studentid'] = $studentData['studentid'];
 						$_SESSION['fname'] = $studentData['fname'];
@@ -54,7 +50,6 @@ include "connection.php";
 
 
 					} elseif (mysqli_num_rows($resultTeachers) == 1) {
-						// Login as a teacher
 						$teacherData = mysqli_fetch_assoc($resultTeachers);
 						$_SESSION['role'] = 'teacher';
 						$_SESSION['teacherid'] = $teacherData['teacherid'];
@@ -63,14 +58,12 @@ include "connection.php";
 
 						
 					} elseif (mysqli_num_rows($resultAdmin) == 1) {
-						// Login as an admin
 						$_SESSION['role'] = 'admin';
 						header("Location: admin-adminDashboard.php");
 						exit();
 
 						
 					} else {
-						// Record not found in either table
 						echo '<script>alert("Record Not Found")</script>';
 					}
 

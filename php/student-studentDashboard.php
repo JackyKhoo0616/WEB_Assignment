@@ -16,145 +16,147 @@ checkPageAccess(['student']);
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
     <link rel="stylesheet" href="../css/student-studentDashboard.css" />
-    <link rel="stylesheet" href="../javascript/scrollRemain.js" />
 </head>
 
 <body>
     <!-- navigational bar -->
     <?php include '../php/z-student-nav.php'; ?>
 
-    <!-- top part -->
+
+
+
+
+
+
+
+
+
+
+    <!-- classroom -->
     <div class="header">
         <div class="img-container">
             <img src="../picture/header_student.png" />
         </div>
     </div>
+    </div>
     <div class="search">
-        <form action="#" method="post">
+        <form action="" method="post">
             <h1>Join A Class</h1>
             <div class="search-container">
                 <i class="bx bx-search"></i>
                 <input type="text" placeholder="Enter Class Code" name="classCode" required />
             </div>
             <div class="button-container">
-                <input type="submit" value="Join" name="txtSubmit" />
+                <input type="submit" value="Join" name="txtJoin"></input>
+                <a href=" #">
+                    <button type="button">My Classroom</button>
+                </a>
             </div>
-
-            <?php
-
-            // Check if the form is submitted
-            if (isset($_POST['txtSubmit'])) {
-                // Get the class ID from the form
-                $classid = $_POST['classCode'];
-
-                // Check if the class exists
-                $stmt = mysqli_prepare($connection, "SELECT classid FROM tblclass WHERE classid = ?");
-                mysqli_stmt_bind_param($stmt, "i", $classid);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_bind_result($stmt, $classid);
-                mysqli_stmt_store_result($stmt);
-
-                if (mysqli_stmt_num_rows($stmt) > 0) {
-                    mysqli_stmt_fetch($stmt);
-                    mysqli_stmt_close($stmt);
-
-                    // Class exists, now check if the student is already enrolled
-                    $studentid = $_SESSION['studentid']; // The student ID should be stored in the session
-
-                    $checkEnrollment = mysqli_prepare($connection, "SELECT * FROM tblenrollment WHERE studentid = ? AND classid = ?");
-                    mysqli_stmt_bind_param($checkEnrollment, "ii", $studentid, $classid);
-                    mysqli_stmt_execute($checkEnrollment);
-                    mysqli_stmt_store_result($checkEnrollment);
-
-                    if (mysqli_stmt_num_rows($checkEnrollment) == 0) {
-                        // Student is not enrolled, proceed with enrollment
-                        $insertStmt = mysqli_prepare($connection, "INSERT INTO tblenrollment (studentid, classid) VALUES (?, ?)");
-                        mysqli_stmt_bind_param($insertStmt, "ii", $studentid, $classid);
-                        mysqli_stmt_execute($insertStmt);
-
-                        if (mysqli_stmt_affected_rows($insertStmt) > 0) {
-                            echo '<script>alert("You have successfully joined the class!");</script>';
-
-                        } else {
-                            echo '<script>alert("Failed to join the class. Please try again.");</script>';
-                        }
-                        
-                        mysqli_stmt_close($insertStmt);
-                        
-                    } else {
-                        echo '<script>alert("You are already enrolled in this class.");</script>';
-                    }
-                    mysqli_stmt_close($checkEnrollment);
-                } else {
-                    echo '<script>alert("No such class exists.");</script>';
-                }
-                mysqli_close($connection);
-            }
-            ?>
         </form>
     </div>
 
-    <div class="content">
+    <?php
+    if(isset($_POST['txtJoin'])){
+        include "connection.php";
+        $classCode = $_POST['classCode'];
+        $studentId = $_SESSION['studentid'];
 
+        // step 2: create the sql commands
+        $query = "SELECT classid FROM tblclass WHERE classid = '{$classCode}'";
+
+        // Step 3: Execute the query
+        $result = mysqli_query($connection, $query);
+
+        // Step 4: Read the results
+        // If the class exists
+        if($result && mysqli_num_rows($result) > 0) {
+            $classRow = mysqli_fetch_assoc($result);
+            $classId = $classRow['classid'];
+
+            // Check if the student is already joined in the class
+            $enrollmentCheck = "SELECT * FROM tblenrollment WHERE studentid = '$studentId' AND classid = '$classId'";
+            $enrollmentResult = mysqli_query($connection, $enrollmentCheck);
+
+            // If not yet joined the class, insert the student into the class
+            if(mysqli_num_rows($enrollmentResult) == 0) {
+                $enrollQuery = "INSERT INTO tblenrollment (studentid, classid) VALUES ('$studentId', '$classId')";
+                $enrollResult = mysqli_query($connection, $enrollQuery);
+                if($enrollResult) {
+                    echo "<script>alert('Successfully joined the class.')</script>";
+                } else {
+                    echo "<script>alert('Error joining the class.')</script>";
+                }
+            } else {
+                echo "<script>alert('You are already joined in this class.')</script>";
+            }
+        } else {
+            echo "<script>alert('Invalid class code.')</script>";
+        }
+
+        // Close the connection
+        mysqli_close($connection);
+    }
+    ?>
+
+
+
+
+
+
+
+
+
+
+    <div class="content">
         <!-- quiz -->
         <div class="quiz-wrapper">
             <h2>Quiz</h2>
             <div class="quizzes">
 
                 <?php
-
-                // get the student ID from the session
+                include "connection.php";
                 $studentId = $_SESSION['studentid'];
 
-                // SQL query to retrieve up to 4 quizzes for classes the student is enrolled in
-                $query = "SELECT q.quizid, q.quizname, c.classname, q.creationdate
+                // step 2: create the sql commands
+                $query = "SELECT q.quizid, q.quizname, c.classname, q.creationdate 
                         FROM tblquiz q
-                        JOIN tblenrollment e ON q.classid = e.classid
-                        JOIN tblclass c ON q.classid = c.classid
-                        WHERE e.studentid = ?
-                        ORDER BY q.creationdate ASC
+                        INNER JOIN tblenrollment e ON q.classid = e.classid
+                        INNER JOIN tblclass c ON q.classid = c.classid
+                        WHERE e.studentid = '{$studentId}'
+                        ORDER BY q.creationdate DESC
                         LIMIT 4";
 
-                $quizzesFound = false; // Flag to track if any quizzes have been found
+                // Step 3: Execute the query
+                $result = mysqli_query($connection, $query);
 
-                if ($stmt = mysqli_prepare($connection, $query)) {
-                    mysqli_stmt_bind_param($stmt, "i", $studentId);
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_bind_result($stmt, $quizId, $quizName, $className, $creationDate);
-
-                    while (mysqli_stmt_fetch($stmt)) {
-                        $quizzesFound = true; // Set the flag to true as we found a quiz
-
-                        // Output the HTML structure for each quiz
-                        echo '<div class="quiz">
-                                <div class="quiz-info">
-                                    <h3>' . htmlspecialchars($quizName) . '</h3>
-                                    <h4>' . htmlspecialchars($className) . '</h4>
-                                </div>
-                                <div class="view-button">
-                                    <a href="../php/student-quizDesc.php?quizid=' . urlencode($quizId) . '">
-                                        <button type="submit">View</button>
-                                    </a>
-                                </div>
-                            </div>';
-                    }
-
-                    mysqli_stmt_close($stmt);
-
-                    if (!$quizzesFound) {
-                        // No quizzes were found
-                        echo '<div class="quiz">
-                                <div class="quiz-info">
-                                    <h3>No quizzes available at the moment.</h3>
-                                </div>
-                            </div>';
+                // Step 4: Read the results
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo
+                        '<div class="quiz">
+                            <div class="quiz-info">
+                                <h3>' . htmlspecialchars($row['quizname']) . '</h3>
+                                <h4>' . htmlspecialchars($row['classname']) . '</h4>
+                            </div>
+                            <div class="view-button">
+                                <a href="../php/student-quizDesc.php?quizid=' . urlencode($row['quizid']) . '">
+                                    <button type="submit">View</button>
+                                </a>
+                            </div>
+                        </div>';
                     }
                 } else {
-                    echo "SQL Error: " . mysqli_error($connection);
+                    // If no quizzes are found, show the message
+                    echo 
+                    '<div class="quiz">
+                        <div class="quiz-info">
+                            <h3>No quizzes available at the moment.</h3>
+                        </div>
+                    </div>';
                 }
 
+                // Step 5: Close the connection
                 mysqli_close($connection);
-                
                 ?>
 
             </div>
@@ -167,6 +169,15 @@ checkPageAccess(['student']);
             </div>
         </div>
 
+
+
+
+
+
+
+
+
+
         <!-- learning material -->
         <div class="material-wrapper">
             <h2>Learning Material</h2>
@@ -174,71 +185,51 @@ checkPageAccess(['student']);
 
                 <?php
                 include "connection.php";
-
-                // get the student ID from the session
                 $studentId = $_SESSION['studentid'];
 
-                // SQL query to fetch learning materials for classes in which the student is enrolled
+                // step 2: create the sql commands
                 $query = "SELECT lm.lmid, lm.lmname, lm.creationdate, c.classname 
                         FROM tbllm lm
-                        INNER JOIN tblclass c ON lm.classid = c.classid
                         INNER JOIN tblenrollment e ON lm.classid = e.classid
-                        WHERE e.studentid = ?
-                        ORDER BY lm.creationdate ASC
+                        INNER JOIN tblclass c ON lm.classid = c.classid
+                        WHERE e.studentid = '{$studentId}'
+                        ORDER BY lm.creationdate DESC
                         LIMIT 4";
 
-                // Prepare the statement
-                if ($stmt = mysqli_prepare($connection, $query)) {
-                    // Bind the student ID to the statement
-                    mysqli_stmt_bind_param($stmt, "i", $studentId);
+                // Step 3: Execute the query
+                $result = mysqli_query($connection, $query);
 
-                    // Execute the query
-                    mysqli_stmt_execute($stmt);
-
-                    // Bind the result variables
-                    mysqli_stmt_bind_result($stmt, $lmid, $lmname, $creationdate, $classname);
-
-                    // Flag to check if learning materials are available
-                    $hasLearningMaterials = false;
-
-                    // Fetch values
-                    while (mysqli_stmt_fetch($stmt)) {
-                        
-                        $hasLearningMaterials = true;
+                // Step 4: Read the results
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo '<div class="learning-material">
                                 <div class="learning-info">
-                                    <h3>' . htmlspecialchars($lmname) . '</h3>
-                                    <h4>' . htmlspecialchars($classname) . '</h4>
+                                    <h3>' . htmlspecialchars($row['lmname']) . '</h3>
+                                    <h4>' . htmlspecialchars($row['classname']) . '</h4>
                                 </div>
                                 <div class="view-button">
-                                    <a href="../php/student-learning.php?lmid=' . urlencode($lmid) . '" target="_blank">
+                                    <a href="../php/student-learning.php?lmid=' . urlencode($row['lmid']) . '" target="_blank">
                                         <button type="button">View</button>
                                     </a>
                                 </div>
                             </div>';
                     }
 
-                    // If no learning materials are available, display a message
-                    if (!$hasLearningMaterials) {
-                        echo '<div class="learning-material">
-                                <div class="learning-info">
-                                    <h3>No learning material available at the moment.</h3>
-                                </div>
-                            </div>';
-                    }
-
-                    // Close the statement
-                    mysqli_stmt_close($stmt);
-                
                 } else {
-                    echo "SQL Error: " . mysqli_error($connection);
+                    // If no learning materials are found, show the message
+                    echo '<div class="learning-material">
+                            <div class="learning-info">
+                                <h3>No learning materials available at the moment.</h3>
+                            </div>
+                        </div>';
                 }
 
-                // Close the database connection
+                // Step 5: Close the connection
                 mysqli_close($connection);
                 ?>
 
             </div>
+
             <div class="view-more">
                 <a href="../php/student-viewLearning.php">
                     <p>View More</p>
@@ -247,43 +238,17 @@ checkPageAccess(['student']);
             </div>
         </div>
 
+
+
+
+
+
+
+
+
+
+
         <!-- Progress Tracker -->
-
-        <?php
-        include "connection.php";
-
-        $studentId = $_SESSION['studentid'];
-
-        $query = "SELECT p.studentid, p.quizid, p.status, p.marks, p.date, c.classname, q.quizname
-                FROM tblprogress p
-                JOIN tblquiz q ON p.quizid = q.quizid
-                JOIN tblclass c ON q.classid = c.classid
-                WHERE p.studentid = ?
-                ORDER BY p.date DESC LIMIT 5";
-
-        $progressRecords = [];
-
-        if ($stmt = mysqli_prepare($connection, $query)) {
-            mysqli_stmt_bind_param($stmt, "i", $studentId);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, $studentid, $quizid, $status, $marks, $date, $classname, $quizname);
-
-            while (mysqli_stmt_fetch($stmt)) {
-                $progressRecords[] = [
-                    'classname' => $classname,
-                    'quizname' => $quizname,
-                    'status' => $status
-                ];
-            }
-            mysqli_stmt_close($stmt);
-            
-        } else {
-            echo "SQL Error: " . htmlspecialchars(mysqli_error($connection));
-        }
-
-        mysqli_close($connection);
-        ?>
-
         <div class="tracker-wrapper">
             <h2>Progress Tracker</h2>
             <div class="progress">
@@ -295,24 +260,46 @@ checkPageAccess(['student']);
                         <th class="status-title">Status</th>
                     </tr>
 
-                    <?php if (!empty($progressRecords)): ?>
-                    <?php foreach ($progressRecords as $index => $record): ?>
+                    <?php
+                    include "connection.php";
+                    $studentId = $_SESSION['studentid'];
 
-                    <tr>
-                        <td><?php echo ($index + 1); ?></td>
-                        <td><?php echo htmlspecialchars($record['classname']); ?></td>
-                        <td><?php echo htmlspecialchars($record['quizname']); ?></td>
-                        <td><?php echo htmlspecialchars($record['status']); ?></td>
-                    </tr>
+                    // step 2: create the sql commands
+                    $query = "SELECT q.quizid, q.quizname, c.classname, p.status 
+                            FROM tblprogress p
+                            INNER JOIN tblquiz q ON p.quizid = q.quizid
+                            INNER JOIN tblenrollment e ON q.classid = e.classid
+                            INNER JOIN tblclass c ON q.classid = c.classid
+                            WHERE e.studentid = '{$studentId}'
+                            ORDER BY p.attemptdate DESC, q.creationdate DESC
+                            LIMIT 5";
 
-                    <?php endforeach; ?>
-                    <?php else: ?>
 
-                    <tr>
-                        <td colspan="4">No progress records found.</td>
-                    </tr>
+                    // Step 3: Execute the query
+                    $result = mysqli_query($connection, $query);
 
-                    <?php endif; ?>
+                    // Step 4: Read the results
+                    if (mysqli_num_rows($result) > 0) {
+                        $index = 1;
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        echo 
+                        '<tr>
+                            <td>' . $index++ . '</td>
+                            <td>' . htmlspecialchars($row['classname']) . '</td>
+                            <td>' . htmlspecialchars($row['quizname']) . '</td>
+                            <td>' . htmlspecialchars($row['status']) . '</td>
+                        </tr>';
+                        }
+                    } else {
+                        echo 
+                        '<tr>
+                            <td colspan="4">No progress records found.</td>
+                        </tr>';
+                    }
+                    
+                    // Step 4: Close the connection
+                    mysqli_close($connection);
+                    ?>
 
                 </table>
             </div>
@@ -324,53 +311,74 @@ checkPageAccess(['student']);
             </div>
         </div>
 
+
+
+
+
+
+
+
+
+
+
         <!-- Gamification -->
         <div class="gamification-wrapper">
             <h2>Gamification</h2>
             <div class="all-gamification">
-                <div class="gamification">
-                    <div class="gamification-info">
-                        <img src="../picture/G1.png" />
-                        <h3>Quiz Master</h3>
-                        <p>Get the quiz all correct</p>
-                        <h3>5</h3>
-                    </div>
-                </div>
-                <div class="gamification">
-                    <div class="gamification-info">
-                        <img src="../picture/G2.png" />
-                        <h3>Quick learner</h3>
-                        <p>Answer quiz 75% correctly but not 100%</p>
-                        <h3>0</h3>
-                    </div>
-                </div>
-                <div class="gamification">
-                    <div class="gamification-info">
-                        <img src="../picture/G3.png" />
-                        <h3>The lost lamb</h3>
-                        <p>Answer quiz 25% correctly</p>
-                        <h3>0</h3>
-                    </div>
-                </div>
-                <div class="gamification">
-                    <div class="gamification-info">
-                        <img src="../picture/G4.png" />
-                        <h3>Goals!</h3>
-                        <p>Answer 5 questions correctly in a row</p>
-                        <h3>1</h3>
-                    </div>
-                </div>
-                <div class="gamification">
-                    <div class="gamification-info">
-                        <img src="../picture/G5.png" />
-                        <h3>Hardworking</h3>
-                        <p>Done every 10 quiz</p>
-                        <h3>0</h3>
-                    </div>
-                </div>
+
+                <?php
+                include "connection.php";
+                $studentId = $_SESSION['studentid'];
+
+                // step 2: create the sql commands
+                $query = "SELECT g.badgeid, g.badgename, g.description, IFNULL(a.collectionnum, 0) AS collectionnum
+                FROM tblgame g
+                LEFT JOIN tblaward a ON g.badgeid = a.badgeid AND a.studentid = '{$studentId}'
+                ORDER BY g.badgeid";
+
+                // Step 3: Execute the query
+                $result = mysqli_query($connection, $query);
+
+                // Step 4: Read the results
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+
+                        $badgeImagePath = "../picture/G" . htmlspecialchars($row['badgeid']) . ".png";
+
+                        echo 
+                        '<div class="gamification">
+                            <div class="gamification-info">
+                                <img src="' . $badgeImagePath . '" />
+                                <h3>' . htmlspecialchars($row['badgename']) . '</h3>
+                                <p>' . htmlspecialchars($row['description']) . '</p>
+                                <h3>' . htmlspecialchars($row['collectionnum']) . '</h3>
+                            </div>
+                        </div>';
+                    }
+                } else {
+                    // If no quizzes are found, show a message
+                    echo 
+                    '<div class="gamification">
+                        <div class="gamification-info">
+                            <h3>Sorry, gamification feature is under development/maintenance.</h3>
+                        </div>
+                    </div>';
+                }
+                ?>
+
             </div>
         </div>
     </div>
+
+
+
+
+
+
+
+
+
+
 
     <!-- footer -->
     <?php include '../php/z-user-footer.php'; ?>
