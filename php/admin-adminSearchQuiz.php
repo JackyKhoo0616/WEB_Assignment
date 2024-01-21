@@ -3,6 +3,80 @@ include "connection.php";
 include "session-check.php";
 
 checkPageAccess(['admin']);
+
+$quizzes = [];
+
+if (isset($_POST['btn-search'])) {
+    // Retrieve search criteria
+    $quizId = $_POST['quizId'] ?? '';
+    $classId = $_POST['classId'] ?? '';
+    $quizNameStartsWith = $_POST['quizNameStartsWith'] ?? '';
+
+    // Build the base query
+    $query = "SELECT q.quizid, q.quizname, q.classid, c.classname, t.fname, t.lname, q.creationdate 
+			FROM tblquiz q
+			JOIN tblclass c ON q.classid = c.classid
+			JOIN tblteachers t ON c.teacherid = t.teacherid
+			WHERE 1";
+
+    // Add conditions based on search criteria
+    if ($quizId !== '') {
+        $query .= " AND q.quizid = '" . mysqli_real_escape_string($connection, $quizId) . "'";
+    }
+    if ($classId !== '') {
+        $query .= " AND q.classid = '" . mysqli_real_escape_string($connection, $classId) . "'";
+    }
+    if ($quizNameStartsWith !== 'all') {
+        $query .= $quizNameStartsWith === '#' ?
+            " AND q.quizname REGEXP '^[^a-zA-Z]'" :
+            " AND q.quizname LIKE '" . mysqli_real_escape_string($connection, $quizNameStartsWith) . "%'";
+    }
+
+    // Execute the query
+    $result = mysqli_query($connection, $query);
+
+    // Fetch the results
+    if ($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $quizzes[] = $row;
+        }
+    }
+}
+
+if (isset($_POST['btn-delete'])) {
+	$quizIdToDelete = $_POST['quizIdToDelete'] ?? '';
+
+	if ($quizIdToDelete !== '') {
+		// Start transaction
+		mysqli_begin_transaction($connection);
+
+		// Delete from tblprogress where the quizid matches
+		$deleteProgressQuery = "DELETE FROM tblprogress WHERE quizid = '" . mysqli_real_escape_string($connection, $quizIdToDelete) . "'";
+		mysqli_query($connection, $deleteProgressQuery);
+
+		// Delete from tblquestion where the quizid matches
+		$deleteQuestionsQuery = "DELETE FROM tblquestion WHERE quizid = '" . mysqli_real_escape_string($connection, $quizIdToDelete) . "'";
+		mysqli_query($connection, $deleteQuestionsQuery);
+
+		// Delete from tblquiz where the quizid matches
+		$deleteQuizQuery = "DELETE FROM tblquiz WHERE quizid = '" . mysqli_real_escape_string($connection, $quizIdToDelete) . "'";
+		mysqli_query($connection, $deleteQuizQuery);
+
+		// Check for errors
+		if (mysqli_error($connection)) {
+			// Rollback transaction
+			mysqli_rollback($connection);
+			echo "An error occurred: " . mysqli_error($connection);
+		} else {
+			// Commit transaction
+			mysqli_commit($connection);
+			echo "<script>alert('Quiz and all related records deleted successfully.')</script>";
+		}
+	}
+
+    // Close the connection
+    mysqli_close($connection);
+}
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +98,9 @@ checkPageAccess(['admin']);
         <h1>Quiz Information</h1>
         <div class="search-bar">
             <form action="" method="post">
-                <input type="text" name="search" placeholder="Quiz ID" />
-                <input type="text" name="search" placeholder="Class ID" />
-                <select name="quiz" id="quiz">
+                <input type="text" name="quizId" placeholder="Quiz ID" />
+                <input type="text" name="classId" placeholder="Class ID" />
+                <select name="quizNameStartsWith" id="quiz">
                     <option value="all">All</option>
                     <option value="a">A</option>
                     <option value="b">B</option>
@@ -72,17 +146,24 @@ checkPageAccess(['admin']);
                     <th class="date">Creation Date</th>
                     <th class="btn"></th>
                 </tr>
+                <?php foreach ($quizzes as $quiz): ?>
                 <tr>
-                    <td>Quiz ID</td>
-                    <td>Quiz Name</td>
-                    <td>Class ID</td>
-                    <td>Class Name</td>
-                    <td>Teacher Name</td>
-                    <td>Creation Date</td>
+                    <td><?php echo htmlspecialchars($quiz['quizid']); ?></td>
+                    <td><?php echo htmlspecialchars($quiz['quizname']); ?></td>
+                    <td><?php echo htmlspecialchars($quiz['classid']); ?></td>
+                    <td><?php echo htmlspecialchars($quiz['classname']); ?></td>
+                    <td><?php echo htmlspecialchars($quiz['fname'] . ' ' . $quiz['lname']); ?></td>
+                    <td><?php echo htmlspecialchars($quiz['creationdate']); ?></td>
                     <td>
-                        <input type="submit" name="btn-delete" value="Delete" />
+                        <form action="" method="post">
+                            <input type="hidden" name="quizIdToDelete"
+                                value="<?php echo htmlspecialchars($quiz['quizid']); ?>" />
+                            <input type="submit" name="btn-delete" value="Delete"
+                                onclick="return confirm('Are you sure you want to delete this quiz?');" />
+                        </form>
                     </td>
                 </tr>
+                <?php endforeach; ?>
             </table>
         </div>
     </div>

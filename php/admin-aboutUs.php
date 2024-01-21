@@ -2,7 +2,7 @@
 include "connection.php";
 include 'session-check.php';
 
-checkPageAccess(['teacher']);
+checkPageAccess(['admin']);
 ?>
 
 <!DOCTYPE html>

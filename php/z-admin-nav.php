@@ -16,7 +16,7 @@
             <img src="../picture/logo.png" class="logo" />
         </a>
         <ul>
-            <li><a href="../php/teacher-aboutUs.php">About Us</a></li>
+            <li><a href="../php/admin-aboutUs.php">About Us</a></li>
 
             <li class="no-a">Other Pages<i class="bx bxs-chevron-down"></i>
                 <div class="sub-menu">

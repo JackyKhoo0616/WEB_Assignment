@@ -3,6 +3,65 @@ include "connection.php";
 include "session-check.php";
 
 checkPageAccess(['admin']);
+
+$materials = [];
+
+// Search functionality
+if (isset($_POST['btn-search'])) {
+    $lmId = $_POST['lmId'] ?? '';
+    $classId = $_POST['classId'] ?? '';
+    $materialNameStartsWith = $_POST['materialNameStartsWith'] ?? 'all';
+
+    // Build the query
+    $query = "SELECT lm.lmid, lm.lmname, lm.classid, c.classname, t.fname, t.lname, lm.creationdate
+			FROM tbllm lm
+			JOIN tblclass c ON lm.classid = c.classid
+			JOIN tblteachers t ON c.teacherid = t.teacherid
+			WHERE 1";
+
+    if ($lmId !== '') {
+        $query .= " AND lm.lmid = '".mysqli_real_escape_string($connection, $lmId)."'";
+    }
+
+    if ($classId !== '') {
+        $query .= " AND lm.classid = '".mysqli_real_escape_string($connection, $classId)."'";
+    }
+
+    if ($materialNameStartsWith !== 'all') {
+        if ($materialNameStartsWith === '#') {
+            $query .= " AND lm.lmname REGEXP '^[^a-zA-Z]'";
+        } else {
+            $query .= " AND lm.lmname LIKE '" . mysqli_real_escape_string($connection, $materialNameStartsWith) . "%'";
+        }
+    }
+
+    // Execute the query
+    $result = mysqli_query($connection, $query);
+
+    // Fetch the results
+    if ($result) {
+        $materials = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+}
+
+// Delete functionality
+if (isset($_POST['btn-delete'])) {
+    $lmidToDelete = $_POST['lmidToDelete'] ?? '';
+
+    if ($lmidToDelete !== '') {
+        // Delete query
+        $deleteQuery = "DELETE FROM tbllm WHERE lmid = '".mysqli_real_escape_string($connection, $lmidToDelete)."'";
+        mysqli_query($connection, $deleteQuery);
+
+        if (mysqli_affected_rows($connection) > 0) {
+            echo "<script>alert('Learning material deleted successfully.')</script>";
+        } else {
+            echo "<script>alert('No learning material found with ID: $lmidToDelete')</script>";
+        }
+    }
+}
+
+mysqli_close($connection);
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +83,9 @@ checkPageAccess(['admin']);
         <h1>Learning Material Information</h1>
         <div class="search-bar">
             <form action="" method="post">
-                <input type="text" name="search" placeholder="Quiz ID" />
-                <input type="text" name="search" placeholder="Class ID" />
-                <select name="quiz" id="quiz">
+                <input type="text" name="lmId" placeholder="Learning Material ID" />
+                <input type="text" name="classId" placeholder="Class ID" />
+                <select name="materialNameStartsWith" id="quiz">
                     <option value="all">All</option>
                     <option value="a">A</option>
                     <option value="b">B</option>
@@ -72,24 +131,32 @@ checkPageAccess(['admin']);
                     <th class="date">Creation Date</th>
                     <th class="btn"></th>
                 </tr>
+                <?php foreach ($materials as $lm): ?>
                 <tr>
-                    <td>LM ID</td>
-                    <td>Learning Material Name</td>
-                    <td>Class ID</td>
-                    <td>Class Name</td>
-                    <td>Teacher Name</td>
-                    <td>Creation Date</td>
-                    <td>
-                        <input type="submit" name="btn-delete" value="Delete" />
-                    </td>
+                    <form method="post">
+                        <td><?php echo htmlspecialchars($lm['lmid']); ?></td>
+                        <td><?php echo htmlspecialchars($lm['lmname']); ?></td>
+                        <td><?php echo htmlspecialchars($lm['classid']); ?></td>
+                        <td><?php echo htmlspecialchars($lm['classname']); ?></td>
+                        <td><?php echo htmlspecialchars($lm['fname'] . ' ' . $lm['lname']); ?></td>
+                        <td><?php echo htmlspecialchars($lm['creationdate']); ?></td>
+                        <td>
+                            <input type="hidden" name="lmidToDelete"
+                                value="<?php echo htmlspecialchars($lm['lmid']); ?>" />
+                            <input type="submit" name="btn-delete" value="Delete"
+                                onclick="return confirm('Are you sure?');" />
+                        </td>
+                    </form>
                 </tr>
+                <?php endforeach; ?>
             </table>
         </div>
     </div>
 
     <!-- copyright part -->
-    <?php include '../php/z-user-copyright.php'; ?>
-
+    <div class="copyright">
+        <p>© 2024 BreezeQuiz. All rights reserved.</p>
+    </div>
 </body>
 
 </html>
