@@ -54,10 +54,11 @@ body {
 	outline: none;
 	margin: 20px;
 	padding-left: 10px;
+	font-size: 15px;
 }
 
-.filter input[type="text"] {
-	width: 500px;
+.filter-section input[type="text"] {
+	width: 600px;
 	height: 40px;
 	border-radius: 5px;
 	border: none;
@@ -75,28 +76,35 @@ body {
 	margin-left: 20px;
 }
 
-.filter input[type="submit"] {
-	width: 100px;
-	height: 40px;
-	border-radius: 5px;
-	border: none;
-	outline: none;
-	margin-left: 60px;
-	font-size: 20px;
-	font-weight: bold;
-	background-color: #c8633d;
-	color: #fff;
-	cursor: pointer;
-	align-self: baseline;
+.filter form {
+	display: flex;
+	flex-direction: row;
+	align-items: baseline;
 }
 
-.filter input[type="submit"]:hover {
+.button-container {
+	display: flex;
+	justify-content: center;
+}
+
+.button-container button {
+	width: 200px;
+	height: 45px;
+	border-radius: 15px;
 	background-color: #fff;
 	color: #c8633d;
-	transition: 0.3s;
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
-.tracker {
+.button-container button:hover {
+	background-color: #c8633d;
+	color: #fff;
+}
+
+.tablelist {
 	display: flex;
 	justify-content: center;
 	width: 70%;
@@ -106,7 +114,7 @@ body {
 	right: 300px;
 }
 
-.tracker table {
+.tablelist table {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -116,14 +124,15 @@ body {
 	border-collapse: collapse;
 }
 
-.tracker table th {
+.tablelist table th {
 	font-size: 20px;
 	color: #fff;
 	padding: 20px;
+	width: 400px;
 	border-bottom: 2px solid #c8633d;
 }
 
-.tracker table td {
+.tablelist table td {
 	text-align: center;
 	font-size: 20px;
 	color: #fff;
@@ -131,26 +140,67 @@ body {
 	width: 400px;
 }
 
-.tracker-no {
-	width: 10%;
+.details {
+	background-color: #31304d;
+	padding-top: 50px;
+	color: #fff;
+	margin-left: 320px;
 }
 
-.tracker-classname {
+.details h2 {
+	font-size: 30px;
+	margin-bottom: 20px;
+}
+
+.details-container {
+	background-color: #31304d;
+	display: flex;
+	flex-direction: row;
+}
+
+.details-left {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #31304d;
+	padding-top: 20px;
+	text-align: left;
+	color: #c8633d;
+}
+
+.details-right {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #31304d;
+	padding-top: 20px;
+	padding-left: 50px;
+	text-align: left;
+}
+
+.details-right h3,
+.details-left h3 {
+	padding-bottom: 5px;
+}
+
+.tablelist {
+	display: flex;
+	justify-content: center;
+	width: 70%;
+	position: relative;
+	top: 20px;
+	left: 300px;
+	right: 300px;
+}
+
+.classcode {
 	width: 20%;
 }
 
-.tracker-quizname {
-	width: 30%;
+.classname {
+	width: 40%;
 }
 
-.tracker-status {
-	width: 15%;
-}
-
-.tracker-marks {
-	width: 10%;
-}
-
-.tracker-date {
-	width: 15%;
+.teachername {
+	width: 40%;
 }

@@ -55,7 +55,7 @@ checkPageAccess(['student']);
 							<h4>' . htmlspecialchars($row['classname']) . '</h4>
 						</div>
 						<div class="view-button">
-							<a href="../php/student-quizDesc.php?quizid=' . urlencode($row['quizid ']) . '">
+							<a href="../php/student-quizDesc.php?quizid=' . urlencode($row['quizid']) . '">
 								<button type="submit">View</button>
 							</a>
 						</div>

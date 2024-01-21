@@ -49,7 +49,7 @@ checkPageAccess(['student']);
             </div>
             <div class="button-container">
                 <input type="submit" value="Join" name="txtJoin"></input>
-                <a href=" #">
+                <a href=" ../php/student-viewClassroom.php">
                     <button type="button">My Classroom</button>
                 </a>
             </div>
