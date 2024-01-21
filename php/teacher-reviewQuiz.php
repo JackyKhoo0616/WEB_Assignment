@@ -14,7 +14,7 @@ if ($quizResult && $row = mysqli_fetch_assoc($quizResult)) {
     $quizName = $row['quizname'];
     $creationDate = $row['creationdate'];
 } else {
-    // quiz doesn't exist
+    // Handle case where quiz doesn't exist
     echo "<script>alert('Quiz not found.'); window.location.href = 'teacher-viewQuiz.php';</script>";
     exit();
 }
@@ -24,9 +24,10 @@ $questionsQuery = "SELECT * FROM tblquestion WHERE quizid = '$quizId' ORDER BY q
 $questionsResult = mysqli_query($connection, $questionsQuery);
 $questions = mysqli_fetch_all($questionsResult, MYSQLI_ASSOC);
 
+// Initialize the correct answers array
 $correctAnswers = [];
 
-// Extract the correct answers
+// Extract the correct answers for each question
 foreach ($questions as $question) {
     // Assuming 'answer' is formatted as 'questionnum-choice', e.g., '1-a'
     list($questionNum, $correctOption) = explode('-', $question['answer']);
@@ -69,7 +70,10 @@ mysqli_close($connection);
             <form action="" method="post">
                 <?php foreach ($questions as $index => $question): ?>
                 <div class="question-body">
-                    <!-- ... -->
+                    <div class="quiz-question">
+                        <h2>Question <?php echo ($index + 1); ?></h2>
+                        <p><?php echo htmlspecialchars($question['question']); ?></p>
+                    </div>
                     <div class="quiz-answers">
                         <?php foreach (['a', 'b', 'c', 'd'] as $option): ?>
                         <div class="answer">
