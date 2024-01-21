@@ -1,0 +1,145 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cutive", serif;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-image: url(../picture/deco1.png);
+	background-size: cover;
+	background-position: center;
+	min-height: 100vh;
+}
+
+.wrapper h1 {
+	font-size: 50px;
+	font-family: "Lemon", serif;
+	padding-top: 100px;
+	padding-bottom: 50px;
+	color: #c8633d;
+}
+
+.search-bar {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+	width: max-content;
+}
+
+.search-bar input[type="text"] {
+	width: 300px;
+	height: 40px;
+	border-radius: 5px;
+	padding-left: 10px;
+	font-size: 20px;
+	background-color: #fff;
+	margin: 10px;
+	border: 1px solid #000;
+}
+
+.search-bar select {
+	width: 300px;
+	height: 40px;
+	border-radius: 5px;
+	padding-left: 10px;
+	font-size: 20px;
+	background-color: #fff;
+	margin: 10px;
+	border: 1px solid #000;
+}
+
+.search-bar option {
+	font-size: 20px;
+}
+
+.search-bar input[type="submit"] {
+	width: 100px;
+	height: 40px;
+	border-radius: 5px;
+	font-size: 20px;
+	background-color: #c8633d;
+	color: #fff;
+	margin: 10px;
+	border: none;
+	font-weight: bold;
+}
+
+.search-bar input[type="submit"]:hover {
+	background-color: #fff;
+	cursor: pointer;
+	color: #c8633d;
+	border: #c8633d 2px solid;
+	font-weight: bold;
+}
+
+.result {
+	padding: 20px;
+	width: 80%;
+	position: relative;
+	top: 50px;
+}
+
+.result table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.result table th {
+	font-size: 20px;
+	padding: 10px;
+	position: sticky;
+	color: #161616;
+	border-bottom: #000 1px solid;
+}
+
+.result table td {
+	font-size: 20px;
+	padding: 10px;
+	text-align: center;
+}
+
+.result table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.result table tr:hover td {
+	background-color: #ddd;
+}
+
+.result .user-id {
+	width: 8%;
+}
+
+.result .role {
+	width: 10%;
+}
+
+.result .first {
+	width: 12%;
+}
+
+.result .last {
+	width: 12%;
+}
+
+.result .email {
+	width: 22%;
+}
+
+.result .dob {
+	width: 10%;
+}
+
+.result .country {
+	width: 10%;
+}
+
+.result .gender {
+	width: 8%;
+}
