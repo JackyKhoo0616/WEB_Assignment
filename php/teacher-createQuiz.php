@@ -50,8 +50,7 @@ if (isset($_POST['createQuiz'])) {
 }
 
 if (isset($_POST['createQuiz'])) {
-    // ... (existing code for creating the quiz and inserting questions)
-
+    
     // Assuming $quizid is set after inserting the quiz successfully
     if (isset($quizid) && $quizid > 0) {
         // Fetch all student IDs for the class
