@@ -1,136 +1,103 @@
 <?php
-session_start();
-include "connection.php";  
-include "session-check.php";
+include "connection.php";
+include 'session-check.php';
 
-if ($_SESSION['role'] == 'teacher') {
-    $teacherid = $_SESSION['teacherid'];
+checkPageAccess(['teacher']);
 
-    $quiz_query = "SELECT * FROM tblquiz WHERE teacherid = '$teacherid'";
-    $quiz_result = mysqli_query($connection, $quiz_query);
+$quizId = $_GET['quizid'] ?? '';
 
-    if ($quiz_result) {
-        $quiz_data = mysqli_fetch_assoc($quiz_result);
+// Delete quiz functionality
+if (isset($_POST['txtDlt']) && $quizId) {
+    // Delete related questions
+    $deleteQuestionsQuery = "DELETE FROM tblquestion WHERE quizid = '$quizId'";
+    mysqli_query($connection, $deleteQuestionsQuery);
 
-        $className = $quiz_data['quizname'];
-        $creationDate = $quiz_data['creationdate'];
+    // Delete related progress records
+    $deleteProgressQuery = "DELETE FROM tblprogress WHERE quizid = '$quizId'";
+    mysqli_query($connection, $deleteProgressQuery);
 
-        echo <<<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-</head>
-<body>
-	<div class="banner">
-		<!--navigation bar-->
-			<div class="navbar">
-				<a href="../html/teacher-teacherDashboard.html">
-					<img src="../picture/logo.png" class="logo" />
-				</a>
-				<ul>
-					<li><a href="../html/teacher-viewQuiz.html">Quiz</a></li>
-					<li>
-						<a href="../html/teacher-viewLearning.html"
-							>Learning Material</a
-						>
-					</li>
-					<li>
-						<a href="../html/teacher-progressTracker.html"
-							>Performance Monitoring</a
-						>
-					</li>
-					<li>
-						<span class="no-a">
-							Other Pages<i class="bx bxs-chevron-down"></i>
-						</span>
-						<div class="sub-menu">
-							<ul>
-								<li>
-									<a href="../html/teacher-aboutUs.html"
-										>About Us</a
-									>
-								</li>
-								<li><a href="#">Educational Regulation</a></li>
-								<li><a href="#">Data Privacy Law</a></li>
-							</ul>
-						</div>
-					</li>
-					<li>
-						<span class="no-a">
-							Wilson<i class="bx bxs-chevron-down"></i>
-						</span>
-						<div class="sub-menu">
-							<ul>
-								<li><a href="#">Profile</a></li>
-								<li><a href="#">Log Out</a></li>
-							</ul>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
+    // Delete the quiz itself
+    $deleteQuizQuery = "DELETE FROM tblquiz WHERE quizid = '$quizId'";
+    mysqli_query($connection, $deleteQuizQuery);
 
-    <div class="main">
-        <h1>Quiz 1</h1>
-        <div class="quiz-info">
-            <table>
-                <tr>
-                    <th>Quiz Assigned To</th>
-                    <td>$className</td>
-                </tr>
-                <tr>
-                    <th>Creation Date</th>
-                    <td>$creationDate</td>
-                </tr>
-                <tr>
-                    <th>Marks</th>
-                    <td>-</td>
-                </tr>
-            </table>
-        </div>
-        <div class="quiz-button">
-            <div class="back-button">
-                <a href="../../php/teacher-viewQuiz.php">
-                    <button>Back</button>
-                </a>
-            </div>
-            <div class="start-button">
-                <button type="submit">Delete</button>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-HTML;
-    } else {
-        echo "Failed to fetch quiz details. Please try again.";
-    }
-} else {
-    echo "Teacher is not logged in. Please log in first.";
+    // Redirect to quiz list page or show some message
+    echo "<script>alert('Quiz deleted successfully'); window.location.href = 'teacher-viewQuiz.php';</script>";
+    exit();
 }
+
+// Fetch quiz details
+$quizQuery = "SELECT q.quizid, q.quizname, c.classname, q.creationdate, COUNT(t.questionnum) AS total_questions 
+			FROM tblquiz q
+			JOIN tblclass c ON q.classid = c.classid
+			LEFT JOIN tblquestion t ON q.quizid = t.quizid
+			WHERE q.quizid = '$quizId'
+			GROUP BY q.quizid";
+
+$quizResult = mysqli_query($connection, $quizQuery);
+
+if ($quizResult && mysqli_num_rows($quizResult) == 1) {
+    $quizInfo = mysqli_fetch_assoc($quizResult);
+} else {
+    echo "<script>alert('Quiz not found.'); window.location.href = 'teacher-viewQuiz.php';</script>";
+    exit();
+}
+
+mysqli_close($connection);
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Quiz</title>
 
-		<link rel="stylesheet" href="../css/nav.css" />
-		<link rel="stylesheet" href="../css/footer.css" />
-		<link rel="stylesheet" href="../css/teacher-quizDesc.css" />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz</title>
 
-		<link
-			href="https://fonts.googleapis.com/css2?family=Lemon&display=swap"
-			rel="stylesheet"
-		/>
+    <link rel="stylesheet" href="../css/teacher-quizDesc.css" />
 
-		<script src="../javascript/backBtnLogic.js"></script>
-	</head>
-	<body>
-		<!-- copyright part -->
-		<?php include '../php/z-user-copyright.php'; ?>
-	</body>
+    <link href="https://fonts.googleapis.com/css2?family=Lemon&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- navigational bar -->
+    <?php include "z-teacher-nav.php"; ?>
+
+    <div class="main">
+        <h1><?php echo htmlspecialchars($quizInfo['quizname']); ?></h1>
+        <div class="quiz-info">
+            <table>
+                <tr>
+                    <th>Quiz Assigned To Class</th>
+                    <td><?php echo htmlspecialchars($quizInfo['classname']); ?></td>
+                </tr>
+                <tr>
+                    <th>Creation Date</th>
+                    <td><?php echo htmlspecialchars($quizInfo['creationdate']); ?></td>
+                </tr>
+                <tr>
+                    <th>Total Questions</th>
+                    <td><?php echo htmlspecialchars($quizInfo['total_questions']); ?></td>
+                </tr>
+            </table>
+        </div>
+        <div class="quiz-button">
+            <a href="../php/teacher-viewQuiz.php">
+                <button>Back</button>
+            </a>
+
+            <form action="" method="post">
+                <input type="submit" name="txtDlt" value="Delete" />
+            </form>
+
+            <a href="../php/teacher-reviewQuiz.php?quizid= <?php echo urlencode($quizId); ?>" target="_blank">
+                <button>View</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- copyright part -->
+    <?php include '../php/z-user-copyright.php'; ?>
+</body>
+
 </html>

@@ -75,8 +75,6 @@
 
 .quiz:hover {
 	box-shadow: 0 0 20px #c8633d50;
-	scale: 1.1;
-	transition: 0.5s;
 }
 
 .quiz-info {
@@ -96,8 +94,25 @@
 	text-align: center;
 }
 
+.quiz-info h4 {
+	font-size: 20px;
+	color: #c8633d;
+	width: 230px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	padding-top: 20px;
+}
+
 .view-button {
 	background-color: transparent;
+	padding-top: 60px;
+	width: 200px;
+	height: 50px;
+	border-radius: 15px;
+	font-size: 20px;
+	cursor: pointer;
+	font-weight: bold;
 }
 
 .view-button button {
@@ -110,7 +125,6 @@
 	font-weight: bold;
 	border: 2px solid #c8633d;
 	background-color: transparent;
-	margin-bottom: 10px;
 }
 
 .view-button button:hover {
@@ -119,11 +133,8 @@
 	transition: 0.2s;
 }
 
-.delete-button {
-	background-color: transparent;
-}
-
-.delete-button button {
+.view-button input {
+	margin-top: 5px;
 	width: 200px;
 	height: 45px;
 	border-radius: 15px;
@@ -135,7 +146,7 @@
 	background-color: transparent;
 }
 
-.delete-button button:hover {
+.view-button input:hover {
 	background-color: #c8633d;
 	color: #fff;
 	transition: 0.2s;

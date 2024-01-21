@@ -52,6 +52,7 @@
 
 .quiz-button {
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
@@ -78,6 +79,32 @@
 }
 
 .quiz-button button:hover {
+	background-color: #c8633d;
+	color: #fff;
+}
+
+.quiz-button input {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 200px;
+	height: 50px;
+	border-radius: 10px;
+	color: #c8633d;
+	font-size: 20px;
+	font-weight: bold;
+	margin: 20px;
+	cursor: pointer;
+	text-decoration: none;
+	background-color: #eeeeee;
+}
+
+.quiz-button input {
+	text-decoration: none;
+	color: #c8633d;
+}
+
+.quiz-button input:hover {
 	background-color: #c8633d;
 	color: #fff;
 }

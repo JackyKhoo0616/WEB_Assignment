@@ -4,10 +4,15 @@ include 'session-check.php';
 
 checkPageAccess(['student']);
 
-// store the progress records
 $progressRecords = [];
 
-$studentId = $_SESSION['studentid'];
+$studentId = $_SESSION['studentid'] ?? null; // Ensure there's a fallback in case session is not set.
+
+if (!$studentId) {
+    // student ID isn't in the session
+    echo "<script>alert('You must be logged in to view this page.'); window.location.href = 'login.php';</script>";
+    exit();
+}
 
 // Check if the form has been submitted
 if (isset($_POST['btnSubmit'])) {
@@ -22,16 +27,21 @@ if (isset($_POST['btnSubmit'])) {
         $enrolledClasses[] = $classRow['classid'];
     }
 
+    if (empty($enrolledClasses)) {
+        // student is not enrolled in any class.
+        echo "<script>alert('You are not enrolled in any classes.'); window.location.href = 'dashboard.php';</script>";
+        exit();
+    }
+
     // SQL to get the progress records
-    $progressQuery = "SELECT p.*, c.classname, c.classid, q.quizname, COUNT(tq.questionnum) as totalQuestions
+    $progressQuery = "SELECT p.*, c.classname, c.classid, q.quizname,
+                    (SELECT COUNT(*) FROM tblquestion tq WHERE tq.quizid = p.quizid) as totalQuestions
                     FROM tblprogress p
                     JOIN tblquiz q ON p.quizid = q.quizid
                     JOIN tblclass c ON q.classid = c.classid
-                    LEFT JOIN tblquestion tq ON q.quizid = tq.quizid
                     WHERE p.studentid = '{$studentId}'
-                    AND q.classid IN ('" . implode("','", $enrolledClasses) . "')
-                    GROUP BY q.quizid, p.attemptdate, p.marks, c.classname, c.classid, q.quizname";
-                    
+                    AND q.classid IN ('" . implode("','", $enrolledClasses) . "')";
+
     // class ID filter
     if (!empty($classIdFilter)) {
         $progressQuery .= " AND q.classid = '{$classIdFilter}'";
@@ -40,10 +50,8 @@ if (isset($_POST['btnSubmit'])) {
     // quiz name filter
     if ($quizNameFilter !== 'all') {
         if ($quizNameFilter === '#') {
-            // Filter by quiz names starting with a number or symbol
             $progressQuery .= " AND q.quizname REGEXP '^[0-9].*'";
         } else {
-            // Filter by quiz names starting with the selected letter
             $progressQuery .= " AND q.quizname LIKE '{$quizNameFilter}%'";
         }
     }
@@ -123,12 +131,12 @@ if (isset($_POST['btnSubmit'])) {
         <div class=" tracker">
             <table>
                 <tr>
-                    <th>Class Code</th>
-                    <th>Class Name</th>
-                    <th>Quiz Name</th>
-                    <th>Status</th>
-                    <th>Marks</th>
-                    <th>Attempt Date</th>
+                    <th class="tracker-no">Class Code</th>
+                    <th class="tracker-classname">Class Name</th>
+                    <th class="tracker-quizname">Quiz Name</th>
+                    <th class="tracker-status">Status</th>
+                    <th class="tracker-marks">Marks</th>
+                    <th class="tracker-date">Attempt Date</th>
                 </tr>
 
                 <?php foreach ($progressRecords as $index => $record): ?>

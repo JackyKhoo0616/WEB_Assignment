@@ -41,7 +41,7 @@ if (isset($_POST['btn-submit'])) {
 <body>
     <!-- content -->
     <div class="main-wrapper">
-        <a href="../html/teacher-teacherDashboard.html">
+        <a href="../php/teacher-teacherDashboard.php">
             <i class="bx bx-left-arrow-alt"></i>
         </a>
         <div class="container">
